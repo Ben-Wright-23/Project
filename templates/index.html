@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <link rel = "stylesheet" href = {{ url_for("static", filename = "styles.css") }} >
+
+    <style>
+        input {
+            font-family: "Courier New", Courier, monospace;
+            color:rgb(0, 26, 255);
+            border-radius: 5px;
+        }
+    </style>
 </head>
-<body>
+<body style = "background-color:rgb(213, 235, 243)">
     <h1>Welcome to my page</h1>
     <form action = "/authenticate" method="post">
         <div>

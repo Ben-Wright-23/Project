@@ -6,6 +6,10 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h1>This is my dashboard</h1>
+    <h1>This is my dashboard {{ session["currentUser"] }}</h1>
+    <a href = "/logout">Logout</a>
+    <!-- {% for i in range(10) %} -->
+        <!-- <p>Welcome</p> -->
+    <!-- {% endfor %} -->
 </body>
 </html>

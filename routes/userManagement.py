@@ -1,9 +1,16 @@
-from flask import Blueprint, redirect, render_template, request
+from flask import Blueprint, redirect, render_template, request, session
 from database import DatabaseHandler
 
 signupBlueprint = Blueprint("signup",__name__)
 createUserBlueprint = Blueprint("createUser",__name__)
 authenticateUserBlueprint = Blueprint("authenticateUser",__name__)
+logoutBlueprint = Blueprint("logout",__name__)
+
+
+@logoutBlueprint.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 
 @authenticateUserBlueprint.route("/authenticate", methods = ["post"])
@@ -13,6 +20,7 @@ def authenticateUser():
     password = request.form["password"]
 
     if db.authenticateUser(username, password) == True:
+        session["currentUser"] = username
         return redirect("/dashboard")
     else:
         return redirect("/")

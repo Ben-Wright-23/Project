@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect
 from database import DatabaseHandler
 from routes.home import homeBlueprint
-from routes.userManagement import signupBlueprint, createUserBlueprint, authenticateUserBlueprint
+from routes.userManagement import signupBlueprint, createUserBlueprint, authenticateUserBlueprint,logoutBlueprint
 from routes.dashboardRoute import dashboardBlueprint
 #####################################################
 
@@ -19,5 +19,6 @@ app.register_blueprint(signupBlueprint)
 app.register_blueprint(createUserBlueprint)
 app.register_blueprint(authenticateUserBlueprint)
 app.register_blueprint(dashboardBlueprint)
+app.register_blueprint(logoutBlueprint)
 ######################################################
 app.run(debug = True)
