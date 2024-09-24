@@ -1,23 +1,23 @@
 #Imports#############################################
-from flask import Flask, render_template
-
-
+from flask import Flask, render_template, request, redirect
+from database import DatabaseHandler
+from routes.home import homeBlueprint
+from routes.userManagement import signupBlueprint, createUserBlueprint, authenticateUserBlueprint
+from routes.dashboardRoute import dashboardBlueprint
 #####################################################
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "THISISABADKEY"
+db = DatabaseHandler("appData.db")
+#db.createTables()
+
+
 
 #Routing#############################################
-
-@app.route("/")
-def home():
-    return render_template("index.html")
-
-@app.route("/signup")
-def signup():
-    return render_template("SignUp.html")
-
-
-
+app.register_blueprint(homeBlueprint)
+app.register_blueprint(signupBlueprint)
+app.register_blueprint(createUserBlueprint)
+app.register_blueprint(authenticateUserBlueprint)
+app.register_blueprint(dashboardBlueprint)
 ######################################################
 app.run(debug = True)
