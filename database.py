@@ -11,6 +11,7 @@ class DatabaseHandler:
                            ( 
                            username text PRIMARY KEY,
                            password text NOT NULL
+                           CHECK (length(username>=3)) AND (length(username<=16)) AND (length(password>=7) AND password LIKE ‘%[0-9]%’)
                            );""")
         
         connection.close()
