@@ -1,6 +1,7 @@
 from flask import Blueprint, redirect, render_template, request, session
 from database import DatabaseHandler
 
+
 signupBlueprint = Blueprint("signup",__name__)
 createUserBlueprint = Blueprint("createUser",__name__)
 authenticateUserBlueprint = Blueprint("authenticateUser",__name__)
@@ -44,6 +45,5 @@ def createUser():
         if response==True:
             return redirect("/")
         else:
-            return "<h1>Error Making Account</h1>"
-    else:
-        return "<h1> No Match </h1>"
+            return "<h1>Error making account</h1>"
+    return "<h1>Passwords dont match</h1>"

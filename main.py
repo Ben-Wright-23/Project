@@ -9,7 +9,8 @@ from routes.dashboardRoute import dashboardBlueprint
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "THISISABADKEY"
 db = DatabaseHandler("appData.db")
-# db.createTables()
+db.createTables()
+# db.dropUsers()
 
 
 

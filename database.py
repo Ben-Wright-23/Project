@@ -7,12 +7,22 @@ class DatabaseHandler:
     def createTables(self):
         connection = sql.connect(self.name)
 
-        connection.execute("""CREATE TABLE IF NOT EXISTS user
-                           ( 
+        connection.execute("""CREATE TABLE IF NOT EXISTS user(
+                           
                            username text PRIMARY KEY,
-                           password text NOT NULL
-                           CHECK (length(username>=3)) AND (length(username<=16)) AND (length(password>=7) AND password LIKE ‘%[0-9]%’)
+                           password text NOT NULL,
+                           CHECK ((length(password)>6 AND password LIKE %[0-9]%) AND (length(username)>3 AND length(username)<16))
                            );""")
+        
+        connection.close()
+
+
+
+
+    def dropUsers(self):
+        connection = sql.connect(self.name)
+
+        connection.execute("""DROP TABLE user;""")
         
         connection.close()
     
@@ -25,7 +35,8 @@ class DatabaseHandler:
             connection.commit()
             connection.close()
             return True
-        except Exception as e:
+        except Exception as e:                      
+            
             print(e)
             connection.close()
             return False
