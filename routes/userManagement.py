@@ -39,11 +39,19 @@ def createUser():
     username = request.form["username"]
     password=request.form["password"]
     repassword=request.form["repassword"]
+    message=""
+
+    if len(username) >=16:
+        message = message +"Username too long, Must be less than 16 Characters"
+    if len(username) <= 3:
+        message=  message +"Username too short, Must be more than 3 Characters"
+    if len(password) <= 6:
+        message = message + "Password too short, Must be more than 6 Characters"
 
     if password == repassword:
         response = db.createUser(username,password)
         if response==True:
             return redirect("/")
         else:
-            return "<h1>Error making account</h1>"
-    return "<h1>Passwords dont match</h1>"
+            return message
+    return "Passwords dont match"
