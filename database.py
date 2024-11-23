@@ -11,7 +11,7 @@ class DatabaseHandler:
                            
                            username text PRIMARY KEY,
                            password text NOT NULL,
-                           CHECK ((length(password)>6) AND (length(username)>3 AND length(username)<16))
+                           CHECK ((length(password)>6 AND password GLOB'*[0-9]*') AND (length(username)>3 AND length(username)<16))
 
                            );""")
         

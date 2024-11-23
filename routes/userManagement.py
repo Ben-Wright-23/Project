@@ -42,11 +42,13 @@ def createUser():
     message=""
 
     if len(username) >=16:
-        message = message +"Username too long, Must be less than 16 Characters"
+        message = message +"Username too long, must be less than 16 Characters. "
     if len(username) <= 3:
-        message=  message +"Username too short, Must be more than 3 Characters"
+        message=  message +"Username too short, must be more than 3 Characters. "
     if len(password) <= 6:
-        message = message + "Password too short, Must be more than 6 Characters"
+        message = message + "Password too short, must be more than 6 Characters. "
+    if any(char.isdigit() for char in password) == False:
+        message = message + "Password does not contain a number. "
 
     if password == repassword:
         response = db.createUser(username,password)
