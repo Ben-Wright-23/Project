@@ -39,10 +39,8 @@ class DatabaseHandler:
             connection.close()
             return True
         except Exception as e:                      
-            
-            print(e)
             connection.close()
-            return False
+            return e
         
 
     def authenticateUser(self, username, password):
@@ -59,3 +57,5 @@ class DatabaseHandler:
             return True
         else:
             return False
+
+
