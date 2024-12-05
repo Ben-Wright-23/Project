@@ -62,13 +62,12 @@ def createUser():
     elif any(char.isdigit() for char in password) == False:
         session["errorMessage"] = "password must include number"
         return redirect("/signup")
-    else:
+
         
     
 
 
     
-
 
 
 @dashboardBlueprint.route("/dashboard")
