@@ -7,6 +7,7 @@ signupBlueprint = Blueprint("signup",__name__)
 createUserBlueprint = Blueprint("createUser",__name__)
 authenticateUserBlueprint = Blueprint("authenticateUser",__name__)
 logoutBlueprint = Blueprint("logout",__name__)
+deleteUserBlueprint = Blueprint("deleteUser",__name__)
 
 
 @logoutBlueprint.route("/logout")
@@ -58,5 +59,13 @@ def createUser():
     if response==True:
         return redirect("/")
     else:
-        return ...
+        return "Error making account"
 
+
+@deleteUserBlueprint.route("/deleteUser", methods = ["get"])
+def deleteUser():
+    db = DatabaseHandler("appData.db")
+    toDelete = session["currentUser"]
+    db.deleteUser(toDelete)
+    session.clear()
+    return redirect("/")
