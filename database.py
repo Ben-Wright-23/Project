@@ -58,17 +58,13 @@ class DatabaseHandler:
         else:
             return False
 
-    def deleteUser(self,holder):
+    def deleteUser(self,currentUser):
         connection = sql.connect(self.name)
         cursor = connection.cursor()
-        try:
-            cursor.execute("""DELETE FROM user
+        cursor.execute("""DELETE FROM user
                         WHERE username = ? ;""",
-                        (holder))
-            connection.commit()
-            connection.close()
-            return True
-        except:
-            connection.close()
-            return False
+                        (currentUser))
+        connection.commit()
+        connection.close()
+
         
