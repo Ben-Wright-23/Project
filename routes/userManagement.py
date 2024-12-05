@@ -44,7 +44,10 @@ def createUser():
     password=request.form["password"]
     repassword=request.form["repassword"]
 
-    if password != repassword:
+    response = db.createUser(username,password)
+    if response==True:
+        return redirect("/")
+    elif password != repassword:
         session["errorMessage"] = "passwords do not match"
         return redirect("/signup")
     elif len(username) >=16:
@@ -60,7 +63,7 @@ def createUser():
         session["errorMessage"] = "password must include number"
         return redirect("/signup")
     else:
-        return redirect("/")
+        
     
 
 
