@@ -1,8 +1,5 @@
-from flask import Blueprint,render_template
+from flask import Blueprint,render_template,session
+from database import DatabaseHandler
 
 
-dashboardBlueprint = Blueprint("dashboard",__name__)
 
-@dashboardBlueprint.route("/dashboard")
-def dashboard():
-    return render_template("dashboard.html")

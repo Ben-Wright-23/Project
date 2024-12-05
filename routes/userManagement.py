@@ -8,7 +8,7 @@ createUserBlueprint = Blueprint("createUser",__name__)
 authenticateUserBlueprint = Blueprint("authenticateUser",__name__)
 logoutBlueprint = Blueprint("logout",__name__)
 deleteUserBlueprint = Blueprint("deleteUser",__name__)
-
+dashboardBlueprint = Blueprint("dashboard",__name__)
 
 @logoutBlueprint.route("/logout")
 def logout():
@@ -32,7 +32,9 @@ def authenticateUser():
 
 @signupBlueprint.route("/signup")
 def signup():
-    return render_template("SignUp.html")
+    errorMessage = session.get("errorMessage") if session.get("errorMessage") else ""
+    
+    return render_template("SignUp.html", error = errorMessage)
 
 
 @createUserBlueprint.route("/createUser", methods = ["post"])
@@ -41,31 +43,46 @@ def createUser():
     username = request.form["username"]
     password=request.form["password"]
     repassword=request.form["repassword"]
-    message=""
 
-    if len(username) >=16:
-        message = message + "Username too long, must be less than 16 Characters. "
-    if len(username) <= 3:
-        message = message + "Username too short, must be more than 3 Characters. "
-    if len(password) <= 6:
-        message = message + "Password too short, must be more than 6 Characters. "
-    if any(char.isdigit() for char in password) == False:
-        message = message + "Password does not contain a number. "
     if password != repassword:
-        message = message + "Passwords do not match. "
-
-
-    response = db.createUser(username,password)
-    if response==True:
-        return redirect("/")
+        session["errorMessage"] = "passwords do not match"
+        return redirect("/signup")
+    elif len(username) >=16:
+        session["errorMessage"] = "username too long"
+        return redirect("/signup")
+    elif len(username) <= 3:
+        session["errorMessage"] = "username too short"
+        return redirect("/signup")
+    elif len(password) <= 6:
+        session["errorMessage"] = "password too short"
+        return redirect("/signup")
+    elif any(char.isdigit() for char in password) == False:
+        session["errorMessage"] = "password must include number"
+        return redirect("/signup")
     else:
-        return "Error making account"
+        return redirect("/")
+    
+
+
+    
+
+
+
+@dashboardBlueprint.route("/dashboard")
+def dashboard():
+    db=DatabaseHandler("appData.db")
+    accountDeletionError = "Error deleting account" if db.deleteUser(session["currentUser"]) == False else ""
+    return render_template("dashboard.html", error= accountDeletionError)
+
 
 
 @deleteUserBlueprint.route("/deleteUser", methods = ["get"])
 def deleteUser():
     db = DatabaseHandler("appData.db")
     toDelete = session["currentUser"]
-    db.deleteUser(toDelete)
-    session.clear()
-    return redirect("/")
+    if db.deleteUser(toDelete)==True:
+        session.clear()
+        return redirect("/")
+    else:
+        return redirect("/dashboard")
+   
