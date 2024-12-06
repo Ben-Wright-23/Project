@@ -48,6 +48,7 @@ def createUser():
 
     response = db.createUser(username,password)
     if response==True:
+        session["errorMessage"] = ""
         return redirect("/")
     elif password != repassword:
         session["errorMessage"] = "passwords do not match"
@@ -71,6 +72,7 @@ def createUser():
 
 @dashboardBlueprint.route("/dashboard")
 def dashboard():
+    session["accountDeletionError"] = ""
     return render_template("dashboard.html")
 
 #accountDeletionError = session.get("accountDeletionError") if session.get("accountDeletionError") else ""
