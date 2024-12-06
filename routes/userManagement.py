@@ -11,6 +11,7 @@ deleteUserBlueprint = Blueprint("deleteUser",__name__)
 dashboardBlueprint = Blueprint("dashboard",__name__)
 deleteAccountBlueprint = Blueprint("deleteAccount",__name__)
 
+
 @logoutBlueprint.route("/logout")
 def logout():
     session.clear()
@@ -87,21 +88,30 @@ def dashboard():
 #         session["accountDeletionError"] = "Error deleting Account"
 #         return redirect("/dashboard")
     
-@deleteUserBlueprint.route("/deleteUser", methods = ["get"])
+@deleteUserBlueprint.route("/deleteUser", methods = ["post"])
 def deleteUser():
     db = DatabaseHandler("appData.db")
     username = request.form["username"]
+    
     if username == session["currentUser"]:
-        db.deleteUser(session["currentUser"])
-        redirect("/")
+        session["accountDeletionError"] = ""
+        db.deleteUser(username)
+        return redirect("/")
     else:
-        redirect("/dashboard")
+        session["accountDeletionError"] = "This is not your username"
+        return redirect("/deleteAccount")
+        # return redirect("/dashboard")
 
 
 
 @deleteAccountBlueprint.route("/deleteAccount")
 def deleteAccount():
-    render_template("deleteAccount.html")
+    accountDeletionError = session.get("accountDeletionError") if session.get("accountDeletionError") else ""
+    return render_template("deleteAccount.html", error = accountDeletionError)
+
+
+
+
 
 
 

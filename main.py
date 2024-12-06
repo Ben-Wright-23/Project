@@ -23,6 +23,7 @@ app.register_blueprint(dashboardBlueprint)
 app.register_blueprint(logoutBlueprint)
 app.register_blueprint(deleteUserBlueprint)
 app.register_blueprint(deleteAccountBlueprint)
+
 ######################################################
 app.run(debug = True)
 

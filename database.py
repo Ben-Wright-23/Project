@@ -63,7 +63,7 @@ class DatabaseHandler:
         cursor = connection.cursor()
         cursor.execute("""DELETE FROM user
                         WHERE username = ? ;""",
-                        (currentUser))
+                        [currentUser])
         connection.commit()
         connection.close()
 
