@@ -51,22 +51,22 @@ def createUser():
         session["errorMessage"] = ""
         return redirect("/")
     elif password != repassword:
-        session["errorMessage"] = "passwords do not match"
+        session["errorMessage"] = "Passwords do not match"
         return redirect("/signup")
     elif len(username) >=16:
-        session["errorMessage"] = "username too long"
+        session["errorMessage"] = "Username too long, must be less than 16 Characters."
         return redirect("/signup")
     elif len(username) <= 3:
-        session["errorMessage"] = "username too short"
+        session["errorMessage"] = "Username too short, must be more than 3 Characters. "
         return redirect("/signup")
     elif len(password) <= 6:
-        session["errorMessage"] = "password too short"
+        session["errorMessage"] = "Password too short, must be more than 6 Characters. "
         return redirect("/signup")
     elif any(char.isdigit() for char in password) == False:
-        session["errorMessage"] = "password must include number"
+        session["errorMessage"] = "Password must include number"
         return redirect("/signup")
     else:
-        session["errorMessage"] = "unknownError"
+        session["errorMessage"] = "Unknown Error"
         return redirect("/signup")
 
 

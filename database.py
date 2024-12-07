@@ -11,24 +11,13 @@ class DatabaseHandler:
                            
                            username text PRIMARY KEY,
                            password text NOT NULL,
-                           CHECK ((length(password)>6 AND password GLOB'*[0-9]*') AND (length(username)>3 AND length(username)<16))
+                           CHECK ((length(password)>6 AND password LIKE %[0-9]%) AND (length(username)>3 AND length(username)<16))
 
                            );""")
         
         connection.close()
 
 
-
-# AND password LIKE %[0-9]%
-
-
-    def dropUsers(self):
-        connection = sql.connect(self.name)
-
-        connection.execute("""DROP TABLE user;""")
-        
-        connection.close()
-    
     def createUser(self, username, password):
         connection = sql.connect(self.name)
         try:
@@ -38,9 +27,25 @@ class DatabaseHandler:
             connection.commit()
             connection.close()
             return True
-        except Exception as e:                      
+        except:                      
             connection.close()
-            return e
+            return False
+
+        
+
+
+# AND 
+#password GLOB'*[0-9]*'
+
+
+    # def dropUsers(self):
+    #     connection = sql.connect(self.name)
+
+    #     connection.execute("""DROP TABLE user;""")
+        
+    #     connection.close()
+    
+
         
 
     def authenticateUser(self, username, password):
