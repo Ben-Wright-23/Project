@@ -66,7 +66,7 @@ def createUser():
         session["errorMessage"] = "Password must include number"
         return redirect("/signup")
     else:
-        session["errorMessage"] = "Unknown Error"
+        session["errorMessage"] = "This username is taken"
         return redirect("/signup")
 
 
@@ -116,4 +116,6 @@ def deleteAccount():
 
 
 
+
+    
 
