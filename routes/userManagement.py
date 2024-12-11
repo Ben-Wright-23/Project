@@ -8,7 +8,6 @@ createUserBlueprint = Blueprint("createUser",__name__)
 authenticateUserBlueprint = Blueprint("authenticateUser",__name__)
 logoutBlueprint = Blueprint("logout",__name__)
 deleteUserBlueprint = Blueprint("deleteUser",__name__)
-dashboardBlueprint = Blueprint("dashboard",__name__)
 deleteAccountBlueprint = Blueprint("deleteAccount",__name__)
 
 
@@ -70,13 +69,10 @@ def createUser():
         return redirect("/signup")
 
 
-@dashboardBlueprint.route("/dashboard")
-def dashboard():
-    session["accountDeletionError"] = ""
-    return render_template("dashboard.html")
 
-#accountDeletionError = session.get("accountDeletionError") if session.get("accountDeletionError") else ""
-# error = accountDeletionError
+
+
+
 
 # @deleteUserBlueprint.route("/deleteUser", methods = ["get"])
 # def deleteUser():
@@ -102,7 +98,7 @@ def deleteUser():
     else:
         session["accountDeletionError"] = "This is not your username"
         return redirect("/deleteAccount")
-        # return redirect("/dashboard")
+        
 
 
 
@@ -110,12 +106,4 @@ def deleteUser():
 def deleteAccount():
     accountDeletionError = session.get("accountDeletionError") if session.get("accountDeletionError") else ""
     return render_template("deleteAccount.html", error = accountDeletionError)
-
-
-
-
-
-
-
-    
 

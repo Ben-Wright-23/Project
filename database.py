@@ -51,6 +51,7 @@ class DatabaseHandler:
     def authenticateUser(self, username, password):
         connection = sql.connect(self.name)
         cursor = connection.cursor()
+        
         cursor.execute("""SELECT username 
                        FROM user
                        WHERE username = ? 
