@@ -25,9 +25,6 @@ def tournamentCreation():
     elif len(tournamentName)>=30:
         session["tournamentCreationError"] = "Tournament name too long, must be under 30 characters"
         return redirect("/creationForm")
-    elif numTeams =="":
-        session["tournamentCreationError"] = "Enter number of teams"
-        return redirect("/creationForm")
     else:
         session["tournamentCreationError"] = "Tournament name already taken"
         return redirect("/creationForm")
