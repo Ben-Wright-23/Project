@@ -73,7 +73,7 @@ class DatabaseHandler:
         connection.commit()
         connection.close()
 
-    def createTournamantTables(self):
+    def createTournamentTables(self):
         connection = sql.connect(self.name)
         connection.execute("""CREATE TABLE IF NOT EXISTS tournament(
                     tournamentName text PRIMARY KEY,
