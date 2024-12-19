@@ -6,4 +6,5 @@ dashboardBlueprint = Blueprint("dashboard",__name__)
 @dashboardBlueprint.route("/dashboard")
 def dashboard():
     session["accountDeletionError"] = ""
+    session["tournamentCreationError"] = ""
     return render_template("dashboard.html")
