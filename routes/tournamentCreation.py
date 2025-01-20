@@ -7,7 +7,7 @@ tournamentCreationBlueprint = Blueprint("tournamentCreation",__name__)
 tournamentDashboardBlueprint = Blueprint("tournamentDashboard",__name__)
 teamsInputBlueprint = Blueprint("teamsInput",__name__)
 bracketViewBlueprint = Blueprint("bracketView",__name__)
-FixturesBlueprint = Blueprint("Fixtures",__name__)
+
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -46,7 +46,3 @@ def teamsInput():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     return render_template("bracketView.html")
-
-@FixturesBlueprint.route("/Fixtures")
-def Fixtures():
-    return render_template("Fixtures.html")
