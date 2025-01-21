@@ -5,9 +5,9 @@ from database import DatabaseHandler
 creationFormBlueprint = Blueprint("creationForm",__name__)
 tournamentCreationBlueprint = Blueprint("tournamentCreation",__name__)
 tournamentDashboardBlueprint = Blueprint("tournamentDashboard",__name__)
-teamsInputBlueprint = Blueprint("teamsInput",__name__)
+teamsInputPageBlueprint = Blueprint("teamsInputPage",__name__)
 bracketViewBlueprint = Blueprint("bracketView",__name__)
-
+teamsInputBlueprint = Blueprint("teamsInput",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -35,14 +35,16 @@ def tournamentCreation():
         
 
 
-@tournamentDashboardBlueprint.route("/tournamentDashboard")
-def tournamentDashboard():
-    return render_template("tournamentDashboard.html")
+
+@teamsInputPageBlueprint.route("/teamsInputPage")
+def teamsInputPage():
+    return render_template("teamsInput.html")
 
 @teamsInputBlueprint.route("/teamsInput")
 def teamsInput():
-    return render_template("teamsInput.html")
-
+    db = DatabaseHandler("appData.db")
+    newTeamName = request.form["teamNames"]
+    
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     return render_template("bracketView.html")

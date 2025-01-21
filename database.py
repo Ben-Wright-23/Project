@@ -80,16 +80,17 @@ class DatabaseHandler:
                     username text,
                     numTeams integer NOT NULL,
                     FOREIGN KEY (username) REFERENCES user(username),
+                    teamNames array NOT NULL,
                     CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                            );""")
         connection.close()
 
-    def createTournament(self, tournamentName, username, numTeams):
+    def createTournament(self, tournamentName, username, numTeams, teamNames):
         connection = sql.connect(self.name)
         try:
             connection.execute("""INSERT INTO tournament
                 VALUES (?,?,?)""",
-                (tournamentName,username,numTeams)
+                (tournamentName,username,numTeams,teamNames())
                 )
             connection.commit()
             connection.close()

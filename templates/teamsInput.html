@@ -7,7 +7,28 @@
 </head>
 <body>
     <h1 class = "display-4 text-center mb-5 text-dark">Teams Input</h1>
+    <form action = "/teamsInput" method = "post">
+        <div class = "mb-3">
+            <label class = "form-label text-dark" for = "teamNames">Enter the name of a team: </label>
+            <input class = "form-control" type="text" name="teamNames" id="teamNames" >
+        </div>
+    
+        <div class = "mb-3">
+            <input class="btn w-100 mb-3 border" type="submit" value="Confirm">
+        </div>
 
+    <div class = "mb-3">
+        <label class = "form-label text-dark" for = "teamNames">Teams in tournament: </label><br>
+        {{for i in range(num Teams)}}
+            
+    </div>
+
+
+    <div>
+        <p><a class = "btn link-dark border mb-3 " href = "/dashboard">Return to Dashboard</a></p>  
+    </div>
+
+    </div>
 
 
     
