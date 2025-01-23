@@ -10,7 +10,7 @@
     <form action = "/teamsInput" method = "post">
         <div class = "mb-3">
             <label class = "form-label text-dark" for = "teamNames">Enter the name of a team: </label>
-            <input class = "form-control" type="text" name="teamNames" id="teamNames" >
+            <input class = "form-control" type="text" name="teamNames" id="teamNames" maxlength 20>
         </div>
     
         <div class = "mb-3">
@@ -19,8 +19,15 @@
 
     <div class = "mb-3">
         <label class = "form-label text-dark" for = "teamNames">Teams in tournament: </label><br>
-        {{for i in range(num Teams)}}
-            
+        
+            <div class = "mb-3">
+                <ol class="list-group list-group-numbered">
+                    {{for i in range(numTeams)}}
+                    <li class="list-group-item">{{newTeamName}}</li>
+                    
+                </ol>
+
+            </div>
     </div>
 
 

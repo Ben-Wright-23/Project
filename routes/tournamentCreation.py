@@ -45,6 +45,7 @@ def teamsInput():
     db = DatabaseHandler("appData.db")
     newTeamName = request.form["teamNames"]
     
+    
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     return render_template("bracketView.html")
