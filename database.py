@@ -1,4 +1,5 @@
 import sqlite3 as sql
+import math
 
 class DatabaseHandler:
     def __init__(self, databaseName):
@@ -73,28 +74,58 @@ class DatabaseHandler:
         connection.commit()
         connection.close()
 
-    def createTournamentTables(self):
-        connection = sql.connect(self.name)
-        connection.execute("""CREATE TABLE IF NOT EXISTS tournament(
-                    tournamentName text PRIMARY KEY,
-                    username text,
-                    numTeams integer NOT NULL,
-                    FOREIGN KEY (username) REFERENCES user(username),
-                    teamNames array NOT NULL,
-                    CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
-                           );""")
-        connection.close()
-
-    def createTournament(self, tournamentName, username, numTeams, teamNames):
-        connection = sql.connect(self.name)
+    def createBracketTables(self):
         try:
-            connection.execute("""INSERT INTO tournament
-                VALUES (?,?,?)""",
-                (tournamentName,username,numTeams,teamNames())
-                )
+            connection = sql.connect(self.name)
+            connection.execute('''
+                                create table tournament (
+                                    tournamentID integer primary key autoincrement,
+                                    tournamentName text not null,
+                                    active text,
+                                    rounds text
+                            )''')
+        except Exception as e:
+            print(e)
+        finally:
+            connection.close()
+
+    def createTournament(self,tournamentName,currentUser,numTeams,brackets):
+        try:
+            connection = sql.connect(self.name)
+            connection.execute("""insert into tournament (tournamentName, username, numTeams, active, rounds) values (?,?,?,false,?)""",(tournamentName,currentUser,numTeams,brackets))
             connection.commit()
+        except Exception as e:
+            print(e)
+        finally:
             connection.close()
-            return True
-        except:
-            connection.close()
-            return False
+
+
+
+
+    # def createTournamentTables(self):
+    #     connection = sql.connect(self.name)
+    #     connection.execute("""CREATE TABLE IF NOT EXISTS tournament(
+    #                 tournamentName text PRIMARY KEY,
+    #                 username text,
+    #                 numTeams integer NOT NULL,
+    #                 FOREIGN KEY (username) REFERENCES user(username),
+    #                 teamNames array NOT NULL,
+    #                 CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
+    #                        );""")
+
+
+
+
+        #     def createTournament(self, tournamentName, username, numTeams, teamNames):
+        # connection = sql.connect(self.name)
+        # try:
+        #     connection.execute("""INSERT INTO tournament
+        #         VALUES (?,?,?)""",
+        #         (tournamentName,username,numTeams,teamNames())
+        #         )
+        #     connection.commit()
+        #     connection.close()
+        #     return True
+        # except:
+        #     connection.close()
+        #     return False

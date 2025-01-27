@@ -43,7 +43,10 @@ def teamsInputPage():
 @teamsInputBlueprint.route("/teamsInput")
 def teamsInput():
     db = DatabaseHandler("appData.db")
+    teams = []
     newTeamName = request.form["teamNames"]
+    teams.append(newTeamName)
+    
     
     
 @bracketViewBlueprint.route("/bracketView")
