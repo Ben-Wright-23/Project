@@ -1,5 +1,5 @@
 import sqlite3 as sql
-import math
+
 
 class DatabaseHandler:
     def __init__(self, databaseName):
@@ -79,10 +79,13 @@ class DatabaseHandler:
             connection = sql.connect(self.name)
             connection.execute('''
                                 create table tournament (
-                                    tournamentID integer primary key autoincrement,
-                                    tournamentName text not null,
+                                    tournamentName PRIMARY KEY,
+                                    username text,
+                                    numTeams integer NOT NULL,
                                     active text,
-                                    rounds text
+                                    rounds text,
+                                    FOREIGN KEY (username) REFERENCES user(username),
+                                    CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                             )''')
         except Exception as e:
             print(e)

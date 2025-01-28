@@ -1,6 +1,6 @@
 from flask import Blueprint,render_template, session, request,redirect
 from database import DatabaseHandler
-
+import math
 
 creationFormBlueprint = Blueprint("creationForm",__name__)
 tournamentCreationBlueprint = Blueprint("tournamentCreation",__name__)
@@ -8,6 +8,7 @@ tournamentDashboardBlueprint = Blueprint("tournamentDashboard",__name__)
 teamsInputPageBlueprint = Blueprint("teamsInputPage",__name__)
 bracketViewBlueprint = Blueprint("bracketView",__name__)
 teamsInputBlueprint = Blueprint("teamsInput",__name__)
+bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -40,10 +41,10 @@ def tournamentCreation():
 def teamsInputPage():
     return render_template("teamsInput.html")
 
+teams = []
 @teamsInputBlueprint.route("/teamsInput")
 def teamsInput():
     db = DatabaseHandler("appData.db")
-    teams = []
     newTeamName = request.form["teamNames"]
     teams.append(newTeamName)
     
@@ -52,3 +53,22 @@ def teamsInput():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     return render_template("bracketView.html")
+
+@bracketGenerationBlueprint.route("/bracketGeneration")
+def generateBrackets(numTeams):
+    rounds = int(math.log2(numTeams)) #--> 16 : 4
+    tourament = {}
+
+    for i in range(rounds):
+
+        numberOfMatches = numTeams // 2
+        for i in range(numberOfMatches):
+            tourament[i+1] = {"p1":None, "p2":None}
+           
+
+        numTeams = numTeams // 2
+       
+        # for i in range(numTeams * 2)
+
+
+    return tourament
