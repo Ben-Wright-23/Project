@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TeamsInput</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
 </head>
 <body>
+    <div class = "container border p-5 w-50">
     <h1 class = "display-4 text-center mb-5 text-dark">Teams Input</h1>
     <form action = "/teamsInput" method = "post">
         <div class = "mb-3">
@@ -22,21 +24,22 @@
         
             <div class = "mb-3">
                 <ol class="list-group list-group-numbered">
-                    {{for i in range(numTeams)}}
-                    <li class="list-group-item">{{newTeamName}}</li>
+                    
+                        <li class="list-group-item">{{session["Teams"]}}</li>
                     
                 </ol>
 
             </div>
     </div>
 
-
-    <div>
-        <p><a class = "btn link-dark border mb-3 " href = "/dashboard">Return to Dashboard</a></p>  
+    
+    
+    <div class ="row">
+        <p><a class = "btn link-dark border mb-3 text-end" href = "/bracketView">Generate Brackets</a></p>  
+        <p><a class = "btn link-dark border mb-3 text-start" href = "/dashboard">Return to Dashboard</a></p>  
     </div>
-
+    
     </div>
-
 
     
 </body>

@@ -39,12 +39,12 @@ class DatabaseHandler:
 #password GLOB'*[0-9]*'
 
 
-    # def dropUsers(self):
-    #     connection = sql.connect(self.name)
+    def dropUsers(self):
+        connection = sql.connect(self.name)
 
-    #     connection.execute("""DROP TABLE tournament;""")
+        connection.execute("""DROP TABLE tournament;""")
         
-    #     connection.close()
+        connection.close()
     
 
         
@@ -74,7 +74,7 @@ class DatabaseHandler:
         connection.commit()
         connection.close()
 
-    def createBracketTables(self):
+    def createTournamentTables(self):
         try:
             connection = sql.connect(self.name)
             connection.execute('''
@@ -95,12 +95,15 @@ class DatabaseHandler:
     def createTournament(self,tournamentName,currentUser,numTeams,brackets):
         try:
             connection = sql.connect(self.name)
-            connection.execute("""insert into tournament (tournamentName, username, numTeams, active, rounds) values (?,?,?,false,?)""",(tournamentName,currentUser,numTeams,brackets))
+            connection.execute("""INSERT INTO tournament 
+                               VALUES (?,?,?,false,?)
+                               """,(tournamentName,currentUser,numTeams,brackets))
             connection.commit()
-        except Exception as e:
-            print(e)
-        finally:
             connection.close()
+            return True
+        except:
+            connection.close()
+            return False
 
 
 
