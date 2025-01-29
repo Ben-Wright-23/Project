@@ -39,15 +39,23 @@ def tournamentCreation():
 
 @teamsInputPageBlueprint.route("/teamsInputPage")
 def teamsInputPage():
-    return render_template("teamsInput.html")
+    Error = session.get("teamInputError") if session.get("teamInputError") else ""
+    return render_template("teamsInput.html", error = Error)
 
 teams = []
 @teamsInputBlueprint.route("/teamsInput", methods = ["POST"])
 def teamsInput():
     newTeamName = request.form["teamNames"]
-    teams.append(newTeamName)
-    session["Teams"] = teams
-    return render_template("teamsInput.html")
+    if newTeamName != "":
+        teams.append(newTeamName)
+        session["Teams"] = teams
+        session["teamInputError"] = ""
+        return teamsInputPage()
+    else:
+        session["teamInputError"] = "Team must have a name"
+        session["Teams"] = session["Teams"]
+        return teamsInputPage()
+    
     
     
     

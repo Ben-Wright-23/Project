@@ -11,10 +11,8 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "THISISABADKEY"
 db = DatabaseHandler("appData.db")
 # db.createTables()
-db.createTournamentTables()
+# db.createTournamentTables()
 # db.dropUsers()
-
-
 
 
 #Routing#############################################

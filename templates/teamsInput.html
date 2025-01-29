@@ -15,28 +15,47 @@
             <input class = "form-control" type="text" name="teamNames" id="teamNames" maxlength 20>
         </div>
     
-        <div class = "mb-3">
+        <div class = "mb-1">
             <input class="btn w-100 mb-3 border" type="submit" value="Confirm">
         </div>
+
+    <div class = "mb-3">
+        {{error}}
+    </div>
 
     <div class = "mb-3">
         <label class = "form-label text-dark" for = "teamNames">Teams in tournament: </label><br>
         
             <div class = "mb-3">
                 <ol class="list-group list-group-numbered">
-                    
-                        <li class="list-group-item">{{session["Teams"]}}</li>
-                    
+                        {% for i in (session["Teams"]) %}
+                        <li class="list-group-item">{{i}}</li>
+                        {%endfor%}
                 </ol>
 
             </div>
     </div>
+    
+    <label class = "form-label text-dark" for = "teamDeletion">Deleting Teams: </label>
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" >
+        <div class="input-group-append">
+          <button class=" " type="submit">Confirm</button>
+        </div>
+    </div>
+    
+    <div class = "mb-3" >
+        
+        <div style= "display: flex; justify-content: space-between;">
+            <input class = "form-control" type="text" name="teamDeletion" id="teamDeletion" maxlength 20>
+            <input class = "btn w-100 mb-3" type="submit" value="Confirm" text-end>
+        </div>
+    </div>
 
-    
-    
-    <div class ="row">
-        <p><a class = "btn link-dark border mb-3 text-end" href = "/bracketView">Generate Brackets</a></p>  
-        <p><a class = "btn link-dark border mb-3 text-start" href = "/dashboard">Return to Dashboard</a></p>  
+
+    <div style= "display: flex; justify-content: space-between;">
+        <p><a class = "btn link-dark border  text-end" href = "/bracketView">Generate Brackets</a></p>  
+        <p><a class = "btn link-dark border  text-start" href = "/dashboard">Return to Dashboard</a></p>  
     </div>
     
     </div>
