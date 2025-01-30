@@ -21,17 +21,20 @@ def creationForm():
     Error = session.get("tournamentCreationError") if session.get("tournamentCreationError") else ""
     return render_template("creationForm.html", error = Error)
 
+
+teams = []
+
+
 @tournamentCreationBlueprint.route("/tournamentCreation", methods = ["POST"])
 def tournamentCreation():
+    session["Teams"] = ""
     db = DatabaseHandler("appData.db")
     tournamentName = request.form["tournamentName"]
     global numTeams
     numTeams = request.form["numTeams"]
-    int(numTeams)
     session["Tournament"] = tournamentName
-    rounds = int(math.log2(numTeams)) #--> 16 : 4
 
-    if db.createTournament(tournamentName,session["currentUser"],numTeams,rounds)==True:
+    if db.createTournament(tournamentName,session["currentUser"],numTeams,None)==True:
         session["tournamentCreationError"] = ""
         return redirect("/teamsInputPage")
     elif len(tournamentName)<=4:
@@ -53,10 +56,10 @@ def teamsInputPage():
     DeletionError = session.get("teamDeletionError") if session.get("teamDeletionError") else ""
     return render_template("teamsInput.html", error = Error, error2 = DeletionError)
 
-teams = []
+
 @teamsInputBlueprint.route("/teamsInput", methods = ["POST"])
 def teamsInput():
-    if len(teams)<=numTeams:
+    if len(teams)<int(numTeams):
         newTeamName = request.form["teamNames"]
         if newTeamName != "":
             teams.append(newTeamName)
@@ -111,7 +114,4 @@ def generateBrackets():
            
         numTeams = numTeams // 2
        
-    
-
-
     return tournament
