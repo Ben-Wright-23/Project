@@ -108,6 +108,7 @@ class DatabaseHandler:
 
 
 
+
     # def createTournamentTables(self):
     #     connection = sql.connect(self.name)
     #     connection.execute("""CREATE TABLE IF NOT EXISTS tournament(

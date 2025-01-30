@@ -9,6 +9,7 @@ teamsInputPageBlueprint = Blueprint("teamsInputPage",__name__)
 bracketViewBlueprint = Blueprint("bracketView",__name__)
 teamsInputBlueprint = Blueprint("teamsInput",__name__)
 bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
+teamDeletionBlueprint = Blueprint("teamDeletion",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -40,7 +41,8 @@ def tournamentCreation():
 @teamsInputPageBlueprint.route("/teamsInputPage")
 def teamsInputPage():
     Error = session.get("teamInputError") if session.get("teamInputError") else ""
-    return render_template("teamsInput.html", error = Error)
+    DeletionError = session.get("teamDeletionError") if session.get("teamDeletionError") else ""
+    return render_template("teamsInput.html", error = Error, error2 = DeletionError)
 
 teams = []
 @teamsInputBlueprint.route("/teamsInput", methods = ["POST"])
@@ -56,7 +58,22 @@ def teamsInput():
         session["Teams"] = session["Teams"]
         return teamsInputPage()
     
-    
+
+@teamDeletionBlueprint.route("/teamDeletion", methods = ["POST"])
+def teamDeletion():
+    toDelete = request.form["teamDeletion"]
+    found = False
+    while found == False:
+        for i in teams:
+            if i == toDelete:
+                teams.remove(toDelete)
+                session["Teams"] = teams
+                session["teamDeletionError"] = ""
+                found = True
+            else:
+                found = False
+        session["teamDeletionError"] = "Team not in tournament"
+    return teamsInputPage()
     
     
 @bracketViewBlueprint.route("/bracketView")

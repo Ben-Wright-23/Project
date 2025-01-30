@@ -18,7 +18,7 @@
         <div class = "mb-1">
             <input class="btn w-100 mb-3 border" type="submit" value="Confirm">
         </div>
-
+    </form>
     <div class = "mb-3">
         {{error}}
     </div>
@@ -35,23 +35,20 @@
 
             </div>
     </div>
-    
-    <label class = "form-label text-dark" for = "teamDeletion">Deleting Teams: </label>
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" >
-        <div class="input-group-append">
-          <button class=" " type="submit">Confirm</button>
-        </div>
-    </div>
-    
-    <div class = "mb-3" >
-        
-        <div style= "display: flex; justify-content: space-between;">
-            <input class = "form-control" type="text" name="teamDeletion" id="teamDeletion" maxlength 20>
-            <input class = "btn w-100 mb-3" type="submit" value="Confirm" text-end>
-        </div>
-    </div>
 
+    <form action = "/teamDeletion" method = "post">
+        <label class = "form-label text-dark" for = "teamDeletion">Deleting Teams: </label>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="teamDeletion" id="teamDeletion">
+            <div class="input-group-append">
+            <button class="btn" type="submit">Confirm</button>
+            </div>
+        </div>
+    </form>
+
+    <div class = "mb-3">
+        {{error2}}
+    </div>
 
     <div style= "display: flex; justify-content: space-between;">
         <p><a class = "btn link-dark border  text-end" href = "/bracketView">Generate Brackets</a></p>  
