@@ -10,9 +10,14 @@ bracketViewBlueprint = Blueprint("bracketView",__name__)
 teamsInputBlueprint = Blueprint("teamsInput",__name__)
 bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
 teamDeletionBlueprint = Blueprint("teamDeletion",__name__)
+clearTeamsBlueprint = Blueprint("clearTeams",__name__)
+
+
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
+    session["teamDeletionError"] = ""
+    session["teamInputError"] = ""
     Error = session.get("tournamentCreationError") if session.get("tournamentCreationError") else ""
     return render_template("creationForm.html", error = Error)
 
@@ -20,9 +25,13 @@ def creationForm():
 def tournamentCreation():
     db = DatabaseHandler("appData.db")
     tournamentName = request.form["tournamentName"]
+    global numTeams
     numTeams = request.form["numTeams"]
+    int(numTeams)
     session["Tournament"] = tournamentName
-    if db.createTournament(tournamentName,session["currentUser"],numTeams,None)==True:
+    rounds = int(math.log2(numTeams)) #--> 16 : 4
+
+    if db.createTournament(tournamentName,session["currentUser"],numTeams,rounds)==True:
         session["tournamentCreationError"] = ""
         return redirect("/teamsInputPage")
     elif len(tournamentName)<=4:
@@ -47,32 +56,42 @@ def teamsInputPage():
 teams = []
 @teamsInputBlueprint.route("/teamsInput", methods = ["POST"])
 def teamsInput():
-    newTeamName = request.form["teamNames"]
-    if newTeamName != "":
-        teams.append(newTeamName)
-        session["Teams"] = teams
-        session["teamInputError"] = ""
-        return teamsInputPage()
+    if len(teams)<=numTeams:
+        newTeamName = request.form["teamNames"]
+        if newTeamName != "":
+            teams.append(newTeamName)
+            session["Teams"] = teams
+            session["teamInputError"] = ""
+            return teamsInputPage()
+        else:
+            session["teamInputError"] = "Team must have a name"
+            session["Teams"] = session["Teams"]
+            return teamsInputPage()
     else:
-        session["teamInputError"] = "Team must have a name"
-        session["Teams"] = session["Teams"]
+        session["teamInputError"] = "Your amount of teams has been reached"
         return teamsInputPage()
+    
     
 
 @teamDeletionBlueprint.route("/teamDeletion", methods = ["POST"])
 def teamDeletion():
+    
     toDelete = request.form["teamDeletion"]
-    found = False
-    while found == False:
-        for i in teams:
-            if i == toDelete:
-                teams.remove(toDelete)
-                session["Teams"] = teams
-                session["teamDeletionError"] = ""
-                found = True
-            else:
-                found = False
-        session["teamDeletionError"] = "Team not in tournament"
+    for i in teams:
+        if i == toDelete:
+            teams.remove(toDelete)
+            session["Teams"] = teams
+            session["teamDeletionError"] = ""
+                
+        else:
+            session["teamDeletionError"] = "Team not in tournament"
+    
+    return teamsInputPage()
+
+@clearTeamsBlueprint.route("/clearTeams", methods = ["POST"])
+def clearTeams():
+    teams.clear()
+    session["Teams"] = teams
     return teamsInputPage()
     
     
@@ -81,12 +100,9 @@ def bracketView():
     return render_template("bracketView.html")
 
 @bracketGenerationBlueprint.route("/bracketGeneration")
-def generateBrackets(numTeams):
-    db = DatabaseHandler("appData.db")
+def generateBrackets():
     rounds = int(math.log2(numTeams)) #--> 16 : 4
     tournament = {}
-    db.createTournament(session["Tournament"], session["currentUser"],numTeams, rounds)
-
     for i in range(rounds):
 
         numberOfMatches = numTeams // 2

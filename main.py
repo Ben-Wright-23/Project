@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect
 from database import DatabaseHandler
 from routes.home import homeBlueprint
-from routes.tournamentCreation import creationFormBlueprint, tournamentCreationBlueprint, bracketViewBlueprint, teamsInputPageBlueprint, bracketGenerationBlueprint, teamsInputBlueprint, teamDeletionBlueprint
+from routes.tournamentCreation import creationFormBlueprint, tournamentCreationBlueprint, bracketViewBlueprint, teamsInputPageBlueprint, bracketGenerationBlueprint, teamsInputBlueprint, teamDeletionBlueprint, clearTeamsBlueprint
 from routes.dashboardRoute import dashboardBlueprint
 from routes.userManagement import signupBlueprint, createUserBlueprint, authenticateUserBlueprint,logoutBlueprint, deleteUserBlueprint, deleteAccountBlueprint
 #####################################################
@@ -31,6 +31,7 @@ app.register_blueprint(teamsInputPageBlueprint)
 app.register_blueprint(bracketGenerationBlueprint)
 app.register_blueprint(teamsInputBlueprint)
 app.register_blueprint(teamDeletionBlueprint)
+app.register_blueprint(clearTeamsBlueprint)
 
 ######################################################
 app.run(debug = True)

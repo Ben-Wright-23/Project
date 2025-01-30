@@ -36,12 +36,20 @@
             </div>
     </div>
 
+    <form action = "/clearTeams" method = "post">
+        <div class = "mb-1 text-center">
+            <input class="btn w-50 mb-3 border" type="submit" value="Clear Teams" name="clearTeams" id="clearTeams">
+        </div>
+    </form>
+
+
+
     <form action = "/teamDeletion" method = "post">
         <label class = "form-label text-dark" for = "teamDeletion">Deleting Teams: </label>
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="teamDeletion" id="teamDeletion">
             <div class="input-group-append">
-            <button class="btn" type="submit">Confirm</button>
+            <button class="btn border" type="submit">Confirm</button>
             </div>
         </div>
     </form>
@@ -51,8 +59,8 @@
     </div>
 
     <div style= "display: flex; justify-content: space-between;">
-        <p><a class = "btn link-dark border  text-end" href = "/bracketView">Generate Brackets</a></p>  
-        <p><a class = "btn link-dark border  text-start" href = "/dashboard">Return to Dashboard</a></p>  
+        <p><a class = "btn link-dark border " href = "/dashboard">Return to Dashboard</a></p>  
+        <p><a class = "btn link-dark border  " href = "/bracketView">Generate Brackets</a></p>  
     </div>
     
     </div>
