@@ -61,6 +61,11 @@ def teamsInputPage():
 def teamsInput():
     if len(teams)<int(numTeams):
         newTeamName = request.form["teamNames"]
+        for i in teams():
+            if newTeamName==i:
+                session["teamInputError"] = "Teams must have unique name"
+                session["Teams"] = session["Teams"]
+                return teamsInputPage()
         if newTeamName != "":
             teams.append(newTeamName)
             session["Teams"] = teams
