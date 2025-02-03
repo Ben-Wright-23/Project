@@ -73,7 +73,6 @@ def teamsInput():
             return teamsInputPage()
         else:
             session["teamInputError"] = "Team must have a name"
-            session["Teams"] = session["Teams"]
             return teamsInputPage()
     else:
         session["teamInputError"] = "Your amount of teams has been reached"
