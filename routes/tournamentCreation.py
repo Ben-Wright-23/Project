@@ -64,7 +64,7 @@ def teamsInputPage():
 @teamsInputBlueprint.route("/teamsInput", methods = ["POST"])
 #creates the route for the teamsInput blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def teamsInput():
-    #defines teamsInput function  
+    #defines teamsInput function   for the teams input blueprint
     if len(teams)<int(numTeams):
         #creates condition to check there is less teams in the list/tournament than the user previously specified was how many teams their tournament would contain
         newTeamName = request.form["teamNames"]
@@ -79,7 +79,7 @@ def teamsInput():
             teams.append(newTeamName)
             #adds the new team to the list of teams if there is a team name entered
             session["Teams"] = teams
-            #update the session for teams to be the new list of teams so it can be displayed to the user in the teamsInput html page
+            #Update the session for teams to be the new list of teams so it can be displayed to the user in the teamsInput html page
             session["teamInputError"] = ""
             #The team entered is valid so there is no error with the team input
             return redirect("/teamsInputPage")
@@ -97,25 +97,37 @@ def teamsInput():
 
 
 @teamDeletionBlueprint.route("/teamDeletion", methods = ["POST"])
+#creates the route for the teamDeletion blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def teamDeletion():
-    
+    #defines teamsDeletion function for the team deletion blueprint
     toDelete = request.form["teamDeletion"]
+    #takes the entered team name to be deleted sent from the teamsInput page(the client) to the server, using the form input with id "teamDeletion".
     for i in teams:
         if i == toDelete:
+            #Cycles through every team in the list, checking if it matches the name of the team to be deleted
             teams.remove(toDelete)
+            #Removes the entered team name from the teams list and therefore tournament
             session["Teams"] = teams
+            #Update the session for teams to be the new list of teams so it can be displayed to the user in the teamsInput html page
             session["teamDeletionError"] = ""
-                
+            #The team has been deleted successfully so there is no error with the team deletion
         else:
             session["teamDeletionError"] = "Team not in tournament"
+            #If the team name has not been found in the list, the team is not in the tournament so this error is displayed to the user
     
     return redirect("/teamsInputPage")
+    #Reloads the teams input page with any errors or changes to the team list
 
 @clearTeamsBlueprint.route("/clearTeams", methods = ["POST"])
+#creates the route for the clearTeams blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def clearTeams():
+    #defines clearTeams function for the team deletion blueprint
     teams.clear()
+    #Clears all teams from the team list
     session["Teams"] = teams
+    #Updates the session for teams to be empty, matching the teams list
     return redirect("/teamsInputPage")
+    #Reloads the teamsInput page with all teams removed from the list
     
     
 @bracketViewBlueprint.route("/bracketView")
