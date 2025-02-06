@@ -16,10 +16,11 @@ clearTeamsBlueprint = Blueprint("clearTeams",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
-    session["teamDeletionError"] = ""
     session["teamInputError"] = ""
+    session["teamDeletionError"] = ""
     Error = session.get("tournamentCreationError") if session.get("tournamentCreationError") else ""
     return render_template("creationForm.html", error = Error)
+    
 
 
 teams = []
@@ -28,6 +29,7 @@ teams = []
 @tournamentCreationBlueprint.route("/tournamentCreation", methods = ["POST"])
 def tournamentCreation():
     session["Teams"] = ""
+    teams.clear()
     db = DatabaseHandler("appData.db")
     tournamentName = request.form["tournamentName"]
     global numTeams
@@ -69,11 +71,11 @@ def teamsInput():
         #creates condition to check there is less teams in the list/tournament than the user previously specified was how many teams their tournament would contain
         newTeamName = request.form["teamNames"]
         #takes the entered team name sent from the teamsInput page(the client) to the server, using the form input with id "teamNames".
-        # for i in teams:
-        #     if newTeamName==i:
-        #         session["teamInputError"] = "Teams must have unique name"
-        #         session["Teams"] = session["Teams"]
-        #         return redirect("/teamsInputPage")
+        for i in teams:
+            if newTeamName==i:
+                session["teamInputError"] = "Teams must have unique name"
+                session["Teams"] = session["Teams"]
+                return redirect("/teamsInputPage")
         if newTeamName != "":
             #Checks the user has entered a value for the team name
             teams.append(newTeamName)
