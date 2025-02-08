@@ -108,13 +108,18 @@ def bracketView():
 @bracketGenerationBlueprint.route("/bracketGeneration")
 def generateBrackets():
     rounds = int(math.log2(numTeams)) #--> 16 : 4
-    tournament = {}
+    bracket = {}
     for i in range(rounds):
-
         numberOfMatches = numTeams // 2
         for i in range(numberOfMatches):
-            tournament[i+1] = {"p1":None, "p2":None}
-           
+            team1 = teams.pop(0)
+            team2 = teams.pop(0)
+            bracket[i+1] = {"T1":team1, "T2":team2}
+            
+
         numTeams = numTeams // 2
-       
-    return tournament
+
+
+    return bracket
+    
+

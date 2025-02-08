@@ -104,6 +104,17 @@ class DatabaseHandler:
         except:
             connection.close()
             return False
+        
+    def showBrackets():
+        try:
+            connection = sql.connect("self.name")
+            cursor = connection.cursor()
+            results = cursor.execute("""SELECT * FROM tournament""").fetchall()
+        except Exception as e:
+            print(e)
+            results = []
+        finally:
+            return results
 
 
 
@@ -116,7 +127,6 @@ class DatabaseHandler:
     #                 username text,
     #                 numTeams integer NOT NULL,
     #                 FOREIGN KEY (username) REFERENCES user(username),
-    #                 teamNames array NOT NULL,
     #                 CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
     #                        );""")
 
