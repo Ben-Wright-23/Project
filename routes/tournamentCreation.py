@@ -26,6 +26,7 @@ def creationForm():
 teams = []
 
 
+
 @tournamentCreationBlueprint.route("/tournamentCreation", methods = ["POST"])
 def tournamentCreation():
     session["Teams"] = ""
@@ -105,20 +106,29 @@ def clearTeams():
 def bracketView():
     return render_template("bracketView.html")
 
+
 @bracketGenerationBlueprint.route("/bracketGeneration")
 def generateBrackets():
-    rounds = int(math.log2(numTeams)) #--> 16 : 4
+    global teamsList
+    teamsList = teams
+    numberOfTeams = numTeams
+    numRounds = int(math.log2(numTeams))
     bracket = {}
-    for i in range(rounds):
-        numberOfMatches = numTeams // 2
-        for i in range(numberOfMatches):
-            team1 = teams.pop(0)
-            team2 = teams.pop(0)
-            bracket[i+1] = {"T1":team1, "T2":team2}
-            
+
+    for i in range(numRounds):
+        round = {}
+        bracket[i+1]= round
+        numMatches = numberOfTeams // 2
+        for i in range(numMatches):
+            round[i+1] = {"T1":None, "T2":None}
 
         numTeams = numTeams // 2
 
+    for i in range (numTeams//2):
+        team1 = teams.pop(0)
+        team2 = teams.pop(0)
+        bracket[1][i+1]["T1"] = team1
+        bracket[1][i+1]["T2"] = team2
 
     return bracket
     
