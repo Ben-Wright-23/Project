@@ -121,7 +121,7 @@ def generateBrackets(numTeams):
         numMatches = numberOfTeams // 2
         for i in range(numMatches):
             round[i+1] = {"T1":None, "T2":None}
-
+            
         numberOfTeams = numberOfTeams // 2
 
     for i in range (numTeams//2):

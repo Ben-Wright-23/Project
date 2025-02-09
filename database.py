@@ -109,7 +109,7 @@ class DatabaseHandler:
         try:
             connection = sql.connect("self.name")
             cursor = connection.cursor()
-            results = cursor.execute("""SELECT * FROM tournament""").fetchall()
+            results = cursor.execute("""SELECT rounds FROM tournament""").fetchall()
         except Exception as e:
             print(e)
             results = []
