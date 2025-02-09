@@ -11,6 +11,7 @@ teamsInputBlueprint = Blueprint("teamsInput",__name__)
 bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
 teamDeletionBlueprint = Blueprint("teamDeletion",__name__)
 clearTeamsBlueprint = Blueprint("clearTeams",__name__)
+bracketDisplayBlueprint = Blueprint("bracketDisplay",__name__)
 
 
 
@@ -35,6 +36,7 @@ def tournamentCreation():
     tournamentName = request.form["tournamentName"]
     global numTeams
     numTeams = request.form["numTeams"]
+    numTeams = int(numTeams)
     session["Tournament"] = tournamentName
 
     if db.createTournament(tournamentName,session["currentUser"],numTeams,None)==True:
@@ -105,14 +107,16 @@ def clearTeams():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     return render_template("bracketView.html")
+# , brackets=redirect("/bracketDisplay")),redirect("/bracketGeneration")
 
 
 @bracketGenerationBlueprint.route("/bracketGeneration")
-def generateBrackets(numTeams):
+def generateBrackets():
+    db = DatabaseHandler("appData.db")
     global teamsList
     teamsList = teams
     numberOfTeams = numTeams
-    numRounds = int(math.log2(numTeams))
+    numRounds = int(math.log2(numberOfTeams))
     bracket = {}
 
     for i in range(numRounds):
@@ -130,7 +134,14 @@ def generateBrackets(numTeams):
         bracket[1][i+1]["T1"] = team1
         bracket[1][i+1]["T2"] = team2
 
-    return bracket
+    return db.addBrackets(str(bracket), session["Tournament"])
 
+@bracketDisplayBlueprint.route("/bracketDisplay")
+def bracketDisplay():
+    db = DatabaseHandler("appData.db")
+    brackets = db.getBrackets(session["Tournament"])
+    brackets = eval(brackets)
+
+    return brackets
 
 

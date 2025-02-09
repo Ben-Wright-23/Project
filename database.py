@@ -92,12 +92,12 @@ class DatabaseHandler:
         finally:
             connection.close()
 
-    def createTournament(self,tournamentName,currentUser,numTeams,brackets):
+    def createTournament(self,tournamentName,currentUser,numTeams,bracket):
         try:
             connection = sql.connect(self.name)
             connection.execute("""INSERT INTO tournament 
                                VALUES (?,?,?,false,?)
-                               """,(tournamentName,currentUser,numTeams,brackets))
+                               """,(tournamentName,currentUser,numTeams,bracket))
             connection.commit()
             connection.close()
             return True
@@ -105,16 +105,32 @@ class DatabaseHandler:
             connection.close()
             return False
         
-    def showBrackets():
+    def getBrackets(self,tournamentName):
         try:
-            connection = sql.connect("self.name")
+            connection = sql.connect(self.name)
             cursor = connection.cursor()
-            results = cursor.execute("""SELECT rounds FROM tournament""").fetchall()
+            results = cursor.execute("""SELECT rounds FROM tournament WHERE tournamentName = ?""",tournamentName).fetchall()
         except Exception as e:
             print(e)
             results = []
         finally:
             return results
+        
+
+    def addBrackets(self, bracket, tournamentName):
+        try:
+            connection = sql.connect(self.name)
+            connection.execute("""UPDATE tournament 
+                               SET rounds = ?
+                               WHERE tournamentName = ?
+                               """,(bracket, tournamentName))
+            connection.commit()
+            connection.close()
+            return True
+        except:
+            connection.close()
+            return False
+
 
 
 
