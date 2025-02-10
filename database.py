@@ -83,7 +83,7 @@ class DatabaseHandler:
                                     username text,
                                     numTeams integer NOT NULL,
                                     active text,
-                                    rounds text,
+                                    bracket text,
                                     FOREIGN KEY (username) REFERENCES user(username),
                                     CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                             )''')
@@ -109,7 +109,7 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             cursor = connection.cursor()
-            results = cursor.execute("""SELECT rounds FROM tournament WHERE tournamentName = ?""",[tournamentName]).fetchone()
+            results = cursor.execute("""SELECT bracket FROM tournament WHERE tournamentName = ?""",[tournamentName]).fetchone()
         except Exception as e:
             print(e)
             results = []
@@ -121,7 +121,7 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             connection.execute("""UPDATE tournament 
-                               SET rounds = ?
+                               SET bracket = ?
                                WHERE tournamentName = ?
                                """,(bracket, tournamentName))
             connection.commit()
