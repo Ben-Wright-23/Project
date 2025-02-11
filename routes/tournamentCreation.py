@@ -108,7 +108,7 @@ def clearTeams():
 def bracketView():
     generateBrackets()
     return render_template("bracketView.html", brackets = bracketDisplay())
-# , brackets=redirect("/bracketDisplay")),redirect("/bracketGeneration")
+
 
 
 @bracketGenerationBlueprint.route("/bracketGeneration")
@@ -140,9 +140,9 @@ def generateBrackets():
 @bracketDisplayBlueprint.route("/bracketDisplay")
 def bracketDisplay():
     db = DatabaseHandler("appData.db")
-    bracket = db.getBrackets(session["Tournament"])
-    bracket = str(bracket)
-    bracket = eval(bracket)
-    return bracket
+    results = db.getBrackets(session["Tournament"])
+    brackets = (results[4])
+    brackets = eval(brackets)
+    return brackets
 
 

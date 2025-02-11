@@ -109,10 +109,11 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             cursor = connection.cursor()
-            results = cursor.execute("""SELECT bracket FROM tournament WHERE tournamentName = ?""",[tournamentName]).fetchone()
+            cursor.execute("""SELECT * FROM tournament WHERE tournamentName = ?;""",[tournamentName])
+            results = cursor.fetchone()
         except Exception as e:
             print(e)
-            results = []
+            results = {}
         finally:
             return results
         
