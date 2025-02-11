@@ -10,12 +10,13 @@
         <h1 class = "display-4 text-center mb-5 text-dark">Bracket View</h1>
         <h2 class = "display-4 mb-5 text-dark">Round 1</h1>
         <ol>
-        {%for i in range (len(session["Teams"])/2)%}
+        <!-- {%for i in (brackets[1])%} -->
+        {%for i in range (2)%}
             <li>
               <div>
                 <span>{{brackets[1][i+1]["T1"]}}</span>
                 <span>{{brackets[1][i+1]["T2"]}}</span>
-                </div>
+              </div>
             </li>
         {%endfor%}
         </ol>
