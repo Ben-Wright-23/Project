@@ -107,7 +107,7 @@ def clearTeams():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     generateBrackets()
-    return render_template("bracketView.html", brackets = bracketDisplay())
+    return render_template("bracketView.html", brackets = bracketDisplay(), numTeams = numTeams)
 
 
 
