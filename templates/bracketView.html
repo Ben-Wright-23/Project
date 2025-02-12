@@ -11,18 +11,22 @@
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Bracket View</h1>
         <h2 class = "display-4 mb-5 text-dark">Round 1</h1>
-        <ul>
-          {% for i in range(2) %}
+        <ul class = "list-unstyled">
+          {% for i in range(numMatches) %}
             <div class = "mb-3 border w-25">
                 <li>
-                  <ul>
-                    <li>{{brackets[1][i+1]["T1"]}}</li>
-                    <li>{{brackets[1][i+1]["T2"]}}</li>
+                  <ul class = "list-unstyled">
+                    <li class = "p-2 border">{{brackets[1][i+1]["T1"]}}</li>
+                    <li class = "p-2 border">{{brackets[1][i+1]["T2"]}}</li>
                   </ul>
                 </li>
             </div>
           {% endfor %}
         </ul>
+      <div style= "display: flex; justify-content: space-between;">
+        <p><a class = "btn link-dark border " href = "/dashboard">Return to Dashboard</a></p>  
+        <p><a class = "btn link-dark border  " href = "/tournamentDashboard">Start Tournament</a></p>  
+      </div>
     </div>
 </body>
 </html>
