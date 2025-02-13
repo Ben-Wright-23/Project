@@ -9,17 +9,17 @@
 </head>
 </head>
 <body>
-  <h1>Bracket View</h1>
-  
+  <h1 class = "text-center p-5">Bracket View</h1>
   <div class = "bracket">
-    {% for round in brackets %}
+    
+    {% for i in range(numberOfRounds) %}
     <div class = "round"> 
-
-      {% for match in brackets[round] %}
+      <h2 class = "text-center p-1">Round {{i+1}}</h2>
+      {% for match in brackets[i+1] %}
       <div class = "match">
-        {% for player in brackets[round][match] %}
+        {% for player in brackets[i+1][match] %}
           <div class = "player">
-            <button>{{brackets[round][match][player]}}</button>
+            <button>{{brackets[i+1][match][player]}}</button>
           </div>
         {% endfor %}
       </div>
