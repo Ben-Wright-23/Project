@@ -115,6 +115,7 @@ class DatabaseHandler:
             print(e)
             results = {}
         finally:
+            connection.close()
             return results
         
 
