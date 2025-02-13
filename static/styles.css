@@ -1,0 +1,30 @@
+.bracket {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border: 1px dashed grey;
+    margin: 10px;
+    justify-content: space-evenly;
+}
+
+.round {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px dashed blue;
+    justify-content: space-evenly;
+}
+
+.match {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px dashed red;
+    margin: 10px;
+}
+
+.player {
+    padding: 10px;
+    margin: 10px;
+    border: 1px dashed green;
+}

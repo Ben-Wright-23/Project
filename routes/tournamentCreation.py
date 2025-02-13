@@ -107,7 +107,7 @@ def clearTeams():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     generateBrackets()
-    return render_template("bracketView.html", brackets = bracketDisplay(), numMatches = int(numTeams)//2)
+    return render_template("bracketView.html", brackets = bracketDisplay())
 
 
 
@@ -125,15 +125,15 @@ def generateBrackets():
         bracket[i+1]= round
         numMatches = numberOfTeams // 2
         for i in range(numMatches):
-            round[i+1] = {"T1":None, "T2":None}
+            round[i+1] = {1:None, 2:None}
             
         numberOfTeams = numberOfTeams // 2
 
     for i in range (numTeams//2):
         team1 = teams.pop(0)
         team2 = teams.pop(0)
-        bracket[1][i+1]["T1"] = team1
-        bracket[1][i+1]["T2"] = team2
+        bracket[1][i+1][1] = team1
+        bracket[1][i+1][2] = team2
 
     return db.addBrackets(str(bracket), session["Tournament"])
 
@@ -145,4 +145,7 @@ def bracketDisplay():
     brackets = eval(brackets)
     return brackets
 
+@tournamentDashboardBlueprint.route("/tournamentDashboard")
+def tournamentDashboard():
+    return render_template("tournamentDashboard.html")
 
