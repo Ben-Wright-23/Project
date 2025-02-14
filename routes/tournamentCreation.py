@@ -147,5 +147,7 @@ def bracketDisplay():
 
 @tournamentDashboardBlueprint.route("/tournamentDashboard")
 def tournamentDashboard():
+    db = DatabaseHandler("appData.db")
+    db.updateActiveTrue(session["Tournament"])
     return render_template("tournamentDashboard.html")
 

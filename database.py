@@ -132,7 +132,20 @@ class DatabaseHandler:
         except:
             connection.close()
             return False
-
+        
+    def updateActiveTrue(self, tournamentName):
+        try:
+            connection = sql.connect(self.name)
+            connection.execute("""UPDATE tournament 
+                               SET active = ?
+                               WHERE tournamentName = ?
+                               """,("true", tournamentName))
+            connection.commit()
+            connection.close()
+            return True
+        except:
+            connection.close()
+            return False
 
 
 
