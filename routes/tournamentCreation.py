@@ -1,6 +1,7 @@
 from flask import Blueprint,render_template, session, request,redirect
 from database import DatabaseHandler
 import math
+#import math module so log2 can be performed for number of rounds
 
 creationFormBlueprint = Blueprint("creationForm",__name__)
 tournamentCreationBlueprint = Blueprint("tournamentCreation",__name__)
@@ -8,10 +9,12 @@ tournamentDashboardBlueprint = Blueprint("tournamentDashboard",__name__)
 teamsInputPageBlueprint = Blueprint("teamsInputPage",__name__)
 bracketViewBlueprint = Blueprint("bracketView",__name__)
 teamsInputBlueprint = Blueprint("teamsInput",__name__)
-bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
 teamDeletionBlueprint = Blueprint("teamDeletion",__name__)
 clearTeamsBlueprint = Blueprint("clearTeams",__name__)
+bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
+#create a flask blueprint for the function craete the bracket dictionary and add it to the database with its corresponding tournament
 bracketDisplayBlueprint = Blueprint("bracketDisplay",__name__)
+#create a flask blueprint for the function to retreive the bracket from the database
 
 
 

@@ -151,29 +151,4 @@ class DatabaseHandler:
 
 
 
-    # def createTournamentTables(self):
-    #     connection = sql.connect(self.name)
-    #     connection.execute("""CREATE TABLE IF NOT EXISTS tournament(
-    #                 tournamentName text PRIMARY KEY,
-    #                 username text,
-    #                 numTeams integer NOT NULL,
-    #                 FOREIGN KEY (username) REFERENCES user(username),
-    #                 CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
-    #                        );""")
 
-
-
-
-        #     def createTournament(self, tournamentName, username, numTeams, teamNames):
-        # connection = sql.connect(self.name)
-        # try:
-        #     connection.execute("""INSERT INTO tournament
-        #         VALUES (?,?,?)""",
-        #         (tournamentName,username,numTeams,teamNames())
-        #         )
-        #     connection.commit()
-        #     connection.close()
-        #     return True
-        # except:
-        #     connection.close()
-        #     return False
