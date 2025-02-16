@@ -3,175 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BracketView</title>
+    <title>Bracket View</title>
+    <!-- Title for the page -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
+    <!-- Import bootsrap CSS module -->
     <link rel = "stylesheet" href="static/styles.css" >
-</head>
+    <!-- Imports the stylesheet that will be accessed in this page -->
 </head>
 <body>
-  <h1 class = "text-center p-5">Bracket View</h1>
-  <div class = "bracket">
-    
-    {% for i in range(numberOfRounds) %}
-    <div class = "round"> 
-      <h2 class = "text-center p-1">Round {{i+1}}</h2>
-      {% for match in brackets[i+1] %}
-      <div class = "match">
-        {% for player in brackets[i+1][match] %}
-          <div class = "player">
-            <button>{{brackets[i+1][match][player]}}</button>
-          </div>
+    <h1 class = "text-center p-5">Bracket View</h1>
+    <!-- Main heading, centered with 5 padding so it is emphasised -->
+    <div class = "bracket">
+    <!-- Creates division for the bracket, with the "bracket" styling in the stylesheet -->
+      {% for i in range(numberOfRounds) %}
+      <div class = "round"> 
+        <!-- Loop creates as many rounds for what is required by the specific tournament and each round is made a division with the "round" styling in the stylesheet -->
+        <h2 class = "text-center p-1">Round {{i+1}}</h2>
+        <!-- Gives each round a heading, with its round number for a tournament with any number of teams  -->
+        {% for match in brackets[i+1] %}
+        <div class = "match">
+            <!-- Creates a division for each match within each round using the "match" styling, uses the brackets dictionary to access the matches for the specific tournament one by one -->
+            {% for player in brackets[i+1][match] %}
+            <div class = "player">
+                <button>{{brackets[i+1][match][player]}}</button>
+                <!-- Puts the players into the matches division, using a division with the "player" styling. Accesses each player in turn from the brackets dictionary -->
+            </div>
+          {% endfor %}
+        </div>
         {% endfor %}
       </div>
       {% endfor %}
     </div>
-    {% endfor %}
-  </div>
- 
-  <div class = "container p-3 w-75">
-    <div style= "display: flex; justify-content: space-between;">
-      <p><a class = "btn link-dark border " href = "/dashboard">Return to Dashboard</a></p>  
-      <p><a class = "btn link-dark border " href = "/tournamentDashboard">Start Tournament</a></p>  
+    <div class = "container p-3 w-75">
+    <!-- Division seperates the buttons from the bracket display -->
+      <div style= "display: flex; justify-content: space-between;">
+        <!-- Allows the buttons to be displayed on the same horizontal line -->
+        <p><a class = "btn link-dark border " href = "/dashboard">Return to Dashboard</a></p>
+        <p><a class = "btn link-dark border " href = "/tournamentDashboard">Start Tournament</a></p>  
+        <!-- Creates the buttons for the user to either go back to their main dashboard or start the tournament -->
+        <!-- If the tournament is started, the user will be redirected to the tournament dashboard -->
+      </div>
     </div>
-  </div>
-
 </body>
 </html>
-
-<!--<div class="bracket">
-  <section aria-labelledby="round-1">
-    <h2 id="round-1">Round 1</h2>
-    <ol>
-      <li>
-        <div>
-          <span>Player 1</span>
-          <span>Player 2</span>
-          <span>Date: 01.01. 1pm</span>
-          </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 3</span>
-          <span>Player 4</span>
-          <span>Date: 01.01. 1.30pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 5</span>
-          <span>Player 6</span>
-          <span>Date: 01.01. 2pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 7</span>
-          <span>Player 8</span>
-          <span>Date: 01.01. 2.30pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 9</span>
-          <span>Player 10</span>
-          <span>Date: 01.01. 3pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 11</span>
-          <span>Player 12</span>
-          <span>Date: 01.01. 3.30pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 13</span>
-          <span>Player 14</span>
-          <span>Date: 01.01. 4pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 15</span>
-          <span>Player 16</span>
-          <span>Date: 01.01. 4.30pm</span>
-        </div>
-      </li>
-    </ol>
-  </section>
-  <section aria-labelledby="round-2">
-    <h2 id="round-2">Round 2</h2>
-      <ol>
-        <li>
-          <div>
-            <span>Player 1</span>
-            <span>Player 3</span>
-            <span>Date: 05.01. 1pm</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span>Player 5</span>
-            <span>Player 7</span>
-            <span>Date: 05.01. 1.30pm</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span>Player 9</span>
-            <span>Player 11</span>
-            <span>Date: 05.01. 2pm</span>
-          </div>
-        </li>
-        <li>
-          <div>
-            <span>Player 13</span>
-            <span>Player 15</span>
-            <span>Date: 05.01. 2.30pm</span>
-          </div>
-        </li>
-      </ol>
-  </section>
-  <section aria-labelledby="round-3">
-    <h2 id="round-3">Round 3</h2>
-    <ol>
-      <li>
-        <div>
-          <span>Player 1</span>
-          <span>Player 5</span>
-          <span>Date: 07.01. 1pm</span>
-        </div>
-      </li>
-      <li>
-        <div>
-          <span>Player 9</span>
-          <span>Player 13</span>
-          <span>Date: 07.01. 1.30pm</span>
-        </div>
-      </li>
-    </ol>
-  </section>
-  <section aria-labelledby="round-4">
-    <h2 id="round-4">Round 4</h2>
-    <ol>
-      <li>
-        <div>
-          <span>Player 1</span>
-          <span>Player 9</span>
-          <span>Date: 10.01. 1pm</span>
-        </div>
-      </li>
-    </ol>
-  </section>
-  <section aria-labelledby="winner">
-    <h2 id="winner">Winner</h2>
-    <ol>
-      <li>
-        <div>
-          <span>Player 1</span>
-        </div>
-      </li>
-    </ol>
-  </section>
-</div>-->

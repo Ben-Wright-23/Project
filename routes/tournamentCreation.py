@@ -106,10 +106,10 @@ def clearTeams():
     
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
-    if len(teams)< numTeams:
-        session["teamInputError"] = "Not enough teams entered" 
-        return redirect("/teamsInputPage")
-    else:
+    # if len(teams)< numTeams:
+    #     session["teamInputError"] = "Not enough teams entered" 
+    #     return redirect("/teamsInputPage")
+    # else:
         generateBrackets()
         return render_template("bracketView.html", brackets = bracketDisplay(), numberOfRounds = int(math.log2(numTeams)))
 
