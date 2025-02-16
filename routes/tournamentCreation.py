@@ -121,8 +121,7 @@ def bracketView():
 @bracketGenerationBlueprint.route("/bracketGeneration")
 def generateBrackets():
     db = DatabaseHandler("appData.db")
-    global teamsList
-    teamsList = teams
+    teamsList=teams
     numberOfTeams = numTeams
     numRounds = int(math.log2(numberOfTeams))
     bracket = {}
@@ -137,8 +136,8 @@ def generateBrackets():
         numberOfTeams = numberOfTeams // 2
 
     for i in range (numTeams//2):
-        team1 = teams.pop(0)
-        team2 = teams.pop(0)
+        team1 = teamsList.pop(0)
+        team2 = teamsList.pop(0)
         bracket[1][i+1][1] = team1
         bracket[1][i+1][2] = team2
 
