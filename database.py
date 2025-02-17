@@ -84,6 +84,7 @@ class DatabaseHandler:
                                     numTeams integer NOT NULL,
                                     active text,
                                     bracket text,
+                                    viewCode text,
                                     FOREIGN KEY (username) REFERENCES user(username),
                                     CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                             )''')
@@ -96,6 +97,7 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             connection.execute("""INSERT INTO tournament 
+                               (tournamentName,username,numTeams,active,bracket)
                                VALUES (?,?,?,false,?)
                                """,(tournamentName,currentUser,numTeams,bracket))
             connection.commit()
@@ -147,6 +149,36 @@ class DatabaseHandler:
             connection.close()
             return False
 
+
+    def getViewCodes(self,viewCode):
+        try:
+            connection = sql.connect(self.name)
+            cursor = connection.cursor()
+            cursor.execute("""SELECT viewCode FROM tournament WHERE viewCode = ?;""",[viewCode])
+            results = cursor.fetchone()
+            connection.close()
+            return results
+            
+        except Exception as e:
+            connection.close()
+            print(e)
+            return False
+            
+        
+    def addViewCode(self, viewCode, tournamentName):
+        try:
+            connection = sql.connect(self.name)
+            connection.execute("""UPDATE tournament 
+                               SET viewCode = ?
+                               WHERE tournamentName = ?
+                               """,(viewCode, tournamentName))
+            connection.commit()
+            connection.close()
+            return True
+        except:
+            connection.close()
+            return False
+            
 
 
 

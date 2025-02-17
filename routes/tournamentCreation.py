@@ -1,6 +1,7 @@
 from flask import Blueprint,render_template, session, request,redirect
 from database import DatabaseHandler
 import math
+import random 
 #import math module so log2 can be performed for number of rounds
 
 creationFormBlueprint = Blueprint("creationForm",__name__)
@@ -12,9 +13,8 @@ teamsInputBlueprint = Blueprint("teamsInput",__name__)
 teamDeletionBlueprint = Blueprint("teamDeletion",__name__)
 clearTeamsBlueprint = Blueprint("clearTeams",__name__)
 bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
-#create a flask blueprint for the function craete the bracket dictionary and add it to the database with its corresponding tournament
 bracketDisplayBlueprint = Blueprint("bracketDisplay",__name__)
-#create a flask blueprint for the function to retreive the bracket from the database
+generateViewCodeBlueprint = Blueprint("generateViewCode",__name__)
 
 
 
@@ -109,10 +109,10 @@ def clearTeams():
     
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
-    # if len(teams)< numTeams:
-    #     session["teamInputError"] = "Not enough teams entered" 
-    #     return redirect("/teamsInputPage")
-    # else:
+    if len(teams)< numTeams:
+        session["teamInputError"] = "Not enough teams entered" 
+        return redirect("/teamsInputPage")
+    else:
         generateBrackets()
         return render_template("bracketView.html", brackets = bracketDisplay(), numberOfRounds = int(math.log2(numTeams)))
 
@@ -155,5 +155,23 @@ def bracketDisplay():
 def tournamentDashboard():
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
-    return render_template("tournamentDashboard.html")
+    return render_template("tournamentDashboard.html", viewCode = generateViewCode())
 
+
+@generateViewCodeBlueprint.route("/generateViewCode")
+def generateViewCode():
+    db = DatabaseHandler("appData.db")
+    results = "notnone"
+    while results != None:
+        viewCode = str(random.randint(100000,999999))
+        results = db.getViewCodes(viewCode)
+        
+
+    db.addViewCode(viewCode, session["Tournament"])
+
+    return viewCode
+
+    
+    
+
+    
