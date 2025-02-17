@@ -35,6 +35,7 @@ app.register_blueprint(clearTeamsBlueprint)
 app.register_blueprint(bracketDisplayBlueprint)
 app.register_blueprint(tournamentDashboardBlueprint)
 app.register_blueprint(generateViewCodeBlueprint)
+#registers the generateViewCodeBlueprint in the Flask instance so it can be used when running the program in the web framework
 
 ######################################################
 app.run(debug = True)

@@ -98,6 +98,7 @@ class DatabaseHandler:
             connection = sql.connect(self.name)
             connection.execute("""INSERT INTO tournament 
                                (tournamentName,username,numTeams,active,bracket)
+                                # Inserts the values into these specific fields, so it can ignore any other fields when inserting   
                                VALUES (?,?,?,false,?)
                                """,(tournamentName,currentUser,numTeams,bracket))
             connection.commit()
@@ -150,34 +151,53 @@ class DatabaseHandler:
             return False
 
 
-    def getViewCodes(self,viewCode):
+    def checkViewCodes(self,viewCode):
+        #defines checkViewCodes function, with the view code to be checked for passed in
         try:
             connection = sql.connect(self.name)
+            #connect to the database
             cursor = connection.cursor()
+            #creates a cursor to inspect one row of the table at a time
             cursor.execute("""SELECT viewCode FROM tournament WHERE viewCode = ?;""",[viewCode])
+            #exectutes the previously designed SQL statement using the cursor to check through the records for the view code has been passed in
             results = cursor.fetchone()
+            #fetches the view code if there is one that matches the passed in view code
             connection.close()
+            #close the connection to the database
             return results
-            
+            #returns the view code from the database if it matches the view code passed in, signifying the passed in view code is not unique, otherwise it will return None
         except Exception as e:
+            #if there was an error executing the SQL statement:
             connection.close()
+            #close the connection to the database
             print(e)
+            #print the error that has occured
             return False
+            #returns false signifying the check has not been completed
             
         
     def addViewCode(self, viewCode, tournamentName):
+        #defines checkViewCodes function, with the view code to be added passed in as well as the tournament it should be assigned to
         try:
             connection = sql.connect(self.name)
+            #connect to the database
             connection.execute("""UPDATE tournament 
                                SET viewCode = ?
                                WHERE tournamentName = ?
                                """,(viewCode, tournamentName))
+            #exectutes the previously designed SQL statement to add the view code to the current tournament
             connection.commit()
+            #commit the addition of the view code to the database
             connection.close()
+            #close the connection to the database
             return True
+            #returns true signifying the viewCode has been added to the current tournament successfully
         except:
+            #if there has been an error in the SQL statement
             connection.close()
+            #close the connection to the database
             return False
+            #returns true signifying the viewCode has not been added to the current tournament successfully
             
 
 
