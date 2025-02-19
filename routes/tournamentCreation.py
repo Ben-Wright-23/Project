@@ -199,7 +199,7 @@ def tournamentDashboardRedirect():
     db = DatabaseHandler("appData.db")
     tournamentName = request.form["tournamentName"]
     session["Tournament"] = tournamentName
-    results = db.getViewCode(session["Tournament"])
+    results = db.getBrackets(session["Tournament"])
     viewCode = results[5]
     viewCode = eval(viewCode)
     return render_template("tournamentDashboard.html", viewCode = viewCode)
