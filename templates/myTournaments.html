@@ -13,7 +13,7 @@
             <label class = "text-dark mb-3">My Tournaments: </label><br>
             <ul class="list-group">
             {% for i in tournaments %}
-            <li class="list-group-item">
+            <li class="list-group-item" id = "{{i[0]}}">
                 
                 <div style= "display: flex; justify-content: space-between;">
                     <div>
@@ -25,11 +25,14 @@
                     {% else %}
                     <p> Tournament is not in progress</p>
                     {% endif %}
-                    {% if i[3]=="true" %}
-                    <p><a class = "btn link-dark border" href = "/tournamentDashboardRedirect">Go to Tournament</a></p>  
-                    {% else %}
-                    <p><a class = "btn link-dark border disabled" href = "/tournamentDashboardRedirect">Go to Tournament</a></p>  
-                    {% endif %}
+                    <div>
+                        {% if i[3]=="true" %}
+                        <p><a class = "btn link-dark border" href = "/tournamentDashboardRedirect">Go to Tournament</a></p>  
+                        {% else %}
+                        <p><a class = "btn link-dark border disabled">Go to Tournament</a></p>  
+                        {% endif %}
+                        <p><a class = "btn link-dark border" href = "/deleteTournament">Delete Tournament</a></p>  
+                    </div>
                 </div>
             </li>
             {% endfor %}

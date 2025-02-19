@@ -19,6 +19,7 @@ generateViewCodeBlueprint = Blueprint("generateViewCode",__name__)
 myTournamentsBlueprint = Blueprint("myTournaments",__name__)
 myTournamentsPageBlueprint = Blueprint("myTournamentsPage",__name__)
 tournamentDashboardRedirectBlueprint = Blueprint("tournamentDashboardRedirect",__name__)
+deleteTournamentBlueprint = Blueprint("deleteTournament",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -197,6 +198,15 @@ def myTournaments():
 def myTournamentsPage():
     return render_template("myTournaments.html", tournaments = myTournaments())
 
-# @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect")
-# def tournamentDashboardRedirect():
-#     session["Tournament"] = 
+@tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect")
+def tournamentDashboardRedirect():
+    db = DatabaseHandler("appData.db")
+    results = db.getTournaments(session["currentUser"])
+    session["Tournament"] = results["id"][0]
+    return render_template("tournamentDashboard.html", viewCode = db.getViewCode(session["Tournament"]))
+
+@deleteTournamentBlueprint.route("/deleteTournament")
+def deleteTournament():
+    db = DatabaseHandler("appData.db")
+    db.deleteTournament(session["Tournament"])
+    return redirect("/myTournamentsPage")

@@ -213,5 +213,25 @@ class DatabaseHandler:
             return False
             
 
+    def deleteTournament(self,tournamentName):
+        connection = sql.connect(self.name)
+        
+        connection.execute("""DELETE FROM tournament
+                        WHERE tournamentName = ? ;""",
+                        [tournamentName])
+        connection.commit()
+        connection.close()
 
+    def getViewCode(self,tournamentName):
+        try:
+            connection = sql.connect(self.name)
+            cursor = connection.cursor()
+            cursor.execute("""SELECT viewCode FROM tournament WHERE tournamentName = ?;""",[tournamentName])
+            results = cursor.fetchone()
+            connection.close()
+            return results
+        except Exception as e:
+            connection.close()
+            print(e)
+            return False
 
