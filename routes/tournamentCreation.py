@@ -16,7 +16,9 @@ bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
 bracketDisplayBlueprint = Blueprint("bracketDisplay",__name__)
 generateViewCodeBlueprint = Blueprint("generateViewCode",__name__)
 #create a flask blueprint for the function to load generate the unique view code and add it to the database
-
+myTournamentsBlueprint = Blueprint("myTournaments",__name__)
+myTournamentsPageBlueprint = Blueprint("myTournamentsPage",__name__)
+tournamentDashboardRedirectBlueprint = Blueprint("tournamentDashboardRedirect",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -184,5 +186,17 @@ def generateViewCode():
     # returns the unique view code
     
     
+@myTournamentsBlueprint.route("/myTournaments")
+def myTournaments():
+    db = DatabaseHandler("appData.db")
+    results = db.getTournaments(session["currentUser"])
+    return results
 
-    
+
+@myTournamentsPageBlueprint.route("/myTournamentsPage")
+def myTournamentsPage():
+    return render_template("myTournaments.html", tournaments = myTournaments())
+
+# @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect")
+# def tournamentDashboardRedirect():
+#     session["Tournament"] = 

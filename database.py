@@ -97,8 +97,7 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             connection.execute("""INSERT INTO tournament 
-                               (tournamentName,username,numTeams,active,bracket)
-                                # Inserts the values into these specific fields, so it can ignore any other fields when inserting   
+                               (tournamentName,username,numTeams,active,bracket)  
                                VALUES (?,?,?,false,?)
                                """,(tournamentName,currentUser,numTeams,bracket))
             connection.commit()
@@ -200,7 +199,19 @@ class DatabaseHandler:
             #returns true signifying the viewCode has not been added to the current tournament successfully
             
 
-
+    def getTournaments(self,currentUser):
+        try:
+            connection = sql.connect(self.name)
+            cursor = connection.cursor()
+            cursor.execute("""SELECT * FROM tournament WHERE username = ?;""",[currentUser])
+            results = cursor.fetchall()
+            connection.close()
+            return results
+        except Exception as e:
+            connection.close()
+            print(e)
+            return False
+            
 
 
 

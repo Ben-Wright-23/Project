@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect
 from database import DatabaseHandler
 from routes.home import homeBlueprint
-from routes.tournamentCreation import creationFormBlueprint, tournamentCreationBlueprint, bracketViewBlueprint, teamsInputPageBlueprint, bracketGenerationBlueprint, teamsInputBlueprint, teamDeletionBlueprint, clearTeamsBlueprint, bracketDisplayBlueprint, tournamentDashboardBlueprint,generateViewCodeBlueprint
+from routes.tournamentCreation import creationFormBlueprint, tournamentCreationBlueprint, bracketViewBlueprint, teamsInputPageBlueprint, bracketGenerationBlueprint, teamsInputBlueprint, teamDeletionBlueprint, clearTeamsBlueprint, bracketDisplayBlueprint, tournamentDashboardBlueprint,generateViewCodeBlueprint, myTournamentsBlueprint, myTournamentsPageBlueprint
 from routes.dashboardRoute import dashboardBlueprint
 from routes.userManagement import signupBlueprint, createUserBlueprint, authenticateUserBlueprint,logoutBlueprint, deleteUserBlueprint, deleteAccountBlueprint
 #####################################################
@@ -35,7 +35,8 @@ app.register_blueprint(clearTeamsBlueprint)
 app.register_blueprint(bracketDisplayBlueprint)
 app.register_blueprint(tournamentDashboardBlueprint)
 app.register_blueprint(generateViewCodeBlueprint)
-#registers the generateViewCodeBlueprint in the Flask instance so it can be used when running the program in the web framework
+app.register_blueprint(myTournamentsPageBlueprint)
+app.register_blueprint(myTournamentsBlueprint)
 
 ######################################################
 app.run(debug = True)
