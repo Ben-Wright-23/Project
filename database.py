@@ -226,7 +226,7 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             cursor = connection.cursor()
-            cursor.execute("""SELECT viewCode FROM tournament WHERE tournamentName = ?;""",[tournamentName])
+            cursor.execute("""SELECT * FROM tournament WHERE tournamentName = ?;""",[tournamentName])
             results = cursor.fetchone()
             connection.close()
             return results

@@ -16,7 +16,6 @@ bracketGenerationBlueprint = Blueprint("bracketGeneration",__name__)
 bracketDisplayBlueprint = Blueprint("bracketDisplay",__name__)
 generateViewCodeBlueprint = Blueprint("generateViewCode",__name__)
 #create a flask blueprint for the function to load generate the unique view code and add it to the database
-myTournamentsBlueprint = Blueprint("myTournaments",__name__)
 myTournamentsPageBlueprint = Blueprint("myTournamentsPage",__name__)
 tournamentDashboardRedirectBlueprint = Blueprint("tournamentDashboardRedirect",__name__)
 deleteTournamentBlueprint = Blueprint("deleteTournament",__name__)
@@ -187,26 +186,29 @@ def generateViewCode():
     # returns the unique view code
     
     
-@myTournamentsBlueprint.route("/myTournaments")
-def myTournaments():
-    db = DatabaseHandler("appData.db")
-    results = db.getTournaments(session["currentUser"])
-    return results
-
 
 @myTournamentsPageBlueprint.route("/myTournamentsPage")
 def myTournamentsPage():
-    return render_template("myTournaments.html", tournaments = myTournaments())
-
-@tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect")
-def tournamentDashboardRedirect():
     db = DatabaseHandler("appData.db")
     results = db.getTournaments(session["currentUser"])
-    session["Tournament"] = results["id"][0]
-    return render_template("tournamentDashboard.html", viewCode = db.getViewCode(session["Tournament"]))
+    return render_template("myTournaments.html", tournaments = results)
 
-@deleteTournamentBlueprint.route("/deleteTournament")
+
+@tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect", methods = ["POST"])
+def tournamentDashboardRedirect():
+    db = DatabaseHandler("appData.db")
+    tournamentName = request.form["tournamentName"]
+    session["Tournament"] = tournamentName
+    results = db.getViewCode(session["Tournament"])
+    viewCode = results[5]
+    viewCode = eval(viewCode)
+    return render_template("tournamentDashboard.html", viewCode = viewCode)
+
+
+@deleteTournamentBlueprint.route("/deleteTournament", methods = ["POST"])
 def deleteTournament():
     db = DatabaseHandler("appData.db")
-    db.deleteTournament(session["Tournament"])
+    tournamentToDelete = request.form["deleteTournament"]
+    db.deleteTournament(tournamentToDelete)
     return redirect("/myTournamentsPage")
+
