@@ -222,10 +222,10 @@ def teamsInputRedirect():
     session["teamDeletionError"] = ""
     session["teamInputError"] = "" 
     session["Tournament"] = request.form["tournamentName"]
-    results = db.getTournamentFields(session["Tournament"])
-    global numTeams
-    numTeams = results[2]
-    numTeams = int(numTeams)
+    # results = db.getTournamentFields(session["Tournament"])
+    # global numTeams
+    # numTeams = results[2]
+    # numTeams = int(numTeams)
     return redirect("/teamsInputPage")
 
 @bracketViewRedirectBlueprint.route("/bracketViewRedirect", methods = ["POST"])
@@ -233,7 +233,7 @@ def bracketViewRedirect():
     db = DatabaseHandler("appData.db")
     session["Tournament"] = request.form["tournamentName"]
     results = db.getTournamentFields(session["Tournament"])
-    global numTeams
+    # global numTeams
     numTeams = results[2]
     numTeams = int(numTeams)
     brackets = results[4]
