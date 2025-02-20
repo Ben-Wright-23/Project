@@ -44,12 +44,12 @@
                         
                         {% elif i[4] == None %}
                         <form action = "/teamsInputRedirect" method = "post">
-                            <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to tournament</button>
+                            <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to Teams Input</button>
                         </form>
                         
                         {% else %}
                         <form action = "/bracketViewRedirect" method = "post">
-                            <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to tournament</button>
+                            <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to Bracket View</button>
                         </form>
                         {% endif %}
                         
