@@ -190,15 +190,21 @@ def generateViewCode():
     
 
 @myTournamentsPageBlueprint.route("/myTournamentsPage")
+#creates the route for the myTournamentsPage blueprint, allowing it to be accessed easily.
 def myTournamentsPage():
+    #defines myTournamentsPage function for the myTournamentsPage blueprint
     db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournaments(session["currentUser"])
     return render_template("myTournaments.html", tournaments = results)
 
 
 @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect", methods = ["POST"])
+#creates the route for the tournamentDashboardRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def tournamentDashboardRedirect():
+    #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
     db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
     tournamentName = request.form["tournamentName"]
     session["Tournament"] = tournamentName
     results = db.getTournamentFields(session["Tournament"])
@@ -208,34 +214,60 @@ def tournamentDashboardRedirect():
 
 
 @deleteTournamentBlueprint.route("/deleteTournament", methods = ["POST"])
+#creates the route for the deleteTournament blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def deleteTournament():
+    #defines deleteTournament function for the deleteTournament blueprint
     db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
     tournamentToDelete = request.form["deleteTournament"]
     db.deleteTournament(tournamentToDelete)
     return redirect("/myTournamentsPage")
 
 @teamsInputRedirectBlueprint.route("/teamsInputRedirect", methods = ["POST"])
+#creates the route for the teamsInputRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def teamsInputRedirect():
+    #defines teamsInputRedirect function for the teamsInputRedirect blueprint
     db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
     session["Teams"] = ""
+    #clears the teams session so the teams input page appears blank
     teams.clear()
+    #clears the teams list so the teams input page appears blank
     session["teamDeletionError"] = ""
+    #clears the team deletion error session so the teams input page appears blank
     session["teamInputError"] = "" 
+    #clears the team input error session so the teams input page appears blank
     session["Tournament"] = request.form["tournamentName"]
+    #sets the Tournament session to be the tournament name value of the tournament that has been clicked on on the myTournaments html page
+
     # results = db.getTournamentFields(session["Tournament"])
     # global numTeams
     # numTeams = results[2]
     # numTeams = int(numTeams)
+
     return redirect("/teamsInputPage")
+    #redirects the user to the function to load the teams input page
 
 @bracketViewRedirectBlueprint.route("/bracketViewRedirect", methods = ["POST"])
+#creates the route for the bracketViewRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def bracketViewRedirect():
+    #defines bracketViewRedirect function for the bracketViewRedirect blueprint
     db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
     session["Tournament"] = request.form["tournamentName"]
+    #sets the Tournament session to be the tournament name value of the tournament that has been clicked on on the myTournaments html page
     results = db.getTournamentFields(session["Tournament"])
+    #sets results to be the list of fields from the database for the tournament with the tournament name of the value in the tournament session
+
     # global numTeams
+
     numTeams = results[2]
+    #sets numTeams to be the third value from the fields list as this represents that tournament's number of teams
     numTeams = int(numTeams)
+    #turns the number of teams value from the database back to its integer form
     brackets = results[4]
+    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
     brackets = eval(brackets)
+    #turns the brackets back to their origional dictionary form
     return render_template("bracketView.html", brackets = brackets, numberOfRounds = int(math.log2(numTeams)))
+    #loads the bracket view html page with the brackets for the tournament selected and number of rounds, which is derrived from the number of teams of the selected tournament, passed in with the page
