@@ -189,6 +189,9 @@ def generateViewCode():
     
     
 
+
+    
+
 @myTournamentsPageBlueprint.route("/myTournamentsPage")
 #creates the route for the myTournamentsPage blueprint, allowing it to be accessed easily.
 def myTournamentsPage():
@@ -196,7 +199,9 @@ def myTournamentsPage():
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournaments(session["currentUser"])
+    #sets results to be all of the current user's tournaments, including all the fields in each tournament, formatted as lists within a list
     return render_template("myTournaments.html", tournaments = results)
+    #loads the my tournaments html page, with all the current user's tournaements passed in as "tournaments" so they and the fields within them can be displayed
 
 
 @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect", methods = ["POST"])
@@ -205,12 +210,16 @@ def tournamentDashboardRedirect():
     #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
-    tournamentName = request.form["tournamentName"]
-    session["Tournament"] = tournamentName
+    session["Tournament"] = request.form["tournamentName"]
+    #sets the Tournament session to be the tournament name value of the tournament that has been clicked on on the myTournaments html page
     results = db.getTournamentFields(session["Tournament"])
+    #sets results to be the list of all fields for the tournament with the name of the value in the tournament session
     viewCode = results[5]
+    #sets viewCode to be the sixth item from this list as represents the tournament's view code
     viewCode = eval(viewCode)
+    #turns the view code back to its origional string form
     return render_template("tournamentDashboard.html", viewCode = viewCode)
+    #loads the tournament dashboard, with the specific tournament's view code passed in as viewCode so it can be displayed
 
 
 @deleteTournamentBlueprint.route("/deleteTournament", methods = ["POST"])
@@ -220,8 +229,11 @@ def deleteTournament():
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     tournamentToDelete = request.form["deleteTournament"]
+    #set tournamentToDelete to be the tournament name of the tournament the "delete tournament" button was selected on on the my tournaments page
     db.deleteTournament(tournamentToDelete)
+    #delete the tournament with this tournament name from the database
     return redirect("/myTournamentsPage")
+    #redirect the user to the function to load the my tournaments page so it reloads without this tournament present
 
 @teamsInputRedirectBlueprint.route("/teamsInputRedirect", methods = ["POST"])
 #creates the route for the teamsInputRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
