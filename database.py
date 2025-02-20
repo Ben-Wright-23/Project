@@ -217,8 +217,8 @@ class DatabaseHandler:
         connection = sql.connect(self.name)
         
         connection.execute("""DELETE FROM tournament
-                        WHERE tournamentName = ? ;""",
-                        [tournamentName])
+                            WHERE tournamentName = ? ;""",
+                            [tournamentName])
         connection.commit()
         connection.close()
 

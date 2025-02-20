@@ -27,12 +27,12 @@
                     </div>
 
                     {% if i[3]=="true" %}
-                    <div class="my-1">
-                        <p> Tournament is in progress</p>
+                    <div class="mt-2">
+                        <p style="color:lime">Active</p>
                     </div>
                     {% else %}
-                    <div class="my-1">
-                        <p> Tournament is not in progress</p>
+                    <div class="mt-2">
+                        <p style="color:red">Inactive</p>
                     </div>
                     {% endif %}
 
@@ -41,9 +41,11 @@
                         <form action = "/tournamentDashboardRedirect" method = "post">
                             <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to tournament</button>
                         </form> 
+
                         {% else %}
                         <button class = "btn link-dark border disabled mb-3">Go to Tournament</button> 
                         {% endif %}
+                        
                         <form action = "/deleteTournament" method = "post">
                             <button class = "btn link-dark border my-1" name = "deleteTournament" value = "{{i[0]}}">Delete Tournament</button>
                         </form> 
@@ -53,8 +55,8 @@
             {% endfor %}
             </ul>
         </div>
-        <div class = "mb-3">
-            <p><a class = "btn link-dark border mb-3 " href = "/dashboard">Return to Dashboard</a></p>  
+        <div class = "text-center mb-3">
+            <p><a class = "btn link-dark border mb-3 w-50" href = "/dashboard">Return to Dashboard</a></p>  
         </div>
     </div>
 
