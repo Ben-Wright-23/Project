@@ -19,6 +19,8 @@ generateViewCodeBlueprint = Blueprint("generateViewCode",__name__)
 myTournamentsPageBlueprint = Blueprint("myTournamentsPage",__name__)
 tournamentDashboardRedirectBlueprint = Blueprint("tournamentDashboardRedirect",__name__)
 deleteTournamentBlueprint = Blueprint("deleteTournament",__name__)
+teamsInputRedirectBlueprint = Blueprint("teamsInputRedirect",__name__)
+bracketViewRedirectBlueprint = Blueprint("bracketViewRedirect",__name__)
 
 @creationFormBlueprint.route("/creationForm")
 def creationForm():
@@ -148,7 +150,7 @@ def generateBrackets():
 @bracketDisplayBlueprint.route("/bracketDisplay")
 def bracketDisplay():
     db = DatabaseHandler("appData.db")
-    results = db.getBrackets(session["Tournament"])
+    results = db.getTournamentFields(session["Tournament"])
     brackets = (results[4])
     brackets = eval(brackets)
     return brackets
@@ -199,7 +201,7 @@ def tournamentDashboardRedirect():
     db = DatabaseHandler("appData.db")
     tournamentName = request.form["tournamentName"]
     session["Tournament"] = tournamentName
-    results = db.getBrackets(session["Tournament"])
+    results = db.getTournamentFields(session["Tournament"])
     viewCode = results[5]
     viewCode = eval(viewCode)
     return render_template("tournamentDashboard.html", viewCode = viewCode)
@@ -212,3 +214,28 @@ def deleteTournament():
     db.deleteTournament(tournamentToDelete)
     return redirect("/myTournamentsPage")
 
+@teamsInputRedirectBlueprint.route("/teamsInputRedirect", methods = ["POST"])
+def teamsInputRedirect():
+    db = DatabaseHandler("appData.db")
+    session["Teams"] = ""
+    teams.clear()
+    session["teamDeletionError"] = ""
+    session["teamInputError"] = "" 
+    session["Tournament"] = request.form["tournamentName"]
+    results = db.getTournamentFields(session["Tournament"])
+    global numTeams
+    numTeams = results[2]
+    numTeams = int(numTeams)
+    return redirect("/teamsInputPage")
+
+@bracketViewRedirectBlueprint.route("/bracketViewRedirect", methods = ["POST"])
+def bracketViewRedirect():
+    db = DatabaseHandler("appData.db")
+    session["Tournament"] = request.form["tournamentName"]
+    results = db.getTournamentFields(session["Tournament"])
+    global numTeams
+    numTeams = results[2]
+    numTeams = int(numTeams)
+    brackets = results[4]
+    brackets = eval(brackets)
+    return render_template("bracketView.html", brackets = brackets, numberOfRounds = int(math.log2(numTeams)))

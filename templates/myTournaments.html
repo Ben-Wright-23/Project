@@ -41,14 +41,22 @@
                         <form action = "/tournamentDashboardRedirect" method = "post">
                             <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to tournament</button>
                         </form> 
-
+                        
+                        {% elif i[4] == None %}
+                        <form action = "/teamsInputRedirect" method = "post">
+                            <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to tournament</button>
+                        </form>
+                        
                         {% else %}
-                        <button class = "btn link-dark border disabled mb-3">Go to Tournament</button> 
+                        <form action = "/bracketViewRedirect" method = "post">
+                            <button class = "btn link-dark border my-1" name = "tournamentName" value = "{{i[0]}}">Go to tournament</button>
+                        </form>
                         {% endif %}
                         
                         <form action = "/deleteTournament" method = "post">
                             <button class = "btn link-dark border my-1" name = "deleteTournament" value = "{{i[0]}}">Delete Tournament</button>
                         </form> 
+                        
                     </div>
                 </div>
             </li>

@@ -107,7 +107,7 @@ class DatabaseHandler:
             connection.close()
             return False
         
-    def getBrackets(self,tournamentName):
+    def getTournamentFields(self,tournamentName):
         try:
             connection = sql.connect(self.name)
             cursor = connection.cursor()
