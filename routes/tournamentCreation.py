@@ -252,10 +252,10 @@ def teamsInputRedirect():
     session["Tournament"] = request.form["tournamentName"]
     #sets the Tournament session to be the tournament name value of the tournament that has been clicked on on the myTournaments html page
 
-    # results = db.getTournamentFields(session["Tournament"])
-    # global numTeams
-    # numTeams = results[2]
-    # numTeams = int(numTeams)
+    results = db.getTournamentFields(session["Tournament"])
+    global numTeams
+    numTeams = results[2]
+    numTeams = int(numTeams)
 
     return redirect("/teamsInputPage")
     #redirects the user to the function to load the teams input page
@@ -271,7 +271,7 @@ def bracketViewRedirect():
     results = db.getTournamentFields(session["Tournament"])
     #sets results to be the list of fields from the database for the tournament with the tournament name of the value in the tournament session
 
-    # global numTeams
+    global numTeams
 
     numTeams = results[2]
     #sets numTeams to be the third value from the fields list as this represents that tournament's number of teams
