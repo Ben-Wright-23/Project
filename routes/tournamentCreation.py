@@ -159,7 +159,12 @@ def bracketDisplay():
 def tournamentDashboard():
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
-    return render_template("tournamentDashboard.html", viewCode = generateViewCode())
+    results = db.getTournamentFields(session["Tournament"])
+    viewCode = results[5]
+    viewCode = eval(viewCode)
+    return render_template("tournamentDashboard.html", viewCode = viewCode)
+    #was viewCode = generateViewCode()
+
     #loads the tournamentDashboard html page 
     #loads the page with the view code generated from the generateViewCode function passed in as "viewCode" so it can be displayed to the user
 
