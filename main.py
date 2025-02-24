@@ -5,6 +5,7 @@ from routes.home import homeBlueprint
 from routes.tournamentCreation import creationFormBlueprint, tournamentCreationBlueprint, bracketViewBlueprint, teamsInputPageBlueprint, bracketGenerationBlueprint, teamsInputBlueprint, teamDeletionBlueprint, clearTeamsBlueprint, bracketDisplayBlueprint, tournamentDashboardBlueprint,generateViewCodeBlueprint, myTournamentsPageBlueprint, deleteTournamentBlueprint, tournamentDashboardRedirectBlueprint ,teamsInputRedirectBlueprint, bracketViewRedirectBlueprint
 from routes.dashboardRoute import dashboardBlueprint
 from routes.userManagement import signupBlueprint, createUserBlueprint, authenticateUserBlueprint,logoutBlueprint, deleteUserBlueprint, deleteAccountBlueprint
+from routes.tournamentProgression import liveBracketViewPageBlueprint, fixturesPageBlueprint, scoresInputPageBlueprint
 #####################################################
 
 app = Flask(__name__)
@@ -17,6 +18,7 @@ db = DatabaseHandler("appData.db")
 
 #Routing#############################################
 app.register_blueprint(homeBlueprint)
+
 app.register_blueprint(signupBlueprint)
 app.register_blueprint(createUserBlueprint)
 app.register_blueprint(authenticateUserBlueprint)
@@ -24,6 +26,7 @@ app.register_blueprint(dashboardBlueprint)
 app.register_blueprint(logoutBlueprint)
 app.register_blueprint(deleteUserBlueprint)
 app.register_blueprint(deleteAccountBlueprint)
+
 app.register_blueprint(creationFormBlueprint)
 app.register_blueprint(tournamentCreationBlueprint)
 app.register_blueprint(bracketViewBlueprint)
@@ -40,6 +43,10 @@ app.register_blueprint(deleteTournamentBlueprint)
 app.register_blueprint(tournamentDashboardRedirectBlueprint)
 app.register_blueprint(teamsInputRedirectBlueprint)
 app.register_blueprint(bracketViewRedirectBlueprint)
+
+app.register_blueprint(liveBracketViewPageBlueprint)
+app.register_blueprint(fixturesPageBlueprint)
+app.register_blueprint(scoresInputPageBlueprint)
 
 ######################################################
 app.run(debug = True)
