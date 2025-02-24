@@ -45,8 +45,11 @@ app.register_blueprint(teamsInputRedirectBlueprint)
 app.register_blueprint(bracketViewRedirectBlueprint)
 
 app.register_blueprint(liveBracketViewPageBlueprint)
+#registers the liveBracketViewPageBlueprint in the Flask instance so it can be used when running the program in the web framework
 app.register_blueprint(fixturesPageBlueprint)
+#registers the fixturesPageBlueprint in the Flask instance so it can be used when running the program in the web framework
 app.register_blueprint(scoresInputPageBlueprint)
+#registers the scoresInputPageBlueprint in the Flask instance so it can be used when running the program in the web framework
 
 ######################################################
 app.run(debug = True)
