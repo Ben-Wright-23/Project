@@ -160,12 +160,16 @@ def tournamentDashboard():
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
+    #retrieves all the fields for the current tournament and sets the list retrieved to be results
     viewCode = results[5]
+    #sets viewCode to be the sixth item in the list of current tournament fields as this represents the view code
     viewCode = eval(viewCode)
+    #turns the view code back to its origional string form
     return render_template("tournamentDashboard.html", viewCode = viewCode)
+    #loads the tournamentDashboard html page with the view code for the tournament from the database passed with it to be displayed
     #was viewCode = generateViewCode() and now brac view redirects to genViewCode rather than this function and that redirects here now
 
-    #loads the tournamentDashboard html page 
+    
     #loads the page with the view code generated from the generateViewCode function passed in as "viewCode" so it can be displayed to the user
 
 
@@ -190,7 +194,7 @@ def generateViewCode():
     #Once a unique view code is generated, this line calls the database function to add it to the database, assigning it to the current tournament
 
     return redirect ("/tournamentDashboard")
-    # returns the unique view code
+    # redirect the user to the tournament dashboard page once the view code for the tournament has been added to the database
     
     
 
