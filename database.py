@@ -85,6 +85,9 @@ class DatabaseHandler:
                                     active text,
                                     bracket text,
                                     viewCode text,
+                                    tournamentStartTime text,
+                                    matchDuration text,
+                                    breakLength text,
                                     FOREIGN KEY (username) REFERENCES user(username),
                                     CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                             )''')
@@ -237,3 +240,28 @@ class DatabaseHandler:
         connection.close()
         #close the connection to the database
 
+
+    def addFixtureInfo(self, duration, start,breakLength, tournamentName):
+        #defines checkViewCodes function, with the view code to be added passed in as well as the tournament it should be assigned to
+        try:
+            connection = sql.connect(self.name)
+            #connect to the database
+            connection.execute("""UPDATE tournament 
+                               SET tournamnentStartTime = ?
+                               SET matchDuration = ?
+                               SET breakLength = ?
+                               WHERE tournamentName = ?
+                               """,(start,duration,breakLength,tournamentName))
+            #exectutes the previously designed SQL statement to add the view code to the current tournament
+            connection.commit()
+            #commit the addition of the view code to the database
+            connection.close()
+            #close the connection to the database
+            return True
+            #returns true signifying the viewCode has been added to the current tournament successfully
+        except:
+            #if there has been an error in the SQL statement
+            connection.close()
+            #close the connection to the database
+            return False
+            #returns true signifying the viewCode has not been added to the current tournament successfully

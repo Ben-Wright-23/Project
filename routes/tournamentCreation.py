@@ -165,7 +165,11 @@ def tournamentDashboard():
     #sets viewCode to be the sixth item in the list of current tournament fields as this represents the view code
     viewCode = eval(viewCode)
     #turns the view code back to its origional string form
-    return render_template("tournamentDashboard.html", viewCode = viewCode)
+    if results[6] != None:
+        fixturesInfoInputted="True"
+    else:
+        fixturesInfoInputted="False"
+    return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted= fixturesInfoInputted)
     #loads the tournamentDashboard html page with the view code for the tournament from the database passed with it to be displayed
     #was viewCode = generateViewCode() and now brac view redirects to genViewCode rather than this function and that redirects here now
 

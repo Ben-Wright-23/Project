@@ -12,7 +12,17 @@
 <body>
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
-        <label class = "text-dark mb-3">Fixtures: </label><br>
+        <div class = "border mb-3 p-4" >
+            <p>Match Duration: ...</p>
+            <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                {% for i in tournaments %}
+                <div class="my-1">
+                    <p>Round {{i}} Matches Start time:</p>
+                    <p>Start Time</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
         {% for i in tournaments %}
         <label class = "text-dark mb-3">Round {{i}}:</label>
         <div class = "mb-3">
@@ -20,6 +30,9 @@
             {% for match in tournaments[i] %}
             <li class="list-group-item">
                 <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                    <div class="my-1">
+                        <p>Match {{match}}</p>  
+                    </div>
                     <div class="my-1">
                         <p>Team 1: {{tournaments[i][match][1]}}</p>  
                     </div>

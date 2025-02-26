@@ -46,7 +46,9 @@
       <!-- Creates a centered button to redirect the user to the live bracket view page, which contains scores of matches -->
     </div>
     <div class = "text-center">
-        <p><a class = "btn link-dark border mb-3 w-75" href = "/fixturesPage">Fixtures</a></p>
+        {% if fixtureInfoInputted = "True" %}
+            <p><a class = "btn link-dark border mb-3 w-75" href = "/fixturesPage">Fixtures</a></p>
+        {% endif %}
         <!-- Creates a centered button to redirect the user to the fixtures page, which contains a list of all fixtures used for scheduling -->
     </div>
     <div class = "text-center">
