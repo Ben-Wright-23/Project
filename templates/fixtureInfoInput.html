@@ -12,41 +12,44 @@
 <body>
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
-        <div class = "mb-3">
-            <label class = "form-label text-dark" for = "startTime">Enter the start time of your tournament: </label>
-            <input class = "form-control" type="text" name="startTime" id="startTime" required>
-        </div>
-
-        <div class = "mb-3">
-            <label class = "form-label text-dark" for = "matchDuration">Enter the duration of matches for your tournament: </label>
-            <input class = "form-control" type="text" name="matchDuration" id="matchDuration" required>
-        </div>
-        </div>
-        <div class = "mb-3">
-            <label class = "form-label text-dark" for = "breakLength">Enter the length of breaks between matches for your tournament: </label>
-
-            <label class="form-check-label mx-5" for="5">5 Minutes</label>
-            <input class="form-check-input" type="radio" id="5" name="breakLength" value=5 required><br>
-            
-            
-            <label class="form-check-label mx-5" for="10">10 Minutes</label>
-            <input class="form-check-input" type="radio" id="10" name="breakLength" value=10><br>
         
+        <form action = "/fixtureInfoInput" method = "post">
+            <div class = "mb-3">
+                <label class = "form-label text-dark" for = "startTime">Enter the start time of your tournament (24hr clock): </label>
+                <input class = "form-control" placeholder="eg. 15:00" type="text" name="startTime" id="startTime" required>
+            </div>
 
-            <label class="form-check-label mx-5" for="15">15 Minutes</label>
-            <input class="form-check-input" type="radio" id="15" name="breakLength" value=15><br>
+            <div class = "mb-3">
+                <label class = "form-label text-dark" for = "matchDuration">Enter the duration of matches for your tournament (in mins): </label>
+                <input class = "form-control" placeholder="eg. 20" type="text" name="matchDuration" id="matchDuration" required>
+            </div>
+            
+            <div class = "mb-3">
+                <label class = "form-label text-dark" for = "breakLength">Enter the length of breaks between matches for your tournament: </label><br>
+
+                <label class="form-check-label mx-5" for="5">5 Minutes</label>
+                <input class="form-check-input" type="radio" id="5" name="breakLength" value=5 required><br>
+                
+                
+                <label class="form-check-label mx-5" for="10">10 Minutes</label>
+                <input class="form-check-input" type="radio" id="10" name="breakLength" value=10><br>
+            
+
+                <label class="form-check-label mx-5" for="15">15 Minutes</label>
+                <input class="form-check-input" type="radio" id="15" name="breakLength" value=15><br>
 
 
-            <label class="form-check-label mx-5" for="20">20 Minutes</label>
-            <input class="form-check-input" type="radio" id="20" name="breakLength" value=20>
-        </div>
+                <label class="form-check-label mx-5" for="20">20 Minutes</label>
+                <input class="form-check-input" type="radio" id="20" name="breakLength" value=20>
+            </div>
+            <div>
+                <input class="btn w-100 mb-3 border" id="mybtn" type="submit" value="Confirm">
+            </div>
+        </form>
 
-
-    <div style= "display: flex; justify-content: space-between;">
-        <p><a class = "btn link-dark border " href = "/dashboard">Return to Tournament Dashboard</a></p>  
-        <p><a class = "btn link-dark border  " href = "/bracketView">Generate Brackets</a></p>  
-        <!-- Creates the redirects to the dashboard and bracket viewing pages, while allowing the to be displayed alongside eachother to match my wireframe design -->
-    </div>
+    
+        <p><a class = "btn link-dark border " href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>
+    
     </div>
 </body>
 </html>

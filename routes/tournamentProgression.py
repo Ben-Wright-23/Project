@@ -9,6 +9,7 @@ liveBracketViewPageBlueprint = Blueprint("liveBracketViewPage",__name__)
 scoresInputPageBlueprint = Blueprint("scoresInputPage",__name__)
 #create a flask blueprint for the function to load the scores input page
 fixtureInfoInputBlueprint = Blueprint("fixtureInfoInput",__name__)
+fixtureInfoInputPageBlueprint = Blueprint("fixtureInfoInputPage",__name__)
 
 
 @liveBracketViewPageBlueprint.route("/liveBracketViewPage")
@@ -26,8 +27,10 @@ def fixturesPage():
     results = db.getTournamentFields(session["Tournament"])
     brackets = results[4]
     brackets = eval(brackets)
-
-    return render_template("fixtures.html", tournaments = brackets)
+    startTime = results[6]
+    matchDuration = int(results[7])
+    breakLength = int(results[8])
+    return render_template("fixtures.html", tournaments = brackets, startTime = startTime, matchDuration = matchDuration, breakLength = breakLength)
     #loads the fixtures page
 
 @scoresInputPageBlueprint.route("/scoresInputPage")
@@ -37,7 +40,7 @@ def scoresInputPage():
     return render_template("scoresInput.html")
     #loads the scores input page
 
-@fixtureInfoInputBlueprint.route("/fixtureInfoInput")
+@fixtureInfoInputBlueprint.route("/fixtureInfoInput", methods = ["POST"])
 def fixtureInfoInput():
     db = DatabaseHandler("appData.db")
     startTime = request.form["startTime"]
@@ -45,3 +48,7 @@ def fixtureInfoInput():
     breakLength = request.form["breakLength"]
     db.addFixtureInfo(startTime, matchDuration, breakLength, session["Tournament"])
     return redirect("/fixturesPage")
+
+@fixtureInfoInputPageBlueprint.route("/fixtureInfoInputPage")
+def fixtureInfoInputPage():
+    return render_template("fixtureInfoInput.html")

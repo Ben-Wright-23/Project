@@ -241,16 +241,14 @@ class DatabaseHandler:
         #close the connection to the database
 
 
-    def addFixtureInfo(self, duration, start,breakLength, tournamentName):
+    def addFixtureInfo(self, start, duration, breakLength, tournamentName):
         #defines checkViewCodes function, with the view code to be added passed in as well as the tournament it should be assigned to
         try:
             connection = sql.connect(self.name)
             #connect to the database
             connection.execute("""UPDATE tournament 
-                               SET tournamnentStartTime = ?
-                               SET matchDuration = ?
-                               SET breakLength = ?
-                               WHERE tournamentName = ?
+                               SET tournamentStartTime = ?, matchDuration = ?, breakLength = ?
+                               WHERE tournamentName = ?;
                                """,(start,duration,breakLength,tournamentName))
             #exectutes the previously designed SQL statement to add the view code to the current tournament
             connection.commit()

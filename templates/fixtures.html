@@ -12,17 +12,21 @@
 <body>
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
-        <div class = "border mb-3 p-4" >
-            <p>Match Duration: ...</p>
+        <label class = "text-dark mb-3">Match Information:</label>
+        <ul class = "list-group border mb-3 p-3" >
+            <li class="list-group-item">Match Duration: {{matchDuration}}mins</li>
+            <li class="list-group-item">Break Length: {{breakLength}}mins</li>
             <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                 {% for i in tournaments %}
-                <div class="my-1">
-                    <p>Round {{i}} Matches Start time:</p>
-                    <p>Start Time</p>
-                </div>
+                <li class="list-group-item">
+                    <div class="my-1">
+                        <p>Round {{i}} Matches Start time:</p>
+                        <p>{{startTime}}</p>
+                    </div>
+                </li>
                 {% endfor %}
             </div>
-        </div>
+        </ul>
         {% for i in tournaments %}
         <label class = "text-dark mb-3">Round {{i}}:</label>
         <div class = "mb-3">

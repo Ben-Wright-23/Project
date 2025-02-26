@@ -231,7 +231,11 @@ def tournamentDashboardRedirect():
     #sets viewCode to be the sixth item from this list as represents the tournament's view code
     viewCode = eval(viewCode)
     #turns the view code back to its origional string form
-    return render_template("tournamentDashboard.html", viewCode = viewCode)
+    if results[6] != None:
+        fixturesInfoInputted="True"
+    else:
+        fixturesInfoInputted="False"
+    return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted = fixturesInfoInputted)
     #loads the tournament dashboard, with the specific tournament's view code passed in as viewCode so it can be displayed
 
 
