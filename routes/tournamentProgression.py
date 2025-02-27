@@ -1,5 +1,7 @@
 from flask import Blueprint,render_template, session, request,redirect
 from database import DatabaseHandler
+from datetime import datetime,time,timedelta
+import math
 
 
 fixturesPageBlueprint = Blueprint("fixturesPage",__name__)
@@ -30,7 +32,7 @@ def fixturesPage():
     startTime = results[6]
     matchDuration = int(results[7])
     breakLength = int(results[8])
-    return render_template("fixtures.html", tournaments = brackets, startTime = startTime, matchDuration = matchDuration, breakLength = breakLength)
+    return render_template("fixtures.html", tournaments = brackets, startTime = startTime, matchDuration = matchDuration, breakLength = breakLength, roundStartTimes = roundStartTimes)
     #loads the fixtures page
 
 @scoresInputPageBlueprint.route("/scoresInputPage")
@@ -43,9 +45,26 @@ def scoresInputPage():
 @fixtureInfoInputBlueprint.route("/fixtureInfoInput", methods = ["POST"])
 def fixtureInfoInput():
     db = DatabaseHandler("appData.db")
+    results = db.getTournamentFields(session["Tournament"])
+    numTeams = results[2]
+    numTeams = int(numTeams)
+    numRounds = int(math.log2(numTeams))
     startTime = request.form["startTime"]
     matchDuration = request.form["matchDuration"]
     breakLength = request.form["breakLength"]
+    addedTimePerRound = int(matchDuration)+int(breakLength)
+    userGivenTime = startTime.split(":")
+    hours = int(userGivenTime[0])
+    mins = int(userGivenTime[1])
+    tournamentStartTime = time(hours,mins,0)
+    roundStartTimes = []
+    roundStartTimes.append(str(tournamentStartTime)[:4])
+    newTime = tournamentStartTime
+    for i in range(numRounds):
+        newTime = newTime + timedelta(minutes=float(addedTimePerRound))
+        roundStartTimes.append(str(newTime)[:4])
+
+    print(tournamentStartTime, roundStartTimes)
     db.addFixtureInfo(startTime, matchDuration, breakLength, session["Tournament"])
     return redirect("/fixturesPage")
 
