@@ -25,6 +25,7 @@ def liveBracketViewPage():
 #creates the route for the fixturesPage blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def fixturesPage():
     #defines fixturesPage function for the fixturesPage blueprint
+    session["FixtureInfoInputError"] = ""
     db = DatabaseHandler("appData.db")
     results = db.getTournamentFields(session["Tournament"])
     brackets = results[4]
