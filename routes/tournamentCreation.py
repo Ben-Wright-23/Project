@@ -157,6 +157,7 @@ def bracketDisplay():
 
 @tournamentDashboardBlueprint.route("/tournamentDashboard")
 def tournamentDashboard():
+    session["FixtureInfoInputError"] = ""
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
@@ -221,6 +222,7 @@ def myTournamentsPage():
 #creates the route for the tournamentDashboardRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def tournamentDashboardRedirect():
     #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
+    session["FixtureInfoInputError"] = ""
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     session["Tournament"] = request.form["tournamentName"]

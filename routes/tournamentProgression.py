@@ -54,26 +54,44 @@ def fixtureInfoInput():
     startTime = request.form["startTime"]
     matchDuration = request.form["matchDuration"]
     breakLength = request.form["breakLength"]
-    addedTimePerRound = int(matchDuration)+int(breakLength)
+    if startTime[:2].isdigit() == False or int(startTime[:2])>23 or startTime[-2:].isdigit() == False or int(startTime[-2:])>59 or str(startTime)[2] != ":" or len(startTime)>5:
+        session["FixtureInfoInputError"] = "Entered tournament start time is not in the specified format"
+        return redirect("/fixtureInfoInputPage")
+    elif matchDuration.isdigit() == False:
+        session["FixtureInfoInputError"] = "Entered match duration is not an integer"
+        return redirect("/fixtureInfoInputPage")
+    elif int(matchDuration) > 150:
+        session["FixtureInfoInputError"] = "Entered match duration is too long"
+        return redirect("/fixtureInfoInputPage")
+    elif int(matchDuration) == 0:
+        session["FixtureInfoInputError"] = "Entered match duration is not valid"
+        return redirect("/fixtureInfoInputPage")
 
-    userGivenTime = startTime.split(":")
-    hours = int(userGivenTime[0])
-    mins = int(userGivenTime[1])
-    tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
-    tournamentStartTime = tournamentStartDateTime.time()
+    else:   
+        session["FixtureInfoInputError"] = ""
+        addedTimePerRound = int(matchDuration)+int(breakLength)
 
-    roundStartTimes = []
-    roundStartTimes.append(str(tournamentStartTime)[:5])
-    newTime = tournamentStartDateTime
-    for i in range(numRounds-1):
-        newTime = newTime + timedelta(minutes=addedTimePerRound)
-        newTime = newTime.time()
-        roundStartTimes.append(str(newTime)[:5])
+        userGivenTime = startTime.split(":")
+        hours = int(userGivenTime[0])
+        mins = int(userGivenTime[1])
+        tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
+        tournamentStartTime = tournamentStartDateTime.time()
 
-    db.addFixtureInfo(str(roundStartTimes), matchDuration, breakLength, session["Tournament"])
-    return redirect("/fixturesPage")
+        roundStartTimes = []
+        roundStartTimes.append(str(tournamentStartTime)[:5])
+        newTime = tournamentStartDateTime
+        for i in range(numRounds-1):
+            newTime = newTime + timedelta(minutes=addedTimePerRound)
+            if newTime.day == 2:
+                session["FixtureInfoInputError"] = "Tournament matches must all start on the same day"
+                return redirect("/fixtureInfoInputPage")
+            newTime = newTime.time()
+            roundStartTimes.append(str(newTime)[:5])
+
+        db.addFixtureInfo(str(roundStartTimes), matchDuration, breakLength, session["Tournament"])
+        return redirect("/fixturesPage")
 
 
 @fixtureInfoInputPageBlueprint.route("/fixtureInfoInputPage")
 def fixtureInfoInputPage():
-    return render_template("fixtureInfoInput.html")
+    return render_template("fixtureInfoInput.html", error = session["FixtureInfoInputError"])
