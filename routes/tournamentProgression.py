@@ -29,10 +29,11 @@ def fixturesPage():
     results = db.getTournamentFields(session["Tournament"])
     brackets = results[4]
     brackets = eval(brackets)
-    startTime = results[6]
+    roundStartTimes = results[6]
+    roundStartTimes = eval(roundStartTimes)
     matchDuration = int(results[7])
     breakLength = int(results[8])
-    return render_template("fixtures.html", tournaments = brackets, startTime = startTime, matchDuration = matchDuration, breakLength = breakLength, roundStartTimes = roundStartTimes)
+    return render_template("fixtures.html", tournaments = brackets, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
     #loads the fixtures page
 
 @scoresInputPageBlueprint.route("/scoresInputPage")
@@ -49,24 +50,29 @@ def fixtureInfoInput():
     numTeams = results[2]
     numTeams = int(numTeams)
     numRounds = int(math.log2(numTeams))
+
     startTime = request.form["startTime"]
     matchDuration = request.form["matchDuration"]
     breakLength = request.form["breakLength"]
     addedTimePerRound = int(matchDuration)+int(breakLength)
+
     userGivenTime = startTime.split(":")
     hours = int(userGivenTime[0])
     mins = int(userGivenTime[1])
-    tournamentStartTime = time(hours,mins,0)
-    roundStartTimes = []
-    roundStartTimes.append(str(tournamentStartTime)[:4])
-    newTime = tournamentStartTime
-    for i in range(numRounds):
-        newTime = newTime + timedelta(minutes=float(addedTimePerRound))
-        roundStartTimes.append(str(newTime)[:4])
+    tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
+    tournamentStartTime = tournamentStartDateTime.time()
 
-    print(tournamentStartTime, roundStartTimes)
-    db.addFixtureInfo(startTime, matchDuration, breakLength, session["Tournament"])
+    roundStartTimes = []
+    roundStartTimes.append(str(tournamentStartTime)[:5])
+    newTime = tournamentStartDateTime
+    for i in range(numRounds-1):
+        newTime = newTime + timedelta(minutes=addedTimePerRound)
+        newTime = newTime.time()
+        roundStartTimes.append(str(newTime)[:5])
+
+    db.addFixtureInfo(str(roundStartTimes), matchDuration, breakLength, session["Tournament"])
     return redirect("/fixturesPage")
+
 
 @fixtureInfoInputPageBlueprint.route("/fixtureInfoInputPage")
 def fixtureInfoInputPage():
