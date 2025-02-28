@@ -29,11 +29,7 @@ def creationForm():
     Error = session.get("tournamentCreationError") if session.get("tournamentCreationError") else ""
     return render_template("creationForm.html", error = Error)
     
-
-
 teams = []
-
-
 
 @tournamentCreationBlueprint.route("/tournamentCreation", methods = ["POST"])
 def tournamentCreation():
@@ -59,9 +55,6 @@ def tournamentCreation():
         session["tournamentCreationError"] = "Tournament name already taken"
         return redirect("/creationForm")
         
-
-
-
 @teamsInputPageBlueprint.route("/teamsInputPage")
 def teamsInputPage():
     Error = session.get("teamInputError") if session.get("teamInputError") else ""
@@ -89,7 +82,6 @@ def teamsInput():
         session["teamInputError"] = "Your amount of teams has been reached"
         return redirect("/teamsInputPage")
 
-
 @teamDeletionBlueprint.route("/teamDeletion", methods = ["POST"])
 def teamDeletion():
     toDelete = request.form["teamDeletion"]
@@ -109,8 +101,6 @@ def clearTeams():
     session["Teams"] = teams
     return redirect("/teamsInputPage")
 
-    
-    
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     if len(teams)< numTeams:
@@ -119,8 +109,6 @@ def bracketView():
     else:
         generateBrackets()
         return render_template("bracketView.html", brackets = bracketDisplay(), numberOfRounds = int(math.log2(numTeams)))
-
-
 
 @bracketGenerationBlueprint.route("/bracketGeneration")
 def generateBrackets():
@@ -201,11 +189,6 @@ def generateViewCode():
     return redirect ("/tournamentDashboard")
     # redirect the user to the tournament dashboard page once the view code for the tournament has been added to the database
     
-    
-
-
-    
-
 @myTournamentsPageBlueprint.route("/myTournamentsPage")
 #creates the route for the myTournamentsPage blueprint, allowing it to be accessed easily.
 def myTournamentsPage():
@@ -216,7 +199,6 @@ def myTournamentsPage():
     #sets results to be all of the current user's tournaments, including all the fields in each tournament, formatted as lists within a list
     return render_template("myTournaments.html", tournaments = results)
     #loads the my tournaments html page, with all the current user's tournaements passed in as "tournaments" so they and the fields within them can be displayed
-
 
 @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect", methods = ["POST"])
 #creates the route for the tournamentDashboardRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
@@ -239,7 +221,6 @@ def tournamentDashboardRedirect():
         fixturesInfoInputted="False"
     return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted = fixturesInfoInputted)
     #loads the tournament dashboard, with the specific tournament's view code passed in as viewCode so it can be displayed
-
 
 @deleteTournamentBlueprint.route("/deleteTournament", methods = ["POST"])
 #creates the route for the deleteTournament blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
