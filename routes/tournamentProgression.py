@@ -80,13 +80,13 @@ def fixtureInfoInput():
 
         roundStartTimes = []
         roundStartTimes.append(str(tournamentStartTime)[:5])
-        newTime = tournamentStartDateTime
+        newDateTime = tournamentStartDateTime
         for i in range(numRounds-1):
-            newTime = newTime + timedelta(minutes=addedTimePerRound)
-            if newTime.day == 2:
+            newDateTime = newDateTime + timedelta(minutes=addedTimePerRound)
+            if newDateTime.day == 2:
                 session["FixtureInfoInputError"] = "Tournament matches must all start on the same day"
                 return redirect("/fixtureInfoInputPage")
-            newTime = newTime.time()
+            newTime = newDateTime.time()
             roundStartTimes.append(str(newTime)[:5])
 
         db.addFixtureInfo(str(roundStartTimes), matchDuration, breakLength, session["Tournament"])
