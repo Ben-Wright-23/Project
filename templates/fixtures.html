@@ -12,7 +12,7 @@
 <body>
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
-        <label class = "text-dark mb-3">Fixture Information:</label>
+        <!-- <label class = "text-dark mb-3">Fixture Information:</label>
         <ul class = "list-group border mb-3 p-3" >
             <li class="list-group-item">
                 <p>Match Total Duration (including halftime): </p>
@@ -32,14 +32,14 @@
                 </li>
                 {% endfor %}
             </div>
-        </ul>
+        </ul> -->
         {% for i in tournaments %}
         <label class = "text-dark mb-3">Round {{i}} Fixtures:</label>
         <div class = "mb-3">
             <ul class="list-group">
                 {% for match in tournaments[i] %}
                 <li class="list-group-item">
-                    <div style= "display: flex; justify-content: space-between;" class = "mx-3 mr-5">
+                    <div style= "display: flex; justify-content: space-between;" class = "mx-3">
                         <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                             <div class="my-1">
                                 <p>Match {{match}}</p>  
@@ -50,6 +50,10 @@
                             <div class="my-1">
                                 <p>Team 2: {{tournaments[i][match][2]}}</p>
                             </div>
+                        </div>
+                        <div class="p-3 mt-3">
+                            <p>Total Match Duration (incl HT): </p>
+                            <p>{{matchDuration}} Minutes </p>
                         </div>
                         <div class = "p-3 mt-3">
                             <p>Start Time:</p>
