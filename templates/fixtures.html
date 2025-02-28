@@ -12,32 +12,11 @@
 <body>
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
-        <!-- <label class = "text-dark mb-3">Fixture Information:</label>
-        <ul class = "list-group border mb-3 p-3" >
-            <li class="list-group-item">
-                <p>Match Total Duration (including halftime): </p>
-                <p>{{matchDuration}} Minutes </p>
-            </li>
-            <li class="list-group-item">
-                <p>Break length between matches: </p>
-                <p>{{breakLength}} Minutes</p>
-            </li>
-            <div style= "display: flex; justify-content: space-between; flex-direction: column;">
-                {% for i in tournaments %}
-                <li class="list-group-item">
-                    <div class="my-1">
-                        <p>Round {{i}} Matches Start time:</p>
-                        <p>{{roundStartTimes[i-1]}}</p>
-                    </div>
-                </li>
-                {% endfor %}
-            </div>
-        </ul> -->
-        {% for i in tournaments %}
+        {% for i in tournament %}
         <label class = "text-dark mb-3">Round {{i}} Fixtures:</label>
         <div class = "mb-3">
             <ul class="list-group">
-                {% for match in tournaments[i] %}
+                {% for match in tournament[i] %}
                 <li class="list-group-item">
                     <div style= "display: flex; justify-content: space-between;" class = "mx-3">
                         <div style= "display: flex; justify-content: space-between; flex-direction: column;">
@@ -45,10 +24,10 @@
                                 <p>Match {{match}}</p>  
                             </div>
                             <div class="my-1">
-                                <p>Team 1: {{tournaments[i][match][1]}}</p>  
+                                <p>Team 1: {{tournament[i][match][1]}}</p>  
                             </div>
                             <div class="my-1">
-                                <p>Team 2: {{tournaments[i][match][2]}}</p>
+                                <p>Team 2: {{tournament[i][match][2]}}</p>
                             </div>
                         </div>
                         <div class="p-3 mt-3">

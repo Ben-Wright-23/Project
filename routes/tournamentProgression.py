@@ -34,7 +34,7 @@ def fixturesPage():
     roundStartTimes = eval(roundStartTimes)
     matchDuration = int(results[7])
     breakLength = int(results[8])
-    return render_template("fixtures.html", tournaments = brackets, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
+    return render_template("fixtures.html", tournament = brackets, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
     #loads the fixtures page
 
 @scoresInputPageBlueprint.route("/scoresInputPage")
@@ -75,18 +75,21 @@ def fixtureInfoInput():
         userGivenTime = startTime.split(":")
         hours = int(userGivenTime[0])
         mins = int(userGivenTime[1])
-        tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
-        tournamentStartTime = tournamentStartDateTime.time()
+        # tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
+        # tournamentStartTime = tournamentStartDateTime.time()
+        tournamentStartTime = datetime(hours,mins,0)
 
         roundStartTimes = []
         roundStartTimes.append(str(tournamentStartTime)[:5])
-        newDateTime = tournamentStartDateTime
+        # newDateTime = tournamentStartDateTime
+        newTime = tournamentStartTime
         for i in range(numRounds-1):
-            newDateTime = newDateTime + timedelta(minutes=addedTimePerRound)
-            if newDateTime.day == 2:
-                session["FixtureInfoInputError"] = "Tournament matches must all start on the same day"
-                return redirect("/fixtureInfoInputPage")
-            newTime = newDateTime.time()
+            newTime = newTime + timedelta(minutes=addedTimePerRound)
+            # newDateTime = newDateTime + timedelta(minutes=addedTimePerRound)
+            # if newDateTime.day == 2:
+            #     session["FixtureInfoInputError"] = "Tournament matches must all start on the same day"
+            #     return redirect("/fixtureInfoInputPage")
+            # newTime = newDateTime.time()
             roundStartTimes.append(str(newTime)[:5])
 
         db.addFixtureInfo(str(roundStartTimes), matchDuration, breakLength, session["Tournament"])
