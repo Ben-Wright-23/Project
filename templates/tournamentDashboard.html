@@ -48,13 +48,15 @@
     {% if fixturesInfoInputted == "True" %}
     <div class = "text-center">
         <p><a class = "btn link-dark border mb-3 w-75" href = "/fixturesPage">Fixtures</a></p>
+        <!-- If the fixture information has already been inputted, this creates a centered button to redirect the user to the fixtures page, which contains a list of all fixtures used for scheduling -->
     </div>
     {% else %}
     <div class = "text-center">
         <p><a class = "btn link-dark border mb-3 w-75" href = "/fixtureInfoInputPage">Fixtures</a></p>
+        <!-- If the fixture information has not already been inputted, this creates a centered button to redirect the user to the fixtures information input page page, which contains a form to be filled out so the fixtures page can be generated -->
     </div>
     {% endif %}
-        <!-- Creates a centered button to redirect the user to the fixtures page, which contains a list of all fixtures used for scheduling -->
+        
     
     <div class = "text-center">
         <p><a class = "btn link-dark border mb-3 w-75" href = "/scoresInputPage">Scores Input</a></p>  

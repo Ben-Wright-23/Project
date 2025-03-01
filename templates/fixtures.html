@@ -4,39 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixtures</title>
+    <!-- Title for the page -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
+    <!-- Imports bootsrap CSS module -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Imports bootsrap Javascript module -->
 </head>
 <body>
     <div class = "container border p-5 w-50">
+        <!-- Contains all the contents in a box with 5 padding to make it fit screeens well and look simplistic -->
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
+        <!-- Creates main heading for the page, centered and a margin below so is emphasised -->
         {% for i in tournament %}
+        <!-- will repeat the contents for evry round in the tournament in turn -->
         <label class = "text-dark mb-3">Round {{i}} Fixtures:</label>
+        <!-- Creates a label for list of fixtures for this round, with this round's number displayed in the label -->
         <div class = "mb-3">
+            <!-- Creates a division for the list of fixtures for this round -->
             <ul class="list-group">
+                <!-- Creates an unordered list to contain each match in the round and details of each match, bootstrap list-group class creates simplistic style -->
                 {% for match in tournament[i] %}
+                <!-- Content repeats for each match in the currently being dealt with round -->
                 <li class="list-group-item">
+                    <!-- Creates the list item for each match in the round in turn, bootstrap list-group-item class creates simplistic style -->
                     <div style= "display: flex; justify-content: space-between;" class = "mx-3">
+                        <!-- Creates a division for each match in the round in turn, in which each item will be displayed evenly spaced horizontally across the division -->
                         <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                            <!-- Creates a division for the teams part of each match in the round in turn's details, in which each item will be displayed evenly spaced vertically through the division -->
                             <div class="my-1">
                                 <p>Match {{match}}</p>  
+                                <!-- Displays a label for each match in the round in turn, stating its number in the sequence of matches for this round -->
                             </div>
                             <div class="my-1">
                                 <p>Team 1: {{tournament[i][match][1]}}</p>  
+                                <!-- Displays and labels the first team in each match in the round in turn, taken from the bracket stored in the database -->
                             </div>
                             <div class="my-1">
                                 <p>Team 2: {{tournament[i][match][2]}}</p>
+                                <!-- Displays and labels the second team in each match in the round in turn, taken from the bracket stored in the database -->
                             </div>
                         </div>
                         <div class="p-3 mt-3">
                             <p>Total Match Duration (incl HT): </p>
                             <p>{{matchDuration}} Minutes </p>
+                            <!-- Displays and labels the match duration of each match for this tournament, in the center of the match division -->
                         </div>
                         <div class = "p-3 mt-3">
                             <p>Start Time:</p>
                             <p>{{roundStartTimes[i-1]}}</p>
+                            <!-- Displays and labels the start time of each match in each round in turn, on the right of the match division -->
+                            <!-- i-1 because the list works from 0 while the rounds in the tournament work from 1 -->
                         </div>
                     </div>
                 </li>
@@ -48,6 +67,7 @@
         
         <div class = "text-center mb-3">
             <p><a class = "btn link-dark border mb-3 w-50" href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
+            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the fixtures list -->
         </div>
     </div>
 </body>

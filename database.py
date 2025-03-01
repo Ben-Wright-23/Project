@@ -242,7 +242,7 @@ class DatabaseHandler:
 
 
     def addFixtureInfo(self, startTimes, duration, breakLength, tournamentName):
-        #defines checkViewCodes function, with the view code to be added passed in as well as the tournament it should be assigned to
+        #defines addFixtureInfo function, with the round start times, match duration and break length to be added passed in as well as the tournament they should be assigned to
         try:
             connection = sql.connect(self.name)
             #connect to the database
@@ -250,16 +250,16 @@ class DatabaseHandler:
                                SET roundStartTimes = ?, matchDuration = ?, breakLength = ?
                                WHERE tournamentName = ?;
                                """,(startTimes,duration,breakLength,tournamentName))
-            #exectutes the previously designed SQL statement to add the view code to the current tournament
+            #exectutes the previously designed SQL statement to add the round start times, match duration and break length to the current tournament
             connection.commit()
-            #commit the addition of the view code to the database
+            #commit the addition of the round start times, match duration and break length to the database
             connection.close()
             #close the connection to the database
             return True
-            #returns true signifying the viewCode has been added to the current tournament successfully
+            #returns true signifying the round start times, match duration and break length have been added to the current tournament successfully
         except:
             #if there has been an error in the SQL statement
             connection.close()
             #close the connection to the database
             return False
-            #returns true signifying the viewCode has not been added to the current tournament successfully
+            #returns true signifying the round start times, match duration and break length have not been added to the current tournament successfully

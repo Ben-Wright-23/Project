@@ -146,6 +146,7 @@ def bracketDisplay():
 @tournamentDashboardBlueprint.route("/tournamentDashboard")
 def tournamentDashboard():
     session["FixtureInfoInputError"] = ""
+    #defines the FixtureInfoInputError session or clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
@@ -155,15 +156,16 @@ def tournamentDashboard():
     viewCode = eval(viewCode)
     #turns the view code back to its origional string form
     if results[6] != None:
+        #if the seventh item of results is not None, this signifies the fixture information for the tournament has already been inputted
         fixturesInfoInputted="True"
+        #sets fixturesInfoInputted to be True to signify the fixture information for the tournament has already been inputted so the fixtures page should be loaded if the Fixtures button is pressed on the tournament dashboard
     else:
+        #if the seventh item of results is None, this signifies the fixture information for the tournament has not already been inputted
         fixturesInfoInputted="False"
+        #sets fixturesInfoInputted to be False to signify the fixture information for the tournament has not already been inputted so the fixture info input page should be loaded if the Fixtures button is pressed on the tournament dashboard
     return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted= fixturesInfoInputted)
     #loads the tournamentDashboard html page with the view code for the tournament from the database passed with it to be displayed
-    #was viewCode = generateViewCode() and now brac view redirects to genViewCode rather than this function and that redirects here now
-
-    
-    #loads the page with the view code generated from the generateViewCode function passed in as "viewCode" so it can be displayed to the user
+    #also passes in whether the fixture information has been inputted yet so the program can choose whether the fixture info input page should be loaded or the fixtures page should be loaded when the Fixtures button is pressed
 
 
 @generateViewCodeBlueprint.route("/generateViewCode")
@@ -203,8 +205,9 @@ def myTournamentsPage():
 @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect", methods = ["POST"])
 #creates the route for the tournamentDashboardRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def tournamentDashboardRedirect():
-    #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
+    #defines the FixtureInfoInputError session or defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
     session["FixtureInfoInputError"] = ""
+    #clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     session["Tournament"] = request.form["tournamentName"]
@@ -216,11 +219,16 @@ def tournamentDashboardRedirect():
     viewCode = eval(viewCode)
     #turns the view code back to its origional string form
     if results[6] != None:
+        #if the seventh item of results is not None, this signifies the fixture information for the tournament has already been inputted 
         fixturesInfoInputted="True"
+        #sets fixturesInfoInputted to be True to signify the fixture information for the tournament has already been inputted so the fixtures page should be loaded if the Fixtures button is pressed on the tournament dashboard
     else:
+        #if the seventh item of results is None, this signifies the fixture information for the tournament has not already been inputted
         fixturesInfoInputted="False"
+        #sets fixturesInfoInputted to be False to signify the fixture information for the tournament has not already been inputted so the fixture info input page should be loaded if the Fixtures button is pressed on the tournament dashboard
     return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted = fixturesInfoInputted)
     #loads the tournament dashboard, with the specific tournament's view code passed in as viewCode so it can be displayed
+    #also passes in whether the fixture information has been inputted yet so the program can choose whether the fixture info input page should be loaded or the fixtures page should be loaded when the Fixtures button is pressed
 
 @deleteTournamentBlueprint.route("/deleteTournament", methods = ["POST"])
 #creates the route for the deleteTournament blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
