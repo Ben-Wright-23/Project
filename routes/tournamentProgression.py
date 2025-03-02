@@ -4,6 +4,7 @@ from datetime import time, timedelta
 #imports the time and time delta functions from the datetime module so times the fixtures can add set lengths of times to a time
 #datetime,
 import math
+#to allow log2 to be used to calculate the number of rounds in the tournament
 
 
 fixturesPageBlueprint = Blueprint("fixturesPage",__name__)

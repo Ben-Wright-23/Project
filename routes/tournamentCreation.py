@@ -205,9 +205,9 @@ def myTournamentsPage():
 @tournamentDashboardRedirectBlueprint.route("/tournamentDashboardRedirect", methods = ["POST"])
 #creates the route for the tournamentDashboardRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def tournamentDashboardRedirect():
-    #defines the FixtureInfoInputError session or defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
+    #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
     session["FixtureInfoInputError"] = ""
-    #clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
+    #defines the FixtureInfoInputError session or clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     session["Tournament"] = request.form["tournamentName"]
