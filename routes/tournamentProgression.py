@@ -1,8 +1,7 @@
 from flask import Blueprint,render_template, session, request,redirect
 from database import DatabaseHandler
-from datetime import time, timedelta
+from datetime import time, timedelta, datetime
 #imports the time and time delta functions from the datetime module so times the fixtures can add set lengths of times to a time
-#datetime,
 import math
 #to allow log2 to be used to calculate the number of rounds in the tournament
 
@@ -79,11 +78,8 @@ def fixtureInfoInput():
     #takes the entered match duration sent from the fixtureInfoInput page(the client) to the server, using the form input with name "matchDuration".
     breakLength = request.form["breakLength"]
     #takes the entered break length sent from the fixtureInfoInput page(the client) to the server, using the form input with name "breakLength".
-    if startTime[:2].isdigit() == False or int(startTime[:2])>23 or startTime[-2:].isdigit() == False or int(startTime[-2:])>59 or str(startTime)[2] != ":":
+    if startTime[:2].isdigit() == False or int(startTime[:2])>23 or startTime[-2:].isdigit() == False or int(startTime[-2:])>59 or str(startTime)[2] != ":" or len(startTime)>5:
         #checks if the start time is in 24-hour clock format
-
-        # or len(startTime)>5
-
         session["FixtureInfoInputError"] = "Entered tournament start time is not in the specified format"
         #if the start time is not in 24-hour clock format, there is an error so this session is set to this message to be displayed to the user so they can identify what they need to change with their inputs
         return redirect("/fixtureInfoInputPage")
@@ -121,37 +117,30 @@ def fixtureInfoInput():
         mins = int(userGivenTime[1])
         #sets the minutes part of the start time to be this value from the given time from the user
 
-        # tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
+        tournamentStartDateTime = datetime(2000,1,1,hours,mins,0)
         #sets tournamentStartDateTime to be the datetime value of what the user entered for the tournament start time, with placeholder values for the day, month, year and seconds
-        # tournamentStartTime = tournamentStartDateTime.time()
+        tournamentStartTime = tournamentStartDateTime.time()
         #sets tournamentStartTime to be the time function from the datetime module of the datetime format of the user's entered tournament start time, making it the 24-hour clock time the user entered with 0 seconds in the time format from the datetime module
-
-        tournamentStartTime = time(hours,mins,0)
-        #makes the tournament start time the 24-hour clock time the user entered with 0 seconds in the time format from the datetime module
 
         roundStartTimes = []
         #creates an empty list for the start times of each round of matches
         roundStartTimes.append(str(tournamentStartTime)[:5])
         #adds the hours and minutes part or the tournament start time to the list of round start times
 
-        # newDateTime = tournamentStartDateTime
-
-        newTime = tournamentStartTime
+        newDateTime = tournamentStartDateTime
         #sets newTime to be the start time of the tournament, so this variable can be used to calculate the start times of the next round(s)
         for i in range(numRounds-1):
             #loops the content numRounds - 1 times as the start time for each round will be calculated and added to the list except the first round's start time as this has already been added before the loop
-            newTime = newTime + timedelta(minutes=addedTimePerRound)
+            newDateTime = newDateTime + timedelta(minutes=addedTimePerRound)
             #sets new time to the the time of the round before + the gap between start times calculated by adding the match duration and length of breaks betweeen matches
-
-            # newDateTime = newDateTime + timedelta(minutes=addedTimePerRound)
-            
-            # if newDateTime.day == 2:
+        
+            if newDateTime.day == 2:
                 # checks if the new round start time will occur on the next day
-            #     session["FixtureInfoInputError"] = "Tournament matches must all start on the same day"
+                session["FixtureInfoInputError"] = "Tournament matches must all start on the same day"
                 # if it does occur on the next day, there is an error as matches should start on the same day so this session is set to this message to be displayed to the user so they can identify what they need to change with their inputs
-            #     return redirect("/fixtureInfoInputPage")
+                return redirect("/fixtureInfoInputPage")
             #redirects the user to the function to load the fixture info input page with this error displayed
-            # newTime = newDateTime.time()
+            newTime = newDateTime.time()
             #sets newTime to be the time function version of the full datetime version of the new round's start time so the 24-hour clock time can be extracted
             
             roundStartTimes.append(str(newTime)[:5])
