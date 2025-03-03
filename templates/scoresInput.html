@@ -13,7 +13,7 @@
     <div class = "container border p-5 w-50">
         <h1 class = "display-4 text-center mb-5 text-dark">Scores Input</h1>
         {% for i in tournament %}
-        <label class = "text-dark mb-3">Round {{i}}:</label>
+        <p class = "text-dark mb-3">Round {{i}}:</p>
         <div class = "mb-3">
             <ul class="list-group">
                 {% for match in tournament[i] %}
@@ -22,29 +22,30 @@
                         <div class="my-1">
                             <p>Match {{match}}</p>
                         </div>
-                        <div class="my-1">
-                            <p>{{tournament[i][match][1]}}:</p>
-                            <form action="/scoresInput">
-                                <div style= "display: flex; justify-content: space-between;" class = "mx-3">
-                                    <input type="number" id="score{{i}}{{match}}{{1}}" name="score{{i}}{{match}}{{1}}" min="0">
-                                    <input class="btn border" type="submit" value="Submit Score">
+                        <form action="/scoresInput">
+                            <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                                <div style= "display: flex; justify-content: flex-start;">
+                                    <p class ="mx-3" >{{tournament[i][match][1]}}:</p>
+                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score{{i}}{{match}}{{1}}" name="score{{i}}{{match}}{{1}}" min="0">
                                 </div>
-                            </form>
-                        </div>
-                        <div class="my-1">
-                                <form action="/scoresInput">
-                                    <label class = "form-label text-dark" for = "score{{i}}{{match}}{{2}}">{{tournament[i][match][2]}}:</label>
-                                    <div style= "display: flex; justify-content: space-between;" class = "mx-3">
-                                        <input type="number" id="score{{i}}{{match}}{{2}}" name="score{{i}}{{match}}{{2}}" min="0">
-                                        <input class="btn border" type="submit" value="Submit Score">
-                                    </div>
-                                </form> 
-                        </div>
+                                <div style= "display: flex; justify-content: flex-start;">
+                                    <p class ="mx-3">{{tournament[i][match][2]}}:</p>
+                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score{{i}}{{match}}{{2}}" name="score{{i}}{{match}}{{2}}" min="0">
+                                </div>
+                                <input class="btn border btn-sm" type="submit" value="Submit Scores">
+                            </div>
+                        </form> 
                     </div>
                 </li>
                 {% endfor %}
             </ul>
+            
         </div>
         {% endfor %}
+        <div class = "text-center mb-3">
+            <p><a class = "btn link-dark border mb-3 w-50" href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
+            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the fixtures list -->
+        </div>
+    </div>
 </body>
 </html>
