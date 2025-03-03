@@ -183,7 +183,22 @@ def scoresInput():
     #turns the brackets back to their origional dictionary form
     team1Score = request.form["score1"]
     team2Score = request.form["score2"]
-    Match = request.form["match"]
-    print(team1Score, team2Score, Match)
+    roundMatch = request.form["match"]
+    roundMatch = roundMatch.split(",")
+    round = int(roundMatch[0])
+    match = int(roundMatch[1])
+    team1 = brackets[round][match][1]
+    team2 = brackets[round][match][2]
+    teamScore1 = []
+    teamScore1.append(team1)
+    teamScore1.append(team1Score)
+    teamScore2 = []
+    teamScore2.append(team2)
+    teamScore2.append(team2Score)
+    matchScores = brackets
+    matchScores[round][match][1] = teamScore1
+    matchScores[round][match][2] = teamScore2
+    print(matchScores)
+    db.addMatchScores(str(matchScores), session["Tournament"])
     return redirect("/scoresInputPage")
 
