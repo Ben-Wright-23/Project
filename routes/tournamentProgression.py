@@ -54,7 +54,15 @@ def fixturesPage():
 #creates the route for the scoresInputPage blueprint, allowing it to be accessed easily.
 def scoresInputPage():
     #defines scoresInputPage function for the scoresInputPage blueprint
-    return render_template("scoresInput.html")
+    db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
+    results = db.getTournamentFields(session["Tournament"])
+    #sets results to be the list of fields from the database for the current tournament 
+    brackets = results[4]
+    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
+    brackets = eval(brackets)
+    #turns the brackets back to their origional dictionary form
+    return render_template("scoresInput.html", tournament = brackets)
     #loads the scores input page
 
 @fixtureInfoInputBlueprint.route("/fixtureInfoInput", methods = ["POST"])

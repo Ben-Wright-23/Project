@@ -11,7 +11,40 @@
 </head>
 <body>
     <div class = "container border p-5 w-50">
-    <h1 class = "display-4 text-center mb-5 text-dark">Scores Input</h1>
-
+        <h1 class = "display-4 text-center mb-5 text-dark">Scores Input</h1>
+        {% for i in tournament %}
+        <label class = "text-dark mb-3">Round {{i}}:</label>
+        <div class = "mb-3">
+            <ul class="list-group">
+                {% for match in tournament[i] %}
+                <li class="list-group-item">
+                    <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                        <div class="my-1">
+                            <p>Match {{match}}</p>
+                        </div>
+                        <div class="my-1">
+                            <p>{{tournament[i][match][1]}}:</p>
+                            <form action="/scoresInput">
+                                <div style= "display: flex; justify-content: space-between;" class = "mx-3">
+                                    <input type="number" id="score{{i}}{{match}}{{1}}" name="score{{i}}{{match}}{{1}}" min="0">
+                                    <input class="btn border" type="submit" value="Submit Score">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="my-1">
+                                <form action="/scoresInput">
+                                    <label class = "form-label text-dark" for = "score{{i}}{{match}}{{2}}">{{tournament[i][match][2]}}:</label>
+                                    <div style= "display: flex; justify-content: space-between;" class = "mx-3">
+                                        <input type="number" id="score{{i}}{{match}}{{2}}" name="score{{i}}{{match}}{{2}}" min="0">
+                                        <input class="btn border" type="submit" value="Submit Score">
+                                    </div>
+                                </form> 
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
 </body>
 </html>
