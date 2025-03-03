@@ -22,24 +22,24 @@
                         <div class="my-1">
                             <p>Match {{match}}</p>
                         </div>
-                        <form action="/scoresInput">
+                        <form action="/scoresInput" method = "post">
                             <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                                 <div style= "display: flex; justify-content: flex-start;">
                                     <p class ="mx-3" >{{tournament[i][match][1]}}:</p>
-                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score{{i}}{{match}}{{1}}" name="score{{i}}{{match}}{{1}}" min="0">
+                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score1" name="score1" min="0" value = "{{[i][match]}}">
                                 </div>
                                 <div style= "display: flex; justify-content: flex-start;">
                                     <p class ="mx-3">{{tournament[i][match][2]}}:</p>
-                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score{{i}}{{match}}{{2}}" name="score{{i}}{{match}}{{2}}" min="0">
+                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score2" name="score2" min="0" value = "{{[i][match]}}">
+                                    
                                 </div>
-                                <input class="btn border btn-sm" type="submit" value="Submit Scores">
+                                <input class="btn border btn-sm" type="submit" value="Submit Score">
                             </div>
-                        </form> 
+                        </form>
                     </div>
                 </li>
                 {% endfor %}
             </ul>
-            
         </div>
         {% endfor %}
         <div class = "text-center mb-3">

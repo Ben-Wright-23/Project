@@ -16,6 +16,7 @@ fixtureInfoInputBlueprint = Blueprint("fixtureInfoInput",__name__)
 #create a flask blueprint for the function to load hhandle the user inputs to the fixture info input page and add the calculated fixture information to the database
 fixtureInfoInputPageBlueprint = Blueprint("fixtureInfoInputPage",__name__)
 #create a flask blueprint for the function to load the fixture info input page
+scoresInputBlueprint = Blueprint("scoresInput",__name__)
 
 
 @liveBracketViewPageBlueprint.route("/liveBracketViewPage")
@@ -166,3 +167,21 @@ def fixtureInfoInputPage():
     #defines fixtureInfoInputPage function for the fixtureInfoInputPage blueprint
     return render_template("fixtureInfoInput.html", error = session["FixtureInfoInputError"])
     #loads the Fixture Info Input html page, with any errors occured when completing the form on this page passed in to be displayed 
+
+
+@scoresInputBlueprint.route("/scoresInput", methods = ["POST"])
+#creates the route for the scoresInput blueprint, allowing it to be accessed easily.
+def scoresInput():
+    #defines scoresInput function for the scoresInput blueprint
+    db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
+    results = db.getTournamentFields(session["Tournament"])
+    #sets results to be the list of fields from the database for the current tournament 
+    brackets = results[4]
+    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
+    brackets = eval(brackets)
+    #turns the brackets back to their origional dictionary form
+    team1Score = request.form["score1"]
+    team2Score = request.form["score2"]
+    print(team1Score, team2Score)
+    return redirect("/scoresInputPage")
