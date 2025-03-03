@@ -24,6 +24,7 @@
                         </div>
                         
                         {% if (matchScores[round][match][1]) is string %}
+                        <!-- if type(matchScores[round][match][1]) is not list -->
                         <form action="/scoresInput" method = "post">
                             <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                                 <div style= "display: flex; justify-content: flex-start;">
