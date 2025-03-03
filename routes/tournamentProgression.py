@@ -176,12 +176,14 @@ def scoresInput():
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournamentFields(session["Tournament"])
-    #sets results to be the list of fields from the database for the current tournament 
+    #sets results to be the list of fields from the database for the current tournament
     brackets = results[4]
     #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
     brackets = eval(brackets)
     #turns the brackets back to their origional dictionary form
     team1Score = request.form["score1"]
     team2Score = request.form["score2"]
-    print(team1Score, team2Score)
+    Match = request.form["match"]
+    print(team1Score, team2Score, Match)
     return redirect("/scoresInputPage")
+
