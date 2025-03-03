@@ -130,9 +130,9 @@ class DatabaseHandler:
         try:
             connection = sql.connect(self.name)
             connection.execute("""UPDATE tournament 
-                               SET bracket = ?
+                               SET bracket = ?, matchScores = ?
                                WHERE tournamentName = ?
-                               """,(bracket, tournamentName))
+                               """,(bracket, bracket, tournamentName))
             connection.commit()
             connection.close()
             return True
@@ -279,13 +279,11 @@ class DatabaseHandler:
             #commit the addition of the round start times, match duration and break length to the database
             connection.close()
             #close the connection to the database
-            print("working")
             return True
             #returns true signifying the round start times, match duration and break length have been added to the current tournament successfully
         except:
             #if there has been an error in the SQL statement
             connection.close()
             #close the connection to the database
-            print("Error")
             return False
             #returns true signifying the round start times, match duration and break length have not been added to the current tournament successfully

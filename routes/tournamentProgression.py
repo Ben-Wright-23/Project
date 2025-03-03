@@ -63,7 +63,10 @@ def scoresInputPage():
     #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
     brackets = eval(brackets)
     #turns the brackets back to their origional dictionary form
-    return render_template("scoresInput.html", tournament = brackets)
+    matchScores = results[9]
+    matchScores = eval(matchScores)
+
+    return render_template("scoresInput.html", tournament = brackets, matchScores = matchScores)
     #loads the scores input page
 
 @fixtureInfoInputBlueprint.route("/fixtureInfoInput", methods = ["POST"])
@@ -195,10 +198,10 @@ def scoresInput():
     teamScore2 = []
     teamScore2.append(team2)
     teamScore2.append(team2Score)
-    matchScores = brackets
+    matchScores = eval(results[9])
+    #matchScores = brackets --> could not have multiple disabled --> added this + cahnged addBracket database function
     matchScores[round][match][1] = teamScore1
     matchScores[round][match][2] = teamScore2
-    print(matchScores)
     db.addMatchScores(str(matchScores), session["Tournament"])
     return redirect("/scoresInputPage")
 

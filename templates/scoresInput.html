@@ -22,19 +22,50 @@
                         <div class="my-1">
                             <p>Match {{match}}</p>
                         </div>
+                        
+                        {% if (matchScores[round][match][1]) is string %}
                         <form action="/scoresInput" method = "post">
                             <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                                 <div style= "display: flex; justify-content: flex-start;">
                                     <p class ="mx-3" >{{tournament[round][match][1]}}:</p>
-                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score1" name="score1" min="0">
+                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score1" name="score1" min="0" required>
                                 </div>
                                 <div style= "display: flex; justify-content: flex-start;">
                                     <p class ="mx-3">{{tournament[round][match][2]}}:</p>
-                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score2" name="score2" min="0">
+                                    <input style = "width: 40px;" class = "mb-3" type="number" id="score2" name="score2" min="0" required>
                                 </div>
                                 <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}">Submit Score</button>
                             </div>
                         </form>
+                        {% elif (matchScores[round][match][1]) == None %}
+                        <form action="/scoresInput" method = "post">
+                            <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                                <div style= "display: flex; justify-content: flex-start;">
+                                    <p class ="mx-3" >{{tournament[round][match][1]}}:</p>
+                                    <input style = "width: 40px;" class = "mb-3" disabled>
+                                </div>
+                                <div style= "display: flex; justify-content: flex-start;">
+                                    <p class ="mx-3">{{tournament[round][match][2]}}:</p>
+                                    <input style = "width: 40px;" class = "mb-3" disabled>
+                                </div>
+                                <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}" disabled>Submit Score</button>
+                            </div>
+                        </form>
+                        {% else %}
+                        <form action="/scoresInput" method = "post">
+                            <div style= "display: flex; justify-content: space-between; flex-direction: column;">
+                                <div style= "display: flex; justify-content: flex-start;">
+                                    <p class ="mx-3" >{{tournament[round][match][1]}}:</p>
+                                    <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][1][1]}}" disabled>
+                                </div>
+                                <div style= "display: flex; justify-content: flex-start;">
+                                    <p class ="mx-3">{{tournament[round][match][2]}}:</p>
+                                    <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][2][1]}}" disabled>
+                                </div>
+                                <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}" disabled>Submit Score</button>
+                            </div>
+                        </form>
+                        {% endif %}
                     </div>
                 </li>
                 {% endfor %}
