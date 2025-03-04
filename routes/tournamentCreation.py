@@ -147,6 +147,7 @@ def bracketDisplay():
 def tournamentDashboard():
     session["FixtureInfoInputError"] = ""
     #defines the FixtureInfoInputError session or clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
+    session["scoreInputError"] = ""
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
@@ -208,6 +209,7 @@ def tournamentDashboardRedirect():
     #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
     session["FixtureInfoInputError"] = ""
     #defines the FixtureInfoInputError session or clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
+    session["scoreInputError"] = ""
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     session["Tournament"] = request.form["tournamentName"]

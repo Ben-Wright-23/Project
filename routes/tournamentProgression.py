@@ -66,7 +66,7 @@ def scoresInputPage():
     matchScores = results[9]
     matchScores = eval(matchScores)
 
-    return render_template("scoresInput.html", tournament = brackets, matchScores = matchScores)
+    return render_template("scoresInput.html", tournament = brackets, matchScores = matchScores, error = session["scoreInputError"])
     #loads the scores input page
 
 @fixtureInfoInputBlueprint.route("/fixtureInfoInput", methods = ["POST"])
@@ -186,22 +186,28 @@ def scoresInput():
     #turns the brackets back to their origional dictionary form
     team1Score = request.form["score1"]
     team2Score = request.form["score2"]
-    roundMatch = request.form["match"]
-    roundMatch = roundMatch.split(",")
-    round = int(roundMatch[0])
-    match = int(roundMatch[1])
-    team1 = brackets[round][match][1]
-    team2 = brackets[round][match][2]
-    teamScore1 = []
-    teamScore1.append(team1)
-    teamScore1.append(team1Score)
-    teamScore2 = []
-    teamScore2.append(team2)
-    teamScore2.append(team2Score)
-    matchScores = eval(results[9])
-    #matchScores = brackets --> could not have multiple disabled --> added this + cahnged addBracket database function
-    matchScores[round][match][1] = teamScore1
-    matchScores[round][match][2] = teamScore2
-    db.addMatchScores(str(matchScores), session["Tournament"])
-    return redirect("/scoresInputPage")
+    if team1Score.isdigit() == False or team2Score.isdigit() == False:
+        session["scoreInputError"] = "Score must be integer value"
+        return redirect("/scoresInputPage")
+    #so 1.0 not allowed to be entered
+    else:
+        session["scoreInputError"] = ""
+        roundMatch = request.form["match"]
+        roundMatch = roundMatch.split(",")
+        round = int(roundMatch[0])
+        match = int(roundMatch[1])
+        team1 = brackets[round][match][1]
+        team2 = brackets[round][match][2]
+        teamScore1 = []
+        teamScore1.append(team1)
+        teamScore1.append(team1Score)
+        teamScore2 = []
+        teamScore2.append(team2)
+        teamScore2.append(team2Score)
+        matchScores = eval(results[9])
+        #matchScores = brackets --> could not have multiple disabled --> added this + cahnged addBracket database function
+        matchScores[round][match][1] = teamScore1
+        matchScores[round][match][2] = teamScore2
+        db.addMatchScores(str(matchScores), session["Tournament"])
+        return redirect("/scoresInputPage")
 
