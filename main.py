@@ -55,6 +55,7 @@ app.register_blueprint(fixtureInfoInputBlueprint)
 app.register_blueprint(fixtureInfoInputPageBlueprint)
 #registers the fixtureInfoInputPageBlueprint in the Flask instance so it can be used when running the program in the web framework
 app.register_blueprint(scoresInputBlueprint)
+#registers the scoresInputBlueprint in the Flask instance so it can be used when running the program in the web framework
 
 ######################################################
 app.run(debug = True)
