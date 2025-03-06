@@ -23,7 +23,13 @@ scoresInputBlueprint = Blueprint("scoresInput",__name__)
 #creates the route for the liveBracketViewPage blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def liveBracketViewPage():
     #defines liveBracketViewPage function for the liveBracketViewPage blueprint
-    return render_template("liveBracketView.html")
+    db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
+    results = db.getTournamentFields(session["Tournament"])
+    #sets results to be the list of fields from the database for the current tournament 
+    matchScores = eval(results[9])
+    numRounds = int(math.log2(int(results[2])))
+    return render_template("liveBracketView.html", numberOfRounds = numRounds, brackets = matchScores)
     #loads the live bracket view page
 
 @fixturesPageBlueprint.route("/fixturesPage")

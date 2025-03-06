@@ -8,10 +8,51 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel = "stylesheet" href="static/styles.css" >
 </head>
 <body>
-    <div class = "container border p-5 w-50">
     <h1 class = "display-4 text-center mb-5 text-dark">Live Bracket View</h1>
+    <div class = "bracket">
+        <!-- Creates division for the bracket, with the "bracket" styling in the stylesheet -->
+          {% for i in range(numberOfRounds) %}
+          <div class = "round"> 
+            <!-- Loop creates as many rounds for what is required by the specific tournament and each round is made a division with the "round" styling in the stylesheet -->
+            <h2 class = "text-center p-1">Round {{i+1}}</h2>
+            <!-- Gives each round a heading, with its round number for a tournament with any number of teams  -->
+            {% for match in brackets[i+1] %}
+            <div class = "match">
+                <!-- Creates a division for each match within each round using the "match" styling, uses the brackets dictionary to access the matches for the specific tournament one by one -->
+                {% for player in brackets[i+1][match] %}
+                {% if brackets[i+1][match][player] is string or brackets[i+1][match][player] == None %}
+                <div class = "m-3 p-3">
+                    <button>{{brackets[i+1][match][player]}}</button>
+                </div>
+                {% else %}
+                <div class = "p-3 m-3" style= "display: flex; justify-content: space-between;">
+                    <div>
+                        <button>{{brackets[i+1][match][player]}}</button>
+                    </div>
+                    <div>
+                        {{brackets[i+1][match][player][2]}}
+                    </div>
 
+                    <!-- Puts the players into the matches division, using a division with the "player" styling. Accesses each player in turn from the brackets dictionary -->
+                </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+        <div class = "container p-3 w-75">
+        <!-- Division seperates the buttons from the bracket display -->
+          <div style= "display: flex; justify-content: space-between;">
+            <!-- Allows the buttons to be displayed on the same horizontal line -->
+            <p><a class = "btn link-dark border " href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
+            <!-- Creates the buttons for the user to either go back to their main dashboard or start the tournament -->
+            <!-- If the tournament is started, the user will be redirected to the tournament dashboard -->
+          </div>
+        </div>
 </body>
 </html>
