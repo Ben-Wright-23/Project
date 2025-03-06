@@ -11,34 +11,42 @@
     <link rel = "stylesheet" href="static/styles.css" >
 </head>
 <body>
-    <h1 class = "display-4 text-center mb-5 text-dark">Live Bracket View</h1>
+    <h1 class = "display-4 text-center p-5 text-dark">Live Bracket View</h1>
     <div class = "bracket">
-        <!-- Creates division for the bracket, with the "bracket" styling in the stylesheet -->
-          {% for i in range(numberOfRounds) %}
-          <div class = "round"> 
-            <!-- Loop creates as many rounds for what is required by the specific tournament and each round is made a division with the "round" styling in the stylesheet -->
-            <h2 class = "text-center p-1">Round {{i+1}}</h2>
-            <!-- Gives each round a heading, with its round number for a tournament with any number of teams  -->
-            {% for match in brackets[i+1] %}
-            <div class = "match">
-                <!-- Creates a division for each match within each round using the "match" styling, uses the brackets dictionary to access the matches for the specific tournament one by one -->
-                {% for player in brackets[i+1][match] %}
-                {% if brackets[i+1][match][player] is string or brackets[i+1][match][player] == None %}
-                <div class = "m-3 p-3">
-                    <button>{{brackets[i+1][match][player]}}</button>
-                </div>
-                {% else %}
-                <div class = "p-3 m-3" style= "display: flex; justify-content: space-between;">
-                    <div>
-                        <button>{{brackets[i+1][match][player]}}</button>
-                    </div>
-                    <div>
-                        {{brackets[i+1][match][player][2]}}
-                    </div>
 
-                    <!-- Puts the players into the matches division, using a division with the "player" styling. Accesses each player in turn from the brackets dictionary -->
+          {% for i in range(numberOfRounds) %}
+
+          <div class = "round"> 
+            <h2 class = "text-center p-1">Round {{i+1}}</h2>
+
+            {% for match in brackets[i+1] %}
+
+            <div class = "match" style = "padding: 15px;">
+                {% for player in brackets[i+1][match] %}
+
+                {% if brackets[i+1][match][player] is string or brackets[i+1][match][player] == None %}
+                <div class = "p-2 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
+                  <div>
+                    <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player]}}</button>
+                  </div>
+                </div>
+
+                {% else %}
+                <div class = "p-1 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
+                    <div>
+                        <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player][0]}}</button>
+                    </div>
+                    <div>
+                        <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player][1]}}</button>
+                    </div>
+                    <!-- If draw, penalty winner selector pops up to determine who progresses -->
                 </div>
                 {% endif %}
+
+                {% if player == 1%}
+                  <hr>
+                {% endif %}
+
               {% endfor %}
             </div>
             {% endfor %}
@@ -46,12 +54,9 @@
           {% endfor %}
         </div>
         <div class = "container p-3 w-75">
-        <!-- Division seperates the buttons from the bracket display -->
-          <div style= "display: flex; justify-content: space-between;">
-            <!-- Allows the buttons to be displayed on the same horizontal line -->
-            <p><a class = "btn link-dark border " href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
-            <!-- Creates the buttons for the user to either go back to their main dashboard or start the tournament -->
-            <!-- If the tournament is started, the user will be redirected to the tournament dashboard -->
+          <div class = "text-center mb-3">
+            <p><a class = "btn link-dark border mb-3 w-50" href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
+            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the matches lists -->
           </div>
         </div>
 </body>

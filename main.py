@@ -60,7 +60,7 @@ app.register_blueprint(scoresInputBlueprint)
 ######################################################
 app.run(debug = True)
 
-
+#If draw, penalty winner selector pops up to determine who progresses
 
 ####Notes
 #Tournament creation force order. Teams input -> show bracket -> Happy with bracket or manual change? -> 
