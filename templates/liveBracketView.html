@@ -22,28 +22,51 @@
             {% for match in brackets[i+1] %}
 
             <div class = "match" style = "padding: 15px;">
-                {% for player in brackets[i+1][match] %}
+                {% for player in range(2) %}
 
-                {% if brackets[i+1][match][player] is string or brackets[i+1][match][player] == None %}
-                <div class = "p-2 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
-                  <div>
-                    <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player]}}</button>
+                {% if brackets[i+1][match][player+1] is string or brackets[i+1][match][player+1] == None %}
+                  <div class = "p-2 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
+                    <div>
+                      <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player+1]}}</button>
+                    </div>
                   </div>
-                </div>
-
                 {% else %}
-                <div class = "p-1 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
-                    <div>
-                        <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player][0]}}</button>
+                  {% if brackets[i+1][match][3] == "team1" and player == 0 %}
+                    <div class = "p-1 mx-2" style= "border: 1px solid lime; width: 200px; display: flex; justify-content: space-between; ">
+                        <div>
+                          <button class="btn m-auto" style="background-color:transparent; ">{{brackets[i+1][match][player+1][0]}}</button>
+                        </div>
+                      
+                        <div>
+                            <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player+1][1]}}</button>
+                        </div>
                     </div>
-                    <div>
-                        <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player][1]}}</button>
+                  {% elif brackets[i+1][match][3] == "team2" and player == 1 %}
+                    <div class = "p-1 mx-2" style= "border: 1px solid lime; width: 200px; display: flex; justify-content: space-between; ">
+                      <div>
+                        <button class="btn m-auto" style="background-color:transparent; ">{{brackets[i+1][match][player+1][0]}}</button>
+                      </div>
+                    
+                      <div>
+                          <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player+1][1]}}</button>
+                      </div>
                     </div>
-                    <!-- If draw, penalty winner selector pops up to determine who progresses -->
-                </div>
+                  {% else %}
+                    <div class = "p-1 mx-2" style= "width: 200px; display: flex; justify-content: space-between; ">
+                      <div>
+                        <button class="btn m-auto" style="background-color:transparent; ">{{brackets[i+1][match][player+1][0]}}</button>
+                      </div>
+                    
+                      <div>
+                          <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player+1][1]}}</button>
+                      </div>
+                  
+                      <!-- If draw, penalty winner selector pops up to determine who progresses -->
+                    </div>
+                  {% endif %}
                 {% endif %}
 
-                {% if player == 1%}
+                {% if player == 0 %}
                   <hr>
                 {% endif %}
 
