@@ -206,14 +206,7 @@ def scoresInput():
         return redirect("/scoresInputPage")
         
     else:
-        if team1Score > team2Score:
-            winner = "team1"
-        elif team2Score> team1Score:
-            winner = "team2"
-        else:
-            winner = "Draw"
-
-        
+   
         session["scoreInputError"] = ""
         roundMatch = request.form["match"]
         #takes the round and match the submit scores button has been round on, split by a comma
@@ -227,18 +220,32 @@ def scoresInput():
         #selects the team name of the first team in the match that has had submit scores button pressed on and sets it to team1
         team2 = brackets[round][match][2]
         #selects the team name of the second team in the match that has had submit scores button pressed on and sets it to team2
+
         teamScore1 = []
         #creates an empty list, called team score 1, that will store the team and that teams score in the match for the first team in the match
         teamScore1.append(team1)
         #append the first team of the match the submit scores button has been pressed on to the teamScore1 list
         teamScore1.append(team1Score)
         #append the first team of the match's score for the match that the submit scores button has been pressed on to the teamScore1 list
+        if team1Score > team2Score:
+            teamScore1.append("W")
+        elif team1Score == team2Score:
+            teamScore1.append("D")
+        else:
+            teamScore1.append("L")
+
         teamScore2 = []
         #creates an empty list, called team score 2, that will store the team and that teams score in the match for the second team in the match
         teamScore2.append(team2)
         #append the second team of the match the submit scores button has been pressed on to the teamScore2 list
         teamScore2.append(team2Score)
         #append the second team of the match's score for the match that the submit scores button has been pressed on to the teamScore2 list
+        if team2Score > team1Score:
+            teamScore2.append("W")
+        elif team1Score == team2Score:
+            teamScore2.append("D")
+        else:
+            teamScore2.append("L")
 
         matchScores = eval(results[9])
         #sets matchScores to be the matchScores field in the current tournament in the database, turned back to its origional dictionary form    
@@ -249,8 +256,17 @@ def scoresInput():
         matchScores[round][match][2] = teamScore2
         #sets the second item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 2 list, 
         #containing both the team name and its score in the match
+        if teamScore1[2] == "W":
+            if matchScores[round+1][(match+1)//2][1] == None:
+                matchScores[round+1][(match+1)//2][1] = team1
+            else:
+                matchScores[round+1][(match+1)//2][2] = team1
+        elif teamScore2[2] == "W":
+            if matchScores[round+1][(match+1)//2][1] == None:
+                matchScores[round+1][(match+1)//2][1] = team2
+            else:
+                matchScores[round+1][(match+1)//2][2] = team2
 
-        matchScores[round][match][3] = winner
 
         db.addMatchScores(str(matchScores), session["Tournament"])
         #adds the string version of matchScores dictionary, containing the bracket + scores assigned to teams,
