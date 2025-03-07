@@ -17,13 +17,13 @@
         <!-- Contains all the contents in a box with 5 padding to make it fit screeens well and look simplistic -->
         <h1 class = "display-4 text-center mb-5 text-dark">Scores Input</h1>
         <!-- Creates main heading for the page, centered and a margin below so is emphasised -->
-        {% for round in tournament %}
+        {% for round in matchScores %}
         <!-- will repeat the contents for every round in the tournament in turn -->
         <p class = "text-dark mb-3">Round {{round}}:</p>
         <!-- Creates a label for the list of matches in this round, with this round's number displayed in the label -->
         <ul class="list-group mb-3">
             <!-- Creates an unordered list to contain each match in the round and inputs for each match, bootstrap list-group class creates simplistic style -->
-            {% for match in tournament[round] %}
+            {% for match in matchScores[round] %}
             <!-- Content repeats for each match in the currently being dealt with round -->
             <li class="list-group-item">
                 <!-- Creates the list item for each match in the round in turn, bootstrap list-group-item class creates simplistic style -->
@@ -43,7 +43,7 @@
                             <!-- Creates a division within the form, making each division within this division be displayed stacked vertically -->
                             <div style= "display: flex; justify-content: flex-start;">
                                 <!-- Displays the content on the left most part of the page -->
-                                <p class ="mx-3" >{{tournament[round][match][1]}}:</p>
+                                <p class ="mx-3" >{{matchScores[round][match][1]}}:</p>
                                 <!-- Makes the team name a label for the score input box -->
                                 <input style = "width: 40px;" class = "mb-3" type="number" id="score1" name="score1" min="0" required>
                                 <!-- Creates the score input box, with type number to only allow numbers to be entered and to include the number incrementer in the input box, 
@@ -51,7 +51,7 @@
                             </div>
                             <div style= "display: flex; justify-content: flex-start;">
                                 <!-- Displays the content on the left most part of the page -->
-                                <p class ="mx-3">{{tournament[round][match][2]}}:</p>
+                                <p class ="mx-3">{{matchScores[round][match][2]}}:</p>
                                 <!-- Makes the team name a label for the score input box -->
                                 <input style = "width: 40px;" class = "mb-3" type="number" id="score2" name="score2" min="0" required>
                                 <!-- Creates the score input box, with type number to only allow numbers to be entered and to include the number incrementer in the input box, 
@@ -68,12 +68,12 @@
                     <form action="/scoresInput" method = "post">
                         <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                             <div style= "display: flex; justify-content: flex-start;">
-                                <p class ="mx-3" >{{tournament[round][match][1]}}:</p>
+                                <p class ="mx-3" >{{matchScores[round][match][1]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and first teams that can have scores inputted, while the input box is disabled so no values can be inputted -->
                             </div>
                             <div style= "display: flex; justify-content: flex-start;">
-                                <p class ="mx-3">{{tournament[round][match][2]}}:</p>
+                                <p class ="mx-3">{{matchScores[round][match][2]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and second teams that can have scores inputted, while the input box is disabled so no values can be inputted -->
                             </div>

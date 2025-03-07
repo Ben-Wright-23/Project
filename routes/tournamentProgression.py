@@ -256,17 +256,20 @@ def scoresInput():
         matchScores[round][match][2] = teamScore2
         #sets the second item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 2 list, 
         #containing both the team name and its score in the match
+        numTeams = int(results[2])
+        numRounds = int(math.log2(numTeams))
         if teamScore1[2] == "W":
-            if matchScores[round+1][(match+1)//2][1] == None:
-                matchScores[round+1][(match+1)//2][1] = team1
-            else:
-                matchScores[round+1][(match+1)//2][2] = team1
+            if round < numRounds:
+                if matchScores[round+1][(match+1)//2][1] == None:
+                    matchScores[round+1][(match+1)//2][1] = team1
+                else:
+                    matchScores[round+1][(match+1)//2][2] = team1
         elif teamScore2[2] == "W":
-            if matchScores[round+1][(match+1)//2][1] == None:
-                matchScores[round+1][(match+1)//2][1] = team2
-            else:
-                matchScores[round+1][(match+1)//2][2] = team2
-
+            if round < numRounds:
+                if matchScores[round+1][(match+1)//2][1] == None:
+                    matchScores[round+1][(match+1)//2][1] = team2
+                else:
+                    matchScores[round+1][(match+1)//2][2] = team2
 
         db.addMatchScores(str(matchScores), session["Tournament"])
         #adds the string version of matchScores dictionary, containing the bracket + scores assigned to teams,
