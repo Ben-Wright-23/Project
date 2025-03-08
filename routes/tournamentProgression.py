@@ -180,8 +180,7 @@ def fixtureInfoInputPage():
     return render_template("fixtureInfoInput.html", error = session["FixtureInfoInputError"])
     #loads the Fixture Info Input html page, with any errors occured when completing the form on this page passed in to be displayed 
 
-global Draw
-Draw = False
+
 @scoresInputBlueprint.route("/scoresInput", methods = ["POST"])
 #creates the route for the scoresInput blueprint, allowing it to be accessed easily.
 def scoresInput():
@@ -204,9 +203,7 @@ def scoresInput():
     if team1Score.isdigit() == False or team2Score.isdigit() == False:
         session["scoreInputError"] = "Score must be integer value"
         return redirect("/scoresInputPage")
-        
     else:
-    
         session["scoreInputError"] = ""
         roundMatch = request.form["match"]
         #takes the round and match the submit scores button has been round on, split by a comma
