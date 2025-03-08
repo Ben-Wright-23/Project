@@ -19,40 +19,45 @@
           <div class = "round"> 
             <h2 class = "text-center p-1">Round {{i+1}}</h2>
 
-            {% for match in brackets[i+1] %}
+            {% for match in matchScores[i+1] %}
 
             <div class = "match" style = "padding: 15px;">
-                {% for player in brackets[i+1][match] %}
+                {% for player in matchScores[i+1][match] %}
 
-                {% if brackets[i+1][match][player] is string or brackets[i+1][match][player] == None %}
+                {% if matchScores[i+1][match][player] is string or matchScores[i+1][match][player] == None %}
                   <div class = "p-2 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
                     <div>
-                      <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player]}}</button>
+                      <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player]}}</button>
                     </div>
                   </div>
                 {% else %}
-                  {% if brackets[i+1][match][player][2] == "W" %}
+                  {% if matchScores[i+1][match][player][2] == "W" %}
                     <div class = "p-1 mx-2" style= "border: 1px solid lime; width: 200px; display: flex; justify-content: space-between; ">
                         <div>
-                          <button class="btn m-auto" style="background-color:transparent; ">{{brackets[i+1][match][player][0]}}</button>
+                          <button class="btn m-auto" style="background-color:transparent; ">{{matchScores[i+1][match][player][0]}}</button>
                         </div>
                       
                         <div>
-                            <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player][1]}}</button>
+                            <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player][1]}}</button>
                         </div>
                     </div>
                   {% else %}
                     <div class = "p-1 mx-2" style= "width: 200px; display: flex; justify-content: space-between; ">
                       <div>
-                        <button class="btn m-auto" style="background-color:transparent; ">{{brackets[i+1][match][player][0]}}</button>
+                        <button class="btn m-auto" style="background-color:transparent; ">{{matchScores[i+1][match][player][0]}}</button>
                       </div>
                     
                       <div>
-                          <button class="btn m-auto" style="background-color:transparent">{{brackets[i+1][match][player][1]}}</button>
+                          <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player][1]}}</button>
                       </div>
                   
                       <!-- If draw, penalty winner selector pops up to determine who progresses -->
                     </div>
+                  
+
+                    </div>
+
+
                   {% endif %}
                 {% endif %}
 

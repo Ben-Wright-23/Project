@@ -17,6 +17,7 @@
         <!-- Contains all the contents in a box with 5 padding to make it fit screeens well and look simplistic -->
         <h1 class = "display-4 text-center mb-5 text-dark">Scores Input</h1>
         <!-- Creates main heading for the page, centered and a margin below so is emphasised -->
+
         {% for round in matchScores %}
         <!-- will repeat the contents for every round in the tournament in turn -->
         <p class = "text-dark mb-3">Round {{round}}:</p>
@@ -33,7 +34,7 @@
                         <p>Match {{match}}</p>
                         <!-- Displays a label for each match in the round in turn, stating its number in the sequence of matches for this round -->
                     </div>
-                    {% if (matchScores[round][match][1]) is string %}
+                    {% if (matchScores[round][match][1]) is string and (matchScores[round][match][2]) is string %}
                     <!-- If scores have not already been entered for this specific match (if scores had been entered, the first item in the match would be a 
                          list with the score and team name rather than just team name as a string),scores should be allowed to be inputted: -->
 
@@ -56,6 +57,10 @@
                                 <input style = "width: 40px;" class = "mb-3" type="number" id="score2" name="score2" min="0" required>
                                 <!-- Creates the score input box, with type number to only allow numbers to be entered and to include the number incrementer in the input box, 
                                      width 40 px to make the box small, as to only take enough space needed fr a number, and name score1 so it can be identified using flask requests -->
+                            </div>
+                            <div style= "display: flex; justify-content: flex-start;">
+                                <p class ="mx-3" >Enter the name of the team who won the penalty shootout:</p>
+                                <input class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner">
                             </div>
                             <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}">Submit Score</button>
                             <!-- Displays the submit scores button across the width of the match list item, with value {round, match} so the flask blueprint can identify which match the scores were inputted on,
@@ -83,20 +88,22 @@
                     </form>
                     {% else %}
                     <!-- Otherwise, it must be that a score has already been inputted so no further scores should be allowed to be inputted and the final score for the match should be displayed -->
+                    
                     <form action="/scoresInput" method = "post">
                         <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                             <div style= "display: flex; justify-content: flex-start;">
-                                <p class ="mx-3" >{{tournament[round][match][1]}}:</p>
+                                <p class ="mx-3" >{{matchScores[round][match][1][0]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][1][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and first teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the first team in the match displayed in each of the disabled boxes -->
                             </div>
                             <div style= "display: flex; justify-content: flex-start;">
-                                <p class ="mx-3">{{tournament[round][match][2]}}:</p>
+                                <p class ="mx-3">{{matchScores[round][match][2][0]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][2][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and second teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the second team in the match displayed in each of the disabled boxes -->
                             </div>
+                            
                             <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}" disabled>Submit Score</button>
                             <!-- Keeps a consistent aesthetic with matches that can have scores inputted, while the scores input button is disabled so it can't be pressed -->
                         </div>
