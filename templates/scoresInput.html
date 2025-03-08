@@ -58,10 +58,6 @@
                                 <!-- Creates the score input box, with type number to only allow numbers to be entered and to include the number incrementer in the input box, 
                                      width 40 px to make the box small, as to only take enough space needed fr a number, and name score1 so it can be identified using flask requests -->
                             </div>
-                            <div style= "display: flex; justify-content: flex-start;">
-                                <p class ="mx-3" >Enter the name of the team who won the penalty shootout:</p>
-                                <input class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner">
-                            </div>
                             <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}">Submit Score</button>
                             <!-- Displays the submit scores button across the width of the match list item, with value {round, match} so the flask blueprint can identify which match the scores were inputted on,
                                  name match so it can be identified using flask requests and type submit so when it is pressed, all inputs can be sent to the scoresInput route -->
@@ -104,10 +100,23 @@
                                      and with a placeholder of the score for the second team in the match displayed in each of the disabled boxes -->
                             </div>
                             
-                            <button class="btn border btn-sm" type="submit" name = "match" id = "match" value="{{round}},{{match}}" disabled>Submit Score</button>
+                            <button class="btn border btn-sm mb-3" type="submit" name = "match" id = "match" value="{{round}},{{match}}" disabled>Submit Score</button>
                             <!-- Keeps a consistent aesthetic with matches that can have scores inputted, while the scores input button is disabled so it can't be pressed -->
                         </div>
                     </form>
+                    {% if matchScores[round][match][1][1] == matchScores[round][match][2][1] %}
+                    <div style= "display: flex; justify-content: flex-start;">
+                        <form action = "/drawProgression" method = "post">
+                            <label class = "form-label text-dark mx-3" for = "penaltyWinner">Enter penalty shootout winner: </label>
+                            <div class="input-group mb-3">
+                                <input style = "width: 250px;" class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner" required>
+                                <div class="input-group-append">
+                                <button class="btn border" type="submit">Confirm</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
                     {% endif %}
                 </div>
             </li>

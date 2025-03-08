@@ -18,7 +18,7 @@ fixtureInfoInputPageBlueprint = Blueprint("fixtureInfoInputPage",__name__)
 #create a flask blueprint for the function to load the fixture info input page
 scoresInputBlueprint = Blueprint("scoresInput",__name__)
 #create a flask blueprint for the function to handle the user's score inputs and add these scores to the database, assigned to the correct matches
-teamProgressionBlueprint = Blueprint("teamProgression",__name__)
+drawProgressionBlueprint = Blueprint("drawProgression",__name__)
 
 
 @liveBracketViewPageBlueprint.route("/liveBracketViewPage")
@@ -286,9 +286,9 @@ def scoresInput():
         #redirects the user to the function to reload the scores input page
 
 
-@teamProgressionBlueprint.route("/teamProgression", methods = ["POST"])
+@drawProgressionBlueprint.route("/drawProgression", methods = ["POST"])
 #creates the route for the scoresInput blueprint, allowing it to be accessed easily.
-def teamProgression():
+def drawProgression():
     #defines scoresInput function for the scoresInput blueprint
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
