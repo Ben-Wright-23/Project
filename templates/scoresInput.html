@@ -88,35 +88,50 @@
                     <form action="/scoresInput" method = "post">
                         <div style= "display: flex; justify-content: space-between; flex-direction: column;">
                             <div style= "display: flex; justify-content: flex-start;">
+                                {% if matchScores[round][match][1][2] == "W" %}
+                                <p class ="mx-3" >{{matchScores[round][match][1][0]}}:</p>
+                                <input style = "border: 2px solid lime; width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][1][1]}}" disabled>
+                                <!-- Keeps a consistent aesthetic with the score input boxes and first teams that can have scores inputted, while the input box is disabled so no values can be inputted
+                                     and with a placeholder of the score for the first team in the match displayed in each of the disabled boxes -->
+                                {% else %}
                                 <p class ="mx-3" >{{matchScores[round][match][1][0]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][1][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and first teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the first team in the match displayed in each of the disabled boxes -->
+                                {% endif %}
+
                             </div>
                             <div style= "display: flex; justify-content: flex-start;">
+                                {% if matchScores[round][match][2][2] == "W" %}
+                                <p class ="mx-3">{{matchScores[round][match][2][0]}}:</p>
+                                <input style = "border: 2px solid lime; width: 40px;" class = "mb-3 " placeholder="{{matchScores[round][match][2][1]}}" disabled>
+                                <!-- Keeps a consistent aesthetic with the score input boxes and second teams that can have scores inputted, while the input box is disabled so no values can be inputted
+                                     and with a placeholder of the score for the second team in the match displayed in each of the disabled boxes -->
+                                {% else %}
                                 <p class ="mx-3">{{matchScores[round][match][2][0]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][2][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and second teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the second team in the match displayed in each of the disabled boxes -->
+                                {% endif %}
                             </div>
                             
                             <button class="btn border btn-sm mb-3" type="submit" name = "match" id = "match" value="{{round}},{{match}}" disabled>Submit Score</button>
                             <!-- Keeps a consistent aesthetic with matches that can have scores inputted, while the scores input button is disabled so it can't be pressed -->
                         </div>
                     </form>
-                    {% if matchScores[round][match][1][1] == matchScores[round][match][2][1] %}
+                    {% endif %}
+                    {% if (matchScores[round][match][1] is not string and matchScores[round][match][1] is not string) and matchScores[round][match][1][2] == "D" and ((matchScores[round][match][1]) != None or (matchScores[round][match][2]) != None) %}
                     <div style= "display: flex; justify-content: flex-start;">
                         <form action = "/drawProgression" method = "post">
                             <label class = "form-label text-dark mx-3" for = "penaltyWinner">Enter penalty shootout winner: </label>
                             <div class="input-group mb-3">
                                 <input style = "width: 250px;" class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner" required>
                                 <div class="input-group-append">
-                                <button class="btn border" type="submit">Confirm</button>
+                                <button class="btn border" type="submit" name = "roundMatch" id = "roundMatch" value="{{round}},{{match}}">Confirm</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    {% endif %}
                     {% endif %}
                 </div>
             </li>

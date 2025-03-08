@@ -75,10 +75,7 @@ def scoresInputPage():
     #sets matchScores to be the tenth value from the fields list as this represents that tournament's bracket with match scores added
     matchScores = eval(matchScores)
     #turns the matchScores back to their origional dictionary form
-    return render_template("scoresInput.html", tournament = brackets, matchScores = matchScores, Draw = Draw)
-    #loads the scores input page with the brackets and matchscores passed in so parts of them can be displayed
-
-    # return render_template("scoresInput.html", tournament = brackets, matchScores = matchScores, error = session["scoreInputError"])
+    return render_template("scoresInput.html", tournament = brackets, matchScores = matchScores, error = session["scoreInputError"])
     #loads the scores input page with the brackets, matchscores and any errors with the score input passed in so they can be displayed
 
 @fixtureInfoInputBlueprint.route("/fixtureInfoInput", methods = ["POST"])
@@ -213,7 +210,6 @@ def scoresInput():
         session["scoreInputError"] = ""
         roundMatch = request.form["match"]
         #takes the round and match the submit scores button has been round on, split by a comma
-        penaltyWinner = request.form["penaltyWinner"]
         
         roundMatch = roundMatch.split(",")
         #splits the round and match into a list, with the first item being the round and second the match
@@ -232,7 +228,7 @@ def scoresInput():
         #append the first team of the match the submit scores button has been pressed on to the teamScore1 list
         teamScore1.append(team1Score)
         #append the first team of the match's score for the match that the submit scores button has been pressed on to the teamScore1 list
-        if team1Score > team2Score or penaltyWinner == team1:
+        if team1Score > team2Score:
             teamScore1.append("W")
         elif team1Score == team2Score:
             teamScore1.append("D")
@@ -245,14 +241,12 @@ def scoresInput():
         #append the second team of the match the submit scores button has been pressed on to the teamScore2 list
         teamScore2.append(team2Score)
         #append the second team of the match's score for the match that the submit scores button has been pressed on to the teamScore2 list
-        if team2Score > team1Score or penaltyWinner == team2:
+        if team2Score > team1Score:
             teamScore2.append("W")
         elif team1Score == team2Score:
             teamScore2.append("D")
         else:
             teamScore2.append("L")
-
- 
 
         matchScores[round][match][1] = teamScore1
         #sets the first item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 1 list, 
@@ -273,11 +267,7 @@ def scoresInput():
                     if matchScores[round+1][(match+1)//2][1] == None:
                         matchScores[round+1][(match+1)//2][1] = team2
                     else:
-                        matchScores[round+1][(match+1)//2][2] = team2            
-        if teamScore1[2] == "D":
-            global Draw
-            Draw = True
-            
+                        matchScores[round+1][(match+1)//2][2] = team2
 
         db.addMatchScores(str(matchScores), session["Tournament"])
         #adds the string version of matchScores dictionary, containing the bracket + scores assigned to teams,
@@ -290,6 +280,7 @@ def scoresInput():
 #creates the route for the scoresInput blueprint, allowing it to be accessed easily.
 def drawProgression():
     #defines scoresInput function for the scoresInput blueprint
+    session["scoreInputError"] = ""
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournamentFields(session["Tournament"])
@@ -298,5 +289,44 @@ def drawProgression():
     #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
     matchScores = eval(matchScores)
     #turns the brackets back to their origional dictionary form
-
-
+    penaltyWinner = request.form["penaltyWinner"]
+    roundMatch = request.form["roundMatch"]
+    roundMatch = roundMatch.split(",")
+    #splits the round and match into a list, with the first item being the round and second the match
+    round = int(roundMatch[0])
+    #sets round to be the integer version of the first item in the round and match list, which is the round the user pressed the submit scores button in
+    match = int(roundMatch[1])
+    #sets match to be the integer version of the second item in the round and match list, which is the match the user pressed the submit scores button on
+    team1 = matchScores[round][match][1][0]
+    #selects the team name of the first team in the match that has had submit scores button pressed on and sets it to team1
+    team2 = matchScores[round][match][2][0]
+    #selects the team name of the second team in the match that has had submit scores button pressed on and sets it to team2
+    numTeams = int(results[2])
+    numRounds = int(math.log2(numTeams))
+    if penaltyWinner == team1:
+        matchScores[round][match][1][2] = "W"
+        matchScores[round][match][2][2] = "L"
+        if round < numRounds:
+            if matchScores[round+1][(match+1)//2][1] == None:
+                matchScores[round+1][(match+1)//2][1] = team1
+            else:
+                matchScores[round+1][(match+1)//2][2] = team1
+    elif penaltyWinner == team2:
+        matchScores[round][match][1][2] = "L"
+        matchScores[round][match][2][2] = "W"
+        if round < numRounds:
+            if matchScores[round+1][(match+1)//2][1] == None:
+                matchScores[round+1][(match+1)//2][1] = team2
+            else:
+                matchScores[round+1][(match+1)//2][2] = team2  
+    else:
+        session["scoreInputError"] = "Team name entered for the penalty winner is not in the match"
+        return redirect("/scoresInputPage")
+    
+    db.addMatchScores(str(matchScores), session["Tournament"])
+    #adds the string version of matchScores dictionary, containing the bracket + scores assigned to teams,
+    #to the matchScores field in the current tournament in the database
+    return redirect("/scoresInputPage")
+    #redirects the user to the function to reload the scores input page
+    
+    
