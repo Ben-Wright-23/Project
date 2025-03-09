@@ -189,10 +189,6 @@ def scoresInput():
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournamentFields(session["Tournament"])
     #sets results to be the list of fields from the database for the current tournament
-    brackets = results[4]
-    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
-    brackets = eval(brackets)
-    #turns the brackets back to their origional dictionary form
     matchScores = eval(results[9])
     #sets matchScores to be the matchScores field in the current tournament in the database, turned back to its origional dictionary form   
     team1Score = request.form["score1"]
@@ -225,12 +221,7 @@ def scoresInput():
         #append the first team of the match the submit scores button has been pressed on to the teamScore1 list
         teamScore1.append(team1Score)
         #append the first team of the match's score for the match that the submit scores button has been pressed on to the teamScore1 list
-        if team1Score > team2Score:
-            teamScore1.append("W")
-        elif team1Score == team2Score:
-            teamScore1.append("D")
-        else:
-            teamScore1.append("L")
+
 
         teamScore2 = []
         #creates an empty list, called team score 2, that will store the team and that teams score in the match for the second team in the match
@@ -238,22 +229,30 @@ def scoresInput():
         #append the second team of the match the submit scores button has been pressed on to the teamScore2 list
         teamScore2.append(team2Score)
         #append the second team of the match's score for the match that the submit scores button has been pressed on to the teamScore2 list
-        if team2Score > team1Score:
-            teamScore2.append("W")
+        if team1Score > team2Score:
+            teamScore1.append("W")
+            teamScore2.append("L")
         elif team1Score == team2Score:
+            teamScore1.append("D")
             teamScore2.append("D")
         else:
-            teamScore2.append("L")
-
+            teamScore1.append("L")
+            teamScore2.append("W")
+            
         matchScores[round][match][1] = teamScore1
         #sets the first item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 1 list, 
         #containing both the team name and its score in the match
         matchScores[round][match][2] = teamScore2
         #sets the second item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 2 list, 
         #containing both the team name and its score in the match
+        ####################################
         numTeams = int(results[2])
         numRounds = int(math.log2(numTeams))
+        ####################################
+
+        #####################
         if round < numRounds:
+        #####################
             if teamScore1[2] == "W":
                     if matchScores[round+1][(match+1)//2][1] == None:
                         matchScores[round+1][(match+1)//2][1] = team1
@@ -298,12 +297,16 @@ def drawProgression():
     #selects the team name of the first team in the match that has had submit scores button pressed on and sets it to team1
     team2 = matchScores[round][match][2][0]
     #selects the team name of the second team in the match that has had submit scores button pressed on and sets it to team2
+    ####################################
     numTeams = int(results[2])
     numRounds = int(math.log2(numTeams))
+    ####################################
     if penaltyWinner == team1:
         matchScores[round][match][1][2] = "W"
         matchScores[round][match][2][2] = "L"
+        #####################
         if round < numRounds:
+        #####################
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team1
             else:
@@ -311,7 +314,9 @@ def drawProgression():
     elif penaltyWinner == team2:
         matchScores[round][match][1][2] = "L"
         matchScores[round][match][2][2] = "W"
+        #####################
         if round < numRounds:
+        #####################
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team2
             else:

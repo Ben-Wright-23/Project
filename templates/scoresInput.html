@@ -120,12 +120,13 @@
                         </div>
                     </form>
                     {% endif %}
-                    {% if (matchScores[round][match][1] is not string and matchScores[round][match][1] is not string) and matchScores[round][match][1][2] == "D" and ((matchScores[round][match][1]) != None or (matchScores[round][match][2]) != None) %}
+                    {% if matchScores[round][match][1][2] == "D" %}
+                    <!-- if (matchScores[round][match][1] is not string and matchScores[round][match][1] is not string) and matchScores[round][match][1][2] == "D" and ((matchScores[round][match][1]) != None or (matchScores[round][match][2]) != None) -->
                     <div style= "display: flex; justify-content: flex-start;">
                         <form action = "/drawProgression" method = "post">
                             <label class = "form-label text-dark mx-3" for = "penaltyWinner">Enter penalty shootout winner: </label>
                             <div class="input-group mb-3">
-                                <input style = "width: 250px;" class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner" required>
+                                <input style = "width: 250px;" class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner" placeholder="eg. Team 4" required>
                                 <div class="input-group-append">
                                 <button class="btn border" type="submit" name = "roundMatch" id = "roundMatch" value="{{round}},{{match}}">Confirm</button>
                                 </div>
