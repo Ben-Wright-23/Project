@@ -35,29 +35,36 @@
                     <div>
                       <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player]}}</button>
                     </div>
+                    <!-- Displays team name -->
                   </div>
                   <!-- Adds the current player in the match into the matches division if it has not yet got scores assigned or don't yet have teams assigned -->
                   <!-- Displays just the team name within its slot in the match -->
                 {% else %}
                   {% if matchScores[i+1][match][player][2] == "W" %}
                     <div class = "p-1 mx-2" style= "border: 1px solid lime; width: 200px; display: flex; justify-content: space-between; ">
+                      <!-- Makes the team name and score be displayed on oposite ends of the width of the match division -->
                         <div>
                           <button class="btn m-auto" style="background-color:transparent; ">{{matchScores[i+1][match][player][0]}}</button>
+                          <!-- Displays team name -->
                         </div>
                         <div>
                             <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player][1]}}</button>
+                            <!-- Displays score -->
                         </div>
                     </div>
                     <!-- If the score has been assigned to the match and the team has won the match or drawn and then won the penalty shootout,
                          the team name and score are displayed in this match with a green border to show this current team has won the match -->
                   {% else %}
                     <div class = "p-1 mx-2" style= "width: 200px; display: flex; justify-content: space-between; ">
+                      <!-- Makes the team name and score be displayed on oposite ends of the width of the match division -->
                       <div>
                         <button class="btn m-auto" style="background-color:transparent; ">{{matchScores[i+1][match][player][0]}}</button>
                       </div>
+                      <!-- Displays team name -->
                       <div>
                           <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player][1]}}</button>
                       </div>
+                      <!-- Displays score -->
                     </div>
                     <!-- If the scores have been assigned to the match but the team has lost or drawn the match and lost the penalty shootout 
                          or the penalty shootout has not yet taken place and the match was a draw, the team name and score are be displayed but without any highlighting -->
