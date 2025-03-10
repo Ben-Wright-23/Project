@@ -233,12 +233,15 @@ def scoresInput():
         if team1Score > team2Score:
             teamScore1.append("W")
             teamScore2.append("L")
+            #If Team1 has scored more goals than team 2, append W to teamScore1 and L to teamScore2
         elif team1Score == team2Score:
             teamScore1.append("D")
             teamScore2.append("D")
+            #If they have scored the same amount of goals scored, D is appended to both teamScore1 and teamScore2
         else:
             teamScore1.append("L")
             teamScore2.append("W")
+            #Otherwise, it must be that team2 has scored more than team1, so append L to teamScore1 and W to teamScore2
             
         matchScores[round][match][1] = teamScore1
         #sets the first item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 1 list, 
@@ -251,10 +254,12 @@ def scoresInput():
         numTeams = int(results[2])
         #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
         numRounds = int(math.log2(numTeams))
+        #the number of rounds for the tournament is log2 of the number of teams in the tournament
         ####################################
 
         #####################
         if round < numRounds:
+        #makes this code run in all rounds apart from the last one, as there is no next round for teams to be added to
         #####################
 
             if teamScore1[2] == "W":
@@ -262,13 +267,13 @@ def scoresInput():
                         matchScores[round+1][(match+1)//2][1] = team1
                     else:
                         matchScores[round+1][(match+1)//2][2] = team1
-
+            #adds team1 to the next available position in the adjacent match in the next round if team1 has won the match
             elif teamScore2[2] == "W":
                     if matchScores[round+1][(match+1)//2][1] == None:
                         matchScores[round+1][(match+1)//2][1] = team2
                     else:
                         matchScores[round+1][(match+1)//2][2] = team2
-
+            #adds team2 to the next available position in the adjacent match in the next round if team2 has won the match
         db.addMatchScores(str(matchScores), session["Tournament"])
         #adds the string version of matchScores dictionary, containing the bracket + scores assigned to teams,
         #to the matchScores field in the current tournament in the database
@@ -309,32 +314,39 @@ def drawProgression():
     numTeams = int(results[2])
     #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
     numRounds = int(math.log2(numTeams))
+    #the number of rounds for the tournament is log2 of the number of teams in the tournament
     ####################################
 
     if penaltyWinner == team1:
         matchScores[round][match][1][2] = "W"
         matchScores[round][match][2][2] = "L"
-
+        #if the users input is the same as the first team in the match's name,
+        #W is added to the third item in the list for the first team in the match and L is added to the third item in the list for the second team in the match
         #####################
         if round < numRounds:
+        #makes this code run in all rounds apart from the last one, as there is no next round for teams to be added to
         #####################
-
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team1
             else:
                 matchScores[round+1][(match+1)//2][2] = team1
+            #adds team1 to the next available position in the adjacent match in the next round if team1 has won the match
     elif penaltyWinner == team2:
         matchScores[round][match][1][2] = "L"
         matchScores[round][match][2][2] = "W"
+        #if the users input is the same as the second team in the match's name,
+        #W is added to the third item in the list for the first team in the match and L is added to the third item in the list for the second team in the match
 
         #####################
         if round < numRounds:
+        #makes this code run in all rounds apart from the last one, as there is no next round for teams to be added to
         #####################
 
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team2
             else:
                 matchScores[round+1][(match+1)//2][2] = team2  
+            #adds team2 to the next available position in the adjacent match in the next round as team2 has won the match
     else:
         session["scoreInputError"] = "Team name entered for the penalty winner is not in the match"
         return redirect("/scoresInputPage")
