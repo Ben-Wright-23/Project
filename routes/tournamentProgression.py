@@ -315,23 +315,17 @@ def drawProgression():
     #selects the team name of the first team in the match that has had submit scores button pressed on and sets it to team1
     team2 = matchScores[round][match][2][0]
     #selects the team name of the second team in the match that has had submit scores button pressed on and sets it to team2
-
-    ####################################
     numTeams = int(results[2])
     #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
     numRounds = int(math.log2(numTeams))
     #the number of rounds for the tournament is log2 of the number of teams in the tournament
-    ####################################
-
     if penaltyWinner == team1:
         matchScores[round][match][1][2] = "W"
         matchScores[round][match][2][2] = "L"
         #if the users input is the same as the first team in the match's name,
         #W is added to the third item in the list for the first team in the match and L is added to the third item in the list for the second team in the match
-        #####################
         if round < numRounds:
         #makes this code run in all rounds apart from the last one, as there is no next round for teams to be added to
-        #####################
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team1
             else:
@@ -342,12 +336,8 @@ def drawProgression():
         matchScores[round][match][2][2] = "W"
         #if the users input is the same as the second team in the match's name,
         #W is added to the third item in the list for the first team in the match and L is added to the third item in the list for the second team in the match
-
-        #####################
         if round < numRounds:
         #makes this code run in all rounds apart from the last one, as there is no next round for teams to be added to
-        #####################
-
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team2
             else:
