@@ -201,6 +201,7 @@ def scoresInput():
         return redirect("/scoresInputPage")
     else:
         session["scoreInputError"] = ""
+        #otherwise, there have been no error with the score input so this session is set to nothing
         roundMatch = request.form["match"]
         #takes the round and match the submit scores button has been round on, split by a comma
         
@@ -245,14 +246,17 @@ def scoresInput():
         matchScores[round][match][2] = teamScore2
         #sets the second item in the match that has had submit scores pressed on within the matchscores copy of brackets to be the teamScore 2 list, 
         #containing both the team name and its score in the match
+
         ####################################
         numTeams = int(results[2])
+        #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
         numRounds = int(math.log2(numTeams))
         ####################################
 
         #####################
         if round < numRounds:
         #####################
+
             if teamScore1[2] == "W":
                     if matchScores[round+1][(match+1)//2][1] == None:
                         matchScores[round+1][(match+1)//2][1] = team1
@@ -277,6 +281,7 @@ def scoresInput():
 def drawProgression():
     #defines scoresInput function for the scoresInput blueprint
     session["scoreInputError"] = ""
+    #clears the session containing errors with score inputs, so they are not already present from other tournaments when the scores input page is loaded
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournamentFields(session["Tournament"])
@@ -286,7 +291,9 @@ def drawProgression():
     matchScores = eval(matchScores)
     #turns the brackets back to their origional dictionary form
     penaltyWinner = request.form["penaltyWinner"]
+    #takes the team name the user has entered to be the penalty winner and sets it to penaltyWinner
     roundMatch = request.form["roundMatch"]
+    #takes the round and match the submit scores button has been round on, split by a comma
     roundMatch = roundMatch.split(",")
     #splits the round and match into a list, with the first item being the round and second the match
     round = int(roundMatch[0])
@@ -297,16 +304,21 @@ def drawProgression():
     #selects the team name of the first team in the match that has had submit scores button pressed on and sets it to team1
     team2 = matchScores[round][match][2][0]
     #selects the team name of the second team in the match that has had submit scores button pressed on and sets it to team2
+
     ####################################
     numTeams = int(results[2])
+    #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
     numRounds = int(math.log2(numTeams))
     ####################################
+
     if penaltyWinner == team1:
         matchScores[round][match][1][2] = "W"
         matchScores[round][match][2][2] = "L"
+
         #####################
         if round < numRounds:
         #####################
+
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team1
             else:
@@ -314,9 +326,11 @@ def drawProgression():
     elif penaltyWinner == team2:
         matchScores[round][match][1][2] = "L"
         matchScores[round][match][2][2] = "W"
+
         #####################
         if round < numRounds:
         #####################
+
             if matchScores[round+1][(match+1)//2][1] == None:
                 matchScores[round+1][(match+1)//2][1] = team2
             else:
@@ -324,6 +338,7 @@ def drawProgression():
     else:
         session["scoreInputError"] = "Team name entered for the penalty winner is not in the match"
         return redirect("/scoresInputPage")
+        #redirects the user to the function to reload the scores input page, with this error passed in to be displayed
     
     db.addMatchScores(str(matchScores), session["Tournament"])
     #adds the string version of matchScores dictionary, containing the bracket + scores assigned to teams,
