@@ -36,7 +36,7 @@
                     </div>
                     {% if (matchScores[round][match][1]) is string and (matchScores[round][match][2]) is string %}
                     <!-- If scores have not already been entered for this specific match (if scores had been entered, the first item in the match would be a 
-                         list with the score and team name rather than just team name as a string),scores should be allowed to be inputted: -->
+                         list with the score and team name rather than just team name as a string), scores should be allowed to be inputted: -->
 
                     <form action="/scoresInput" method = "post">
                         <!-- Creates a form, redirecting to the scoresInput route, allowing the user to enter scores to this match -->
@@ -93,11 +93,13 @@
                                 <input style = "border: 2px solid lime; width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][1][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and first teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the first team in the match displayed in each of the disabled boxes -->
+                                <!-- If this team has won the match, the input box has a green border to show this team has won the match -->
                                 {% else %}
                                 <p class ="mx-3" >{{matchScores[round][match][1][0]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][1][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and first teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the first team in the match displayed in each of the disabled boxes -->
+                                <!-- Otherwise, the team has not won the match so there is no highlighting -->
                                 {% endif %}
 
                             </div>
@@ -107,11 +109,13 @@
                                 <input style = "border: 2px solid lime; width: 40px;" class = "mb-3 " placeholder="{{matchScores[round][match][2][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and second teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the second team in the match displayed in each of the disabled boxes -->
+                                <!-- If this team has won the match, the input box has a green border to show this team has won the match -->
                                 {% else %}
                                 <p class ="mx-3">{{matchScores[round][match][2][0]}}:</p>
                                 <input style = "width: 40px;" class = "mb-3" placeholder="{{matchScores[round][match][2][1]}}" disabled>
                                 <!-- Keeps a consistent aesthetic with the score input boxes and second teams that can have scores inputted, while the input box is disabled so no values can be inputted
                                      and with a placeholder of the score for the second team in the match displayed in each of the disabled boxes -->
+                                <!-- Otherwise, the team has not won the match so there is no highlighting -->
                                 {% endif %}
                             </div>
                             
@@ -120,16 +124,25 @@
                         </div>
                     </form>
                     {% endif %}
-                    {% if matchScores[round][match][1][2] == "D" %}
-                    <!-- if (matchScores[round][match][1] is not string and matchScores[round][match][1] is not string) and matchScores[round][match][1][2] == "D" and ((matchScores[round][match][1]) != None or (matchScores[round][match][2]) != None) -->
+                    {% if matchScores[round][match][1][2] == matchScores[round][match][2][2] %}
+                    <!-- If the scores for each team in the match are equal, meaning the match is a draw: -->
+
+                    <!-- if matchScores[round][match][1][2] == "D" -->
+                    <!-- If the match is currently stored as a draw: -->
+
                     <div style= "display: flex; justify-content: flex-start;">
                         <form action = "/drawProgression" method = "post">
-                            <label class = "form-label text-dark mx-3" for = "penaltyWinner">Enter penalty shootout winner: </label>
+                            <!-- Creates a form to send the inputs to the drawProgression route -->
+                            <label class = "form-label text-dark mx-3" for = "penaltyWinner">Enter Penalty Shootout Winner: </label>
+                            <!-- Labels the penalty winner input box, describing what should be entered -->
                             <div class="input-group mb-3">
                                 <input style = "width: 250px;" class = "mb-3 form-control" type = "text" name = "penaltyWinner" id = "penaltyWinner" placeholder="eg. Team 4" required>
+                                <!-- Creates a text input box for the user to input the team name of the penalty shootout winner, as described by the placeholder -->
                                 <div class="input-group-append">
                                 <button class="btn border" type="submit" name = "roundMatch" id = "roundMatch" value="{{round}},{{match}}">Confirm</button>
                                 </div>
+                                <!-- Makes a confirm button attached to the input box to send the input to the drawProgression route as well as 
+                                     the round and match that this penalty winner has been entered for -->
                             </div>
                         </form>
                     </div>
@@ -140,9 +153,10 @@
         </ul>
         {% endfor %}
         {{error}}
+        <!-- Displays any errors with the score inputs or penalty winner inputs -->
         <div class = "text-center mb-3">
             <p><a class = "btn link-dark border mb-3 w-50" href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
-            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the matches lists -->
+            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the matches list -->
         </div>
     </div>
 </body>
