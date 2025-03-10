@@ -31,9 +31,11 @@ def liveBracketViewPage():
     results = db.getTournamentFields(session["Tournament"])
     #sets results to be the list of fields from the database for the current tournament 
     matchScores = eval(results[9])
+    #sets matchScores to be the dictionary version of the tenth value from the fields list as this represents that tournament's bracket with match scores added
     numRounds = int(math.log2(int(results[2])))
+    #sets numRounds to be log2 of numTeams, as this finds the number of rounds the tournament will contain
     return render_template("liveBracketView.html", numberOfRounds = numRounds, matchScores = matchScores)
-    #loads the live bracket view page
+    #loads the live bracket view page, with the number of rounds and matchScores passed in
 
 @fixturesPageBlueprint.route("/fixturesPage")
 #creates the route for the fixturesPage blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
@@ -198,8 +200,11 @@ def scoresInput():
     #takes the score the user has entered for the second team in the match and sets it to team2Score
 
     if team1Score.isdigit() == False or team2Score.isdigit() == False:
+        #checks that both the first and second team's score is an integer and not any type of decimal
         session["scoreInputError"] = "Score must be integer value"
+        #if the inputs are not integers, there is an error which should be displayed to the user
         return redirect("/scoresInputPage")
+        #reloads the scores input page, with this error displayed
     else:
         session["scoreInputError"] = ""
         #otherwise, there have been no error with the score input so this session is set to nothing
