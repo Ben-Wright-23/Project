@@ -19,6 +19,7 @@ fixtureInfoInputPageBlueprint = Blueprint("fixtureInfoInputPage",__name__)
 scoresInputBlueprint = Blueprint("scoresInput",__name__)
 #create a flask blueprint for the function to handle the user's score inputs and add these scores to the database, assigned to the correct matches
 drawProgressionBlueprint = Blueprint("drawProgression",__name__)
+#create a flask blueprint for the function to handle the penalty winner inputs that occur when draws are entered for scores
 
 
 @liveBracketViewPageBlueprint.route("/liveBracketViewPage")
