@@ -29,44 +29,45 @@
               <!-- Creates a division for each match within each round using the "match" styling, 
                    uses the matchScores dictionary to access the matches for the specific tournament one by one -->
                 {% for player in matchScores[i+1][match] %}
-
+                <!-- Loops through the contents of the loop for every item in the current match being dealt with -->
                 {% if matchScores[i+1][match][player] is string or matchScores[i+1][match][player] == None %}
                   <div class = "p-2 mx-2" style= "width: 200px; display: flex; justify-content: space-between;">
                     <div>
                       <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player]}}</button>
                     </div>
                   </div>
+                  <!-- Adds the current player in the match into the matches division if it has not yet got scores assigned or don't yet have teams assigned -->
+                  <!-- Displays just the team name within its slot in the match -->
                 {% else %}
                   {% if matchScores[i+1][match][player][2] == "W" %}
                     <div class = "p-1 mx-2" style= "border: 1px solid lime; width: 200px; display: flex; justify-content: space-between; ">
                         <div>
                           <button class="btn m-auto" style="background-color:transparent; ">{{matchScores[i+1][match][player][0]}}</button>
                         </div>
-                      
                         <div>
                             <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player][1]}}</button>
                         </div>
                     </div>
+                    <!-- If the score has been assigned to the match and the team has won the match or drawn and then won the penalty shootout,
+                         the team name and score are displayed in this match with a green border to show this current team has won the match -->
                   {% else %}
                     <div class = "p-1 mx-2" style= "width: 200px; display: flex; justify-content: space-between; ">
                       <div>
                         <button class="btn m-auto" style="background-color:transparent; ">{{matchScores[i+1][match][player][0]}}</button>
                       </div>
-                    
                       <div>
                           <button class="btn m-auto" style="background-color:transparent">{{matchScores[i+1][match][player][1]}}</button>
                       </div>
-                  
-                      <!-- If draw, penalty winner selector pops up to determine who progresses -->
                     </div>
-
-
+                    <!-- If the scores have been assigned to the match but the team has lost or drawn the match and lost the penalty shootout 
+                         or the penalty shootout has not yet taken place and the match was a draw, the team name and score are be displayed but without any highlighting -->
                   {% endif %}
                 {% endif %}
 
                 {% if player == 1 %}
                   <hr>
                 {% endif %}
+                <!-- Adds a line between the teams in the match to separate the teams -->
 
               {% endfor %}
             </div>
@@ -77,7 +78,7 @@
         <div class = "container p-3 w-75">
           <div class = "text-center mb-3">
             <p><a class = "btn link-dark border mb-3 w-50" href = "/tournamentDashboard">Return to Tournament Dashboard</a></p>  
-            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the matches lists -->
+            <!-- Creates the button to return the user to the tournament dashboard, displayed centrally and below the bracket display -->
           </div>
         </div>
 </body>
