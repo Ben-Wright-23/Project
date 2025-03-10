@@ -166,7 +166,15 @@ def tournamentDashboard():
         #if the seventh item of results is None, this signifies the fixture information for the tournament has not already been inputted
         fixturesInfoInputted="False"
         #sets fixturesInfoInputted to be False to signify the fixture information for the tournament has not already been inputted so the fixture info input page should be loaded if the Fixtures button is pressed on the tournament dashboard
-    return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted= fixturesInfoInputted)
+    matchScores = results[9]
+    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
+    matchScores = eval(matchScores)
+    #turns the brackets back to their origional dictionary form
+    numTeams = int(results[2])
+    #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
+    numRounds = int(math.log2(numTeams))
+    #the number of rounds for the tournament is log2 of the number of teams in the tournament
+    return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted= fixturesInfoInputted, matchScores = matchScores, numberOfRounds = numRounds)
     #loads the tournamentDashboard html page with the view code for the tournament from the database passed with it to be displayed
     #also passes in whether the fixture information has been inputted yet so the program can choose whether the fixture info input page should be loaded or the fixtures page should be loaded when the Fixtures button is pressed
 
@@ -232,7 +240,15 @@ def tournamentDashboardRedirect():
         #if the seventh item of results is None, this signifies the fixture information for the tournament has not already been inputted
         fixturesInfoInputted="False"
         #sets fixturesInfoInputted to be False to signify the fixture information for the tournament has not already been inputted so the fixture info input page should be loaded if the Fixtures button is pressed on the tournament dashboard
-    return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted = fixturesInfoInputted)
+        matchScores = results[9]
+    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
+    matchScores = eval(matchScores)
+    #turns the brackets back to their origional dictionary form
+    numTeams = int(results[2])
+    #sets numTeams to be the integer version of the third item in results, which represents the current tournament's number of teams
+    numRounds = int(math.log2(numTeams))
+    #the number of rounds for the tournament is log2 of the number of teams in the tournament
+    return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted = fixturesInfoInputted, matchScores = matchScores, numberOfRounds = numRounds)
     #loads the tournament dashboard, with the specific tournament's view code passed in as viewCode so it can be displayed
     #also passes in whether the fixture information has been inputted yet so the program can choose whether the fixture info input page should be loaded or the fixtures page should be loaded when the Fixtures button is pressed
 

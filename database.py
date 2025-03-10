@@ -230,16 +230,27 @@ class DatabaseHandler:
 
     def deleteTournament(self,tournamentName):
         #defines deleteTournament function, with the tournament name of the tournament that needs to be deleted passed in
-        connection = sql.connect(self.name)
-        #connect to the database
-        connection.execute("""DELETE FROM tournament
-                            WHERE tournamentName = ? ;""",
-                            [tournamentName])
-        #exectutes the previously designed SQL statement to delete the tournament with a given tournament name
-        connection.commit()
-        #commit the deletion of the tournament to the database
-        connection.close()
-        #close the connection to the database
+        try:
+            connection = sql.connect(self.name)
+            #connect to the database
+            connection.execute("""DELETE FROM tournament
+                                WHERE tournamentName = ? ;""",
+                                [tournamentName])
+            #exectutes the previously designed SQL statement to delete the tournament with a given tournament name
+            connection.commit()
+            #commit the deletion of the tournament to the database
+            connection.close()
+            #close the connection to the database
+            return True
+            #returns true signifying the tournament has been deleted successfully
+
+        except:
+            #if there has been an error in the SQL statement
+            connection.close()
+            #close the connection to the database
+            return False
+            #returns false signifying the tournament has not been deleted successfully
+
 
 
     def addFixtureInfo(self, startTimes, duration, breakLength, tournamentName):

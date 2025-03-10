@@ -11,61 +11,80 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <!-- Imports bootsrap Javascript module -->
+    <link rel = "stylesheet" href="static/styles.css" >
+    <!-- Imports the stylesheet that will be accessed in this page -->
 </head>
 <body>
     <div class = "container border p-5 w-50">
-    <!-- Contains all the contents in a box with 5 padding to make it fit screeens well and look simplistic -->
-    <div class = "mb-3" style= "display: flex; justify-content: space-between;">
-        <!-- Evenly spaces the items within this division horizontally, for this, across the top of the page -->
-        <p style = "color:slategrey">View Code: {{viewCode}}</p>  
-        <!-- Displays the view code for this specific tournament in the top left of the page for users to share, grey as it is a background item  -->
-        <h1 class = "display-4 text-center mb-5 text-dark">{{ session["Tournament"] }}</h1>
-        <!-- Creates main heading for the page, with the current tournaments name being this heading. Centered and a margin below so is emphasised -->
-        <div class="dropdown">
-            <!-- Creates the division to create the dropdown within -->
-            <button class="btn border dropdown-toggle" type="button" data-toggle="dropdown">My Account</button>
-            <!-- Creates the button for the simple my account dropdown -->
-            <ul class="dropdown-menu">
-            <!-- Creates the unordered list of items for the dropdown -->
-                <li><a class="dropdown-item" href="/myTournamentsPage">My Tournaments</a></li>
-                <!-- Creates the dropdown list item to redirect the user to the My Tournaments page -->
-                <li><hr class="dropdown-divider"></li>
-                <!-- Creates a division bewteen list items so it is clear where each button starts and ends -->
-                <li><a class="dropdown-item" href="/dashboard">Return to Dashboard</a></li>
-                <!-- Creates the dropdown list item to redirect the user to the main dashboard page -->
-                <li><hr class="dropdown-divider"></li>
-                <!-- Creates a division bewteen list items so it is clear where each button starts and ends -->
-                <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                <!-- Creates the dropdown list item to log the user out of their account -->
-            </ul>
+        <!-- Contains all the contents in a box with 5 padding to make it fit screeens well and look simplistic -->
+        <div class = "mb-3" style= "display: flex; justify-content: space-between;">
+            <!-- Evenly spaces the items within this division horizontally, for this, across the top of the page -->
+            <p style = "color:slategrey">View Code: {{viewCode}}</p>  
+            <!-- Displays the view code for this specific tournament in the top left of the page for users to share, grey as it is a background item  -->
+            <h1 class = "display-4 text-center mb-5 text-dark">{{ session["Tournament"] }}</h1>
+            <!-- Creates main heading for the page, with the current tournaments name being this heading. Centered and a margin below so is emphasised -->
+            <div class="dropdown">
+                <!-- Creates the division to create the dropdown within -->
+                <button class="btn border dropdown-toggle" type="button" data-toggle="dropdown">My Account</button>
+                <!-- Creates the button for the simple my account dropdown -->
+                <ul class="dropdown-menu">
+                <!-- Creates the unordered list of items for the dropdown -->
+                    <li><a class="dropdown-item" href="/myTournamentsPage">My Tournaments</a></li>
+                    <!-- Creates the dropdown list item to redirect the user to the My Tournaments page -->
+                    <li><hr class="dropdown-divider"></li>
+                    <!-- Creates a division bewteen list items so it is clear where each button starts and ends -->
+                    <li><a class="dropdown-item" href="/dashboard">Return to Dashboard</a></li>
+                    <!-- Creates the dropdown list item to redirect the user to the main dashboard page -->
+                    <li><hr class="dropdown-divider"></li>
+                    <!-- Creates a division bewteen list items so it is clear where each button starts and ends -->
+                    <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                    <!-- Creates the dropdown list item to log the user out of their account -->
+                </ul>
+            </div>
         </div>
-    </div>
-    
-    <div class = "text-center">
-      <p><a class = "btn link-dark border mb-3 w-75" href = "/liveBracketViewPage">Bracket View</a></p>  
-      <!-- Creates a centered button to redirect the user to the live bracket view page, which contains scores of matches -->
-    </div>
-    {% if fixturesInfoInputted == "True" %}
-    <div class = "text-center">
-        <p><a class = "btn link-dark border mb-3 w-75" href = "/fixturesPage">Fixtures</a></p>
-        <!-- If the fixture information has already been inputted, this creates a centered button to redirect the user to the fixtures page, which contains a list of all fixtures used for scheduling -->
-    </div>
-    {% else %}
-    <div class = "text-center">
-        <p><a class = "btn link-dark border mb-3 w-75" href = "/fixtureInfoInputPage">Fixtures</a></p>
-        <!-- If the fixture information has not already been inputted, this creates a centered button to redirect the user to the fixtures information input page page, which contains a form to be filled out so the fixtures page can be generated -->
-    </div>
-    {% endif %}
         
-    
-    <div class = "text-center">
-        <p><a class = "btn link-dark border mb-3 w-75" href = "/scoresInputPage">Scores Input</a></p>  
-        <!-- Creates a centered button to redirect the user to the scores input page, which contains the function to input scores for matches -->
-    </div>
-    <div class = "text-end">
-        <p><a class = "btn link-dark border mb-3 disabled" href = "/...">End Tournament</a></p>  
-        <!-- Creates the button to end the tournament, will only be pressable once a winner has been determined -->
-    </div>
+        <div class = "text-center">
+        <p><a class = "btn link-dark border mb-3 w-75" href = "/liveBracketViewPage">Bracket View</a></p>  
+        <!-- Creates a centered button to redirect the user to the live bracket view page, which contains scores of matches -->
+        </div>
+        {% if fixturesInfoInputted == "True" %}
+        <div class = "text-center">
+            <p><a class = "btn link-dark border mb-3 w-75" href = "/fixturesPage">Fixtures</a></p>
+            <!-- If the fixture information has already been inputted, this creates a centered button to redirect the user to the fixtures page, which contains a list of all fixtures used for scheduling -->
+        </div>
+        {% else %}
+        <div class = "text-center">
+            <p><a class = "btn link-dark border mb-3 w-75" href = "/fixtureInfoInputPage">Fixtures</a></p>
+            <!-- If the fixture information has not already been inputted, this creates a centered button to redirect the user to the fixtures information input page page, which contains a form to be filled out so the fixtures page can be generated -->
+        </div>
+        {% endif %}
+            
+        
+        <div class = "text-center">
+            <p><a class = "btn link-dark border mb-3 w-75" href = "/scoresInputPage">Scores Input</a></p>  
+            <!-- Creates a centered button to redirect the user to the scores input page, which contains the function to input scores for matches -->
+        </div>
+        {% if matchScores[numberOfRounds][1][1][2] == "W" or matchScores[numberOfRounds][1][1][2] == "L" %}
+        <!-- Winner pop-up -->
+            {% if matchScores[numberOfRounds][1][1][2] == "W" %}
+            <div class="success p-3 mb-3 mx-5">
+                <p>Congratulations <strong>{{matchScores[numberOfRounds][1][1][0]}}</strong> on winning the tournament!</p>
+            </div>
+            {% else %}
+            <div class="success p-3 mb-3 mx-5">
+                <p>Congratulations <strong>{{matchScores[numberOfRounds][1][2][0]}}</strong> on winning the tournament!</p>
+            </div>
+            {% endif %}
+        <div class = "text-end">
+            <p><a class = "btn link-dark border mb-3" href = "/endTournament">End Tournament</a></p>  
+            <!-- Creates the button to end the tournament, will only be pressable once a winner has been determined -->
+        </div>
+        {% else %}
+        <div class = "text-end">
+            <p><a class = "btn link-dark border mb-3 disabled" href = "/endTournament">End Tournament</a></p>  
+            <!-- Creates the button to end the tournament, will only be pressable once a winner has been determined -->
+        </div>
+        {% endif %}
     </div>
     
 </body>

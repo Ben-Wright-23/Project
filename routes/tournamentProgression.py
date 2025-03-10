@@ -20,6 +20,7 @@ scoresInputBlueprint = Blueprint("scoresInput",__name__)
 #create a flask blueprint for the function to handle the user's score inputs and add these scores to the database, assigned to the correct matches
 drawProgressionBlueprint = Blueprint("drawProgression",__name__)
 #create a flask blueprint for the function to handle the penalty winner inputs that occur when draws are entered for scores
+endTournamentBlueprint = Blueprint("endTournament",__name__)
 
 
 @liveBracketViewPageBlueprint.route("/liveBracketViewPage")
@@ -355,3 +356,15 @@ def drawProgression():
     #redirects the user to the function to reload the scores input page
     
     
+@endTournamentBlueprint.route("/endTournament")
+#creates the route for the endTournament blueprint, allowing it to be accessed easily.
+def endTournament():
+    #defines endTournament function for the endTournament blueprint
+    db = DatabaseHandler("appData.db")
+    #creates a link to the database, where appData.db is the database storing the enities
+    db.deleteTournament(session["Tournament"])
+    return redirect("/dashboard")
+
+
+
+
