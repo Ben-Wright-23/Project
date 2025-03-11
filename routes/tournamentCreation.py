@@ -241,7 +241,7 @@ def tournamentDashboardRedirect():
         #if the seventh item of results is None, this signifies the fixture information for the tournament has not already been inputted
         fixturesInfoInputted="False"
         #sets fixturesInfoInputted to be False to signify the fixture information for the tournament has not already been inputted so the fixture info input page should be loaded if the Fixtures button is pressed on the tournament dashboard
-        matchScores = results[9]
+    matchScores = results[9]
     #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
     matchScores = eval(matchScores)
     #turns the brackets back to their origional dictionary form
