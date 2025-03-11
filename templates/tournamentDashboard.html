@@ -65,24 +65,28 @@
             <!-- Creates a centered button to redirect the user to the scores input page, which contains the function to input scores for matches -->
         </div>
         {% if matchScores[numberOfRounds][1][1][2] == "W" or matchScores[numberOfRounds][1][1][2] == "L" %}
-        <!-- Winner pop-up -->
+        <!-- If the final winner of the tournament has been determined: -->
             {% if matchScores[numberOfRounds][1][1][2] == "W" %}
             <div class="success p-3 mb-3 mx-5">
                 <p>Congratulations <strong>{{matchScores[numberOfRounds][1][1][0]}}</strong> on winning the tournament!</p>
+                <!-- If the first team in the final has won the match, display the congratulations pop up congratulating this team on winning the tournament -->
             </div>
             {% else %}
             <div class="success p-3 mb-3 mx-5">
                 <p>Congratulations <strong>{{matchScores[numberOfRounds][1][2][0]}}</strong> on winning the tournament!</p>
+                <!-- If the second team in the final has won the match, display the congratulations pop up congratulating this team on winning the tournament -->
             </div>
             {% endif %}
         <div class = "text-end">
+            <!-- Displays the button on the right of the container -->
             <p><a class = "btn link-dark border mb-3" href = "/endTournament">End Tournament</a></p>  
-            <!-- Creates the button to end the tournament, will only be pressable once a winner has been determined -->
+            <!-- Displays the end tournament button as enabled and pressable as the final winner has been determined -->
         </div>
         {% else %}
         <div class = "text-end">
+            <!-- Displays the button on the right of the container -->
             <p><a class = "btn link-dark border mb-3 disabled" href = "/endTournament">End Tournament</a></p>  
-            <!-- Creates the button to end the tournament, will only be pressable once a winner has been determined -->
+            <!-- Displays the disabled end tournament button as the final winner has not yet been setermined -->
         </div>
         {% endif %}
     </div>

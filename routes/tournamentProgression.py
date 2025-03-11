@@ -363,7 +363,9 @@ def endTournament():
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     db.deleteTournament(session["Tournament"])
+    #deletes the current tournament from the database
     return redirect("/dashboard")
+    #loads the current user's dashboard 
 
 
 

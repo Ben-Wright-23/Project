@@ -177,6 +177,7 @@ def tournamentDashboard():
     return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted= fixturesInfoInputted, matchScores = matchScores, numberOfRounds = numRounds)
     #loads the tournamentDashboard html page with the view code for the tournament from the database passed with it to be displayed
     #also passes in whether the fixture information has been inputted yet so the program can choose whether the fixture info input page should be loaded or the fixtures page should be loaded when the Fixtures button is pressed
+    #also passes in the matchScores dictionary and number of rounds to be used to determine whether the end tournament button should be disabled or enabled
 
 
 @generateViewCodeBlueprint.route("/generateViewCode")
@@ -251,6 +252,7 @@ def tournamentDashboardRedirect():
     return render_template("tournamentDashboard.html", viewCode = viewCode, fixturesInfoInputted = fixturesInfoInputted, matchScores = matchScores, numberOfRounds = numRounds)
     #loads the tournament dashboard, with the specific tournament's view code passed in as viewCode so it can be displayed
     #also passes in whether the fixture information has been inputted yet so the program can choose whether the fixture info input page should be loaded or the fixtures page should be loaded when the Fixtures button is pressed
+    #also passes in the matchScores dictionary and number of rounds to be used to determine whether the end tournament button should be disabled or enabled
 
 @deleteTournamentBlueprint.route("/deleteTournament", methods = ["POST"])
 #creates the route for the deleteTournament blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
