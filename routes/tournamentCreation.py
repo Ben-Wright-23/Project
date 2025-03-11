@@ -154,6 +154,7 @@ def tournamentDashboard():
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
     #retrieves all the fields for the current tournament and sets the list retrieved to be results
+    print(results)
     viewCode = results[5]
     #sets viewCode to be the sixth item in the list of current tournament fields as this represents the view code
     viewCode = eval(viewCode)

@@ -7,4 +7,4 @@ dashboardBlueprint = Blueprint("dashboard",__name__)
 def dashboard():
     session["accountDeletionError"] = ""
     session["tournamentCreationError"] = ""
-    return render_template("dashboard.html")
+    return render_template("dashboard.html", error = session["viewCodeInputError"])

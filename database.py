@@ -298,3 +298,28 @@ class DatabaseHandler:
             #close the connection to the database
             return False
             #returns false signifying the match scores have not been added to the current tournament successfully
+
+
+    def getTournamentName(self,viewCode):
+        #defines getTournamentName function, with the view code to be checked for passed in
+        try:
+            connection = sql.connect(self.name)
+            #connect to the database
+            cursor = connection.cursor()
+            #creates a cursor to inspect one row of the table at a time
+            cursor.execute("""SELECT tournamentName FROM tournament WHERE viewCode = ?;""",(viewCode,))
+            #exectutes the previously designed SQL statement using the cursor to check through the records for the view code has been passed in
+            results = cursor.fetchone()
+            #fetches the view code if there is one that matches the passed in view code
+            connection.close()
+            #close the connection to the database
+            return results
+            #returns the view code from the database if it matches the view code passed in, signifying the passed in view code is not unique, otherwise it will return None
+        except Exception as e:
+            #if there was an error executing the SQL statement:
+            connection.close()
+            #close the connection to the database
+            print(e)
+            #print the error that has occured
+            return False
+            #returns false signifying the check has not been completed
