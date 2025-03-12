@@ -29,12 +29,10 @@
                 <!-- Creates the button for the simple my account dropdown -->
                 <ul class="dropdown-menu">
                 <!-- Creates the unordered list of items for the dropdown -->
-                    {% if session["Viewing"] == False %}
                     <li><a class="dropdown-item" href="/myTournamentsPage">My Tournaments</a></li>
                     <!-- Creates the dropdown list item to redirect the user to the My Tournaments page -->
                     <li><hr class="dropdown-divider"></li>
                     <!-- Creates a division bewteen list items so it is clear where each button starts and ends -->
-                    {% endif %}
                     <li><a class="dropdown-item" href="/dashboard">Return to Dashboard</a></li>
                     <!-- Creates the dropdown list item to redirect the user to the main dashboard page -->
                     <li><hr class="dropdown-divider"></li>
