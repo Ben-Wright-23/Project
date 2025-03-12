@@ -37,14 +37,28 @@
                                 <p>Match {{match}}</p>  
                                 <!-- Displays a label for each match in the round in turn, stating its number in the sequence of matches for this round -->
                             </div>
+                            {% if tournament[i][match][1] is string %}
                             <div class="my-1">
                                 <p>Team 1: {{tournament[i][match][1]}}</p>  
                                 <!-- Displays and labels the first team in each match in the round in turn, taken from the bracket stored in the database -->
                             </div>
+                            {% else %}
+                            <div class="my-1">
+                                <p>Team 1: {{tournament[i][match][1][0]}}</p>  
+                                <!-- Displays and labels the first team in each match in the round in turn, taken from the bracket stored in the database -->
+                            </div>
+                            {% endif %}
+                            {% if tournament[i][match][1] is string %}
                             <div class="my-1">
                                 <p>Team 2: {{tournament[i][match][2]}}</p>
                                 <!-- Displays and labels the second team in each match in the round in turn, taken from the bracket stored in the database -->
                             </div>
+                            {% else %}
+                            <div class="my-1">
+                                <p>Team 2: {{tournament[i][match][2][0]}}</p>
+                                <!-- Displays and labels the second team in each match in the round in turn, taken from the bracket stored in the database -->
+                            </div>
+                            {% endif %}
                         </div>
                         <div class="p-3 mt-3">
                             <p>Total Match Duration (incl HT): </p>

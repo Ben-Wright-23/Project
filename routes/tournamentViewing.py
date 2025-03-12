@@ -11,13 +11,12 @@ def viewTournament():
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     enteredViewCode = request.form["enteredViewCode"]
-    print(enteredViewCode)
+    session["Viewing"] = True
     if db.checkViewCodes(enteredViewCode) == None:
         session["viewCodeInputError"] = "The entered view code does not exist"
         return redirect("/dashboard")
     else:
         session["viewCodeInputError"] = ""
         tournamentName = db.getTournamentName(enteredViewCode)
-        print(tournamentName)
         session["Tournament"] = tournamentName
         return redirect("/tournamentDashboard")

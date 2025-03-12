@@ -32,13 +32,13 @@
                         <form action = "/viewTournament" method = "post">
                             <div class = "mb-3">
                                 <label class = "form-label text-dark" for = "enteredViewCode">Enter the view code of the tournament you wish to view: </label>
-                                <input class = "form-control" type="number" name="enteredViewCode" id="enteredViewCode" required>
+                                <input class = "form-control" type="number" name="enteredViewCode" id="enteredViewCode" maxlength = "6" required>
                             </div>
                             <div class = "mb-3">
                                 <input class="btn mb-3 w-50 border" type="submit" value="Confirm">
                             </div>
                         </form>
-                        {{error}}
+                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class = "btn border" data-dismiss="modal">Close</button>
@@ -53,6 +53,7 @@
     <div class = "text-center">
         <p><a class = "btn link-dark border mb-3 w-75" href = "/deleteAccount">Delete your Account</a></p>
     </div>
+    {{error}}
     </div>
 </body>
 </html>

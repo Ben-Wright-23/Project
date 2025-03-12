@@ -52,6 +52,10 @@ def fixturesPage():
     #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
     brackets = eval(brackets)
     #turns the brackets back to their origional dictionary form
+    matchScores = results[9]
+    #sets matchScores to be the tenth value from the fields list as this represents that tournament's bracket with match scores added
+    matchScores = eval(matchScores)
+    #turns the matchScores back to their origional dictionary form
     roundStartTimes = results[6]
     #sets roundStartTimes to be the seventh value from the fields list as this represents that tournament's round start times
     roundStartTimes = eval(roundStartTimes)
@@ -60,7 +64,7 @@ def fixturesPage():
     #sets matchDuration to be the integer version of the eighth value from the fields list as this represents that tournament's match duration
     breakLength = int(results[8])
     #sets breakLength to be the integer version of the ninth value from the fields list as this represents that tournament's length of breaks
-    return render_template("fixtures.html", tournament = brackets, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
+    return render_template("fixtures.html", tournament = matchScores, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
     #loads the fixtures page, with the brackets passed in as tournament, round start times as roundStartTimes, match duration as matchDuration and break length as breakLength
 
 @scoresInputPageBlueprint.route("/scoresInputPage")

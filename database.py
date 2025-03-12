@@ -307,9 +307,9 @@ class DatabaseHandler:
             #connect to the database
             cursor = connection.cursor()
             #creates a cursor to inspect one row of the table at a time
-            cursor.execute("""SELECT tournamentName FROM tournament WHERE viewCode = ?;""",(viewCode,))
+            cursor.execute("""SELECT tournamentName FROM tournament WHERE viewCode = ?;""", [viewCode])
             #exectutes the previously designed SQL statement using the cursor to check through the records for the view code has been passed in
-            results = cursor.fetchone()
+            results = cursor.fetchone()[0]
             #fetches the view code if there is one that matches the passed in view code
             connection.close()
             #close the connection to the database

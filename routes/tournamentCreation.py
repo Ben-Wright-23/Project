@@ -103,6 +103,7 @@ def clearTeams():
 
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
+    session["Viewing"] = False
     if len(teams)< numTeams:
         session["teamInputError"] = "Not enough teams entered" 
         return redirect("/teamsInputPage")
@@ -150,11 +151,11 @@ def tournamentDashboard():
     session["scoreInputError"] = ""
     #defines the scoreInputError session or clears the session containing errors with score inputs,
     #so they are not already present from other tournaments when the scores input page is loaded
+    session["viewCodeInputError"] = ""
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
     #retrieves all the fields for the current tournament and sets the list retrieved to be results
-    print(results)
     viewCode = results[5]
     #sets viewCode to be the sixth item in the list of current tournament fields as this represents the view code
     viewCode = eval(viewCode)
@@ -208,6 +209,8 @@ def generateViewCode():
 #creates the route for the myTournamentsPage blueprint, allowing it to be accessed easily.
 def myTournamentsPage():
     #defines myTournamentsPage function for the myTournamentsPage blueprint
+    session["viewCodeInputError"] = ""
+    session["Viewing"] = False
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournaments(session["currentUser"])
@@ -219,6 +222,7 @@ def myTournamentsPage():
 #creates the route for the tournamentDashboardRedirect blueprint, allowing it to be accessed easily. Post method allows it to send data to the server
 def tournamentDashboardRedirect():
     #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
+    session["viewCodeInputError"] = ""
     session["FixtureInfoInputError"] = ""
     #defines the FixtureInfoInputError session or clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
     session["scoreInputError"] = ""

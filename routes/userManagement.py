@@ -100,10 +100,9 @@ def deleteUser():
         return redirect("/deleteAccount")
         
 
-
-
 @deleteAccountBlueprint.route("/deleteAccount")
 def deleteAccount():
+    session["viewCodeInputError"] = ""
     accountDeletionError = session.get("accountDeletionError") if session.get("accountDeletionError") else ""
     return render_template("deleteAccount.html", error = accountDeletionError)
 
