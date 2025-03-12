@@ -9,7 +9,6 @@ viewTournamentBlueprint = Blueprint("viewTournament",__name__)
 def viewTournament():
     #defines viewTournament function for the viewTournament blueprint
     db = DatabaseHandler("appData.db")
-    #creates a link to the database, where appData.db is the database storing the enities
     enteredViewCode = request.form["enteredViewCode"]
     session["Viewing"] = True
     if db.checkViewCodes(enteredViewCode) == None:
