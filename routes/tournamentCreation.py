@@ -26,6 +26,8 @@ bracketViewRedirectBlueprint = Blueprint("bracketViewRedirect",__name__)
 def creationForm():
     session["teamInputError"] = ""
     session["teamDeletionError"] = ""
+    session["viewCodeInputError"] = ""
+    #clears the view code input errors session so it does not remain present when returning to the user's dashboard
     Error = session.get("tournamentCreationError") if session.get("tournamentCreationError") else ""
     return render_template("creationForm.html", error = Error)
     
@@ -104,6 +106,7 @@ def clearTeams():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     session["Viewing"] = False
+    #sets the viewing session to false so when the tournament dashboard is loaded from the bracketView page when a tournament is being created, all functions are displayed as it is the tournament organiser accessing the tournament
     if len(teams)< numTeams:
         session["teamInputError"] = "Not enough teams entered" 
         return redirect("/teamsInputPage")
@@ -152,6 +155,7 @@ def tournamentDashboard():
     #defines the scoreInputError session or clears the session containing errors with score inputs,
     #so they are not already present from other tournaments when the scores input page is loaded
     session["viewCodeInputError"] = ""
+    #clears the view code input errors session so it does not remain present when returning to the user's dashboard
     db = DatabaseHandler("appData.db")
     db.updateActiveTrue(session["Tournament"])
     results = db.getTournamentFields(session["Tournament"])
@@ -210,7 +214,9 @@ def generateViewCode():
 def myTournamentsPage():
     #defines myTournamentsPage function for the myTournamentsPage blueprint
     session["viewCodeInputError"] = ""
+    #clears the view code input errors session so it does not remain present when returning to the user's dashboard
     session["Viewing"] = False
+    #sets the viewing session to false so if a tournament dashboard is loaded from the myTournaments page, all functions are displayed as it is the tournament organiser accessing the tournament
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournaments(session["currentUser"])
@@ -223,6 +229,7 @@ def myTournamentsPage():
 def tournamentDashboardRedirect():
     #defines tournamentDashboardRedirect function for the tournamentDashboardRedirect blueprint
     session["viewCodeInputError"] = ""
+    #clears the view code input errors session so it does not remain present when returning to the user's dashboard
     session["FixtureInfoInputError"] = ""
     #defines the FixtureInfoInputError session or clears the session containing errors with fixture information inputs so they are not already present from other tournaments when the fixture information input page is loaded
     session["scoreInputError"] = ""

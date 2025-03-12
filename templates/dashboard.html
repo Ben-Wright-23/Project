@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
+    <!-- Imports bootsrap CSS module -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Imports bootsrap Javascript module -->
     <link rel = "stylesheet" href="static/styles.css" >
     <!-- Imports the stylesheet that will be accessed in this page -->
 </head>
@@ -20,33 +22,50 @@
     <div class = "text-center">
         <p><a class = "btn link-dark border mb-3 w-75" href = "/myTournamentsPage">My Tournaments</a></p>  
     </div>
+
     <div class = "text-center mb-3">
+        <!-- Aligns the button in the centre of the division with a margin below -->
         <button type="button" class="btn link-dark border mb-3 w-75" data-toggle="modal" data-target="#enterViewCodeModal">View a Tournament</button>
+        <!-- Makes the View a tournament button that will toggle the enterViewCode modal to pop up when pressed -->
         <div class="modal fade" id="enterViewCodeModal">
+            <!-- Defines the modal as enterViewCodeModal and fades it in when the button is pressed -->
             <div class="modal-dialog">
+                <!-- Sets the proper width and margin of the modal -->
                 <div class="modal-content">
+                    <!-- Creates a division for the modal to store all its content within and styles the modal -->
                     <div class="modal-header">
                         <h5 class="modal-title">View a Tournament</h5>
+                        <!-- Creates the header section of the modal, with a heading for it displayed -->
                     </div>
                     <div class="modal-body">
+                        <!-- Displays the content in the body of the modal -->
                         <form action = "/viewTournament" method = "post">
+                            <!-- Creates the form, sending the submitted to the viewTournament route using the post method -->
                             <div class = "mb-3">
                                 <label class = "form-label text-dark" for = "enteredViewCode">Enter the view code of the tournament you wish to view: </label>
+                                <!-- Labels the view code input box -->
                                 <input class = "form-control" type="number" name="enteredViewCode" placeholder = "eg. 123456" id="enteredViewCode" max="999999" required>
+                                <!-- Creates the view code input box, only allowing 6-digit numbers or less to be entered while also having an entry required before the form is submitted -->
+                                <!-- Also displays a placeholder to show the user what format to enter the view code in -->
                             </div>
-                            <div class = "mb-3">
+                            <div>
                                 <input class="btn mb-3 w-50 border" type="submit" value="Confirm">
+                                <!-- Creates the submit button for the form, which when pressed, will send the entered data to the viewTournament route -->
                             </div>
                         </form>
                         
                     </div>
                     <div class="modal-footer">
                         <button type="button" class = "btn border" data-dismiss="modal">Close</button>
+                        <!-- Adds a close button to the footer of the modal so the modal can be closed and the dashboard will be fully displayed again -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
     <div class = "text-center">
       <p><a class = "btn link-dark border mb-3 w-75" href = "/logout">Logout</a></p>  
     </div>
@@ -54,6 +73,7 @@
         <p><a class = "btn link-dark border mb-3 w-75" href = "/deleteAccount">Delete your Account</a></p>
     </div>
     {{error}}
+    <!-- Displays the view code input error at the bottom of the dashboard page -->
     </div>
 </body>
 </html>

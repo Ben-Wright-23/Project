@@ -2,6 +2,7 @@ from flask import Blueprint,render_template, session, request,redirect
 from database import DatabaseHandler
 
 viewTournamentBlueprint = Blueprint("viewTournament",__name__)
+#create a flask blueprint for the function to handle the view code inputs and either allow the user to view the tournament or display an error
 
 
 @viewTournamentBlueprint.route("/viewTournament", methods = ["POST"])
@@ -21,7 +22,7 @@ def viewTournament():
         #reloads the dashboard page with this error displayed
     else:
         session["viewCodeInputError"] = ""
-        #clears the view code input errros session as no error has occured with the view code input
+        #clears the view code input errors session as no error has occured with the view code input
         tournamentName = db.getTournamentName(enteredViewCode)
         #retrieves the tournament name of the tournament that has had its view code entered
         session["Tournament"] = tournamentName

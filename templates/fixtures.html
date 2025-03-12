@@ -17,7 +17,7 @@
         <!-- Contains all the contents in a box with 5 padding to make it fit screeens well and look simplistic. -->
         <h1 class = "display-4 text-center mb-5 text-dark">Fixtures</h1>
         <!-- Creates main heading for the page, centered and a margin below so is emphasised -->
-        {% for i in tournament %}
+        {% for i in matchcores %}
         <!-- will repeat the contents for every round in the tournament in turn -->
         <label class = "text-dark mb-3">Round {{i}} Fixtures:</label>
         <!-- Creates a label for list of fixtures for this round, with this round's number displayed in the label -->
@@ -25,7 +25,7 @@
             <!-- Creates a division for the list of fixtures for this round -->
             <ul class="list-group">
                 <!-- Creates an unordered list to contain each match in the round and details of each match, bootstrap list-group class creates simplistic style -->
-                {% for match in tournament[i] %}
+                {% for match in matchScores[i] %}
                 <!-- Content repeats for each match in the currently being dealt with round -->
                 <li class="list-group-item">
                     <!-- Creates the list item for each match in the round in turn, bootstrap list-group-item class creates simplistic style -->
@@ -37,28 +37,31 @@
                                 <p>Match {{match}}</p>  
                                 <!-- Displays a label for each match in the round in turn, stating its number in the sequence of matches for this round -->
                             </div>
-                            {% if tournament[i][match][1] is string %}
+                            {% if matchScores[i][match][1] is string %}
                             <div class="my-1">
-                                <p>Team 1: {{tournament[i][match][1]}}</p>  
-                                <!-- Displays and labels the first team in each match in the round in turn, taken from the bracket stored in the database -->
+                                <p>Team 1: {{matchScores[i][match][1]}}</p>  
+                                <!-- Displays and labels the first team in each match in the round in turn if the score for this team in the match has not been entered, taken from the matchScores stored in the database -->
                             </div>
                             {% else %}
                             <div class="my-1">
-                                <p>Team 1: {{tournament[i][match][1][0]}}</p>  
-                                <!-- Displays and labels the first team in each match in the round in turn, taken from the bracket stored in the database -->
+                                <p>Team 1: {{matchScores[i][match][1][0]}}</p>  
+                                <!-- Displays and labels the first team in each match in the round in turn if the score for this team in the match has been entered, taken from the matchScores stored in the database -->
                             </div>
                             {% endif %}
-                            {% if tournament[i][match][1] is string %}
+                            <!-- If statement ensures the first team name for each match is displayed correctly, no matter if the score has been entered for the match or not -->
+
+                            {% if matchScores[i][match][1] is string %}
                             <div class="my-1">
-                                <p>Team 2: {{tournament[i][match][2]}}</p>
-                                <!-- Displays and labels the second team in each match in the round in turn, taken from the bracket stored in the database -->
+                                <p>Team 2: {{matchScores[i][match][2]}}</p>
+                                <!-- Displays and labels the second team in each match in the round in turn if the score for this team in the match has not been entered, taken from the matchScores stored in the database -->
                             </div>
                             {% else %}
                             <div class="my-1">
-                                <p>Team 2: {{tournament[i][match][2][0]}}</p>
-                                <!-- Displays and labels the second team in each match in the round in turn, taken from the bracket stored in the database -->
+                                <p>Team 2: {{matchScores[i][match][2][0]}}</p>
+                                <!-- Displays and labels the second team in each match in the round in turn if the score for this team in the match has been entered, taken from the matchScores stored in the database -->
                             </div>
                             {% endif %}
+                            <!-- If statement ensures the second team name for each match is displayed correctly, no matter if the score has been entered for the match or not -->
                         </div>
                         <div class="p-3 mt-3">
                             <p>Total Match Duration (incl HT): </p>

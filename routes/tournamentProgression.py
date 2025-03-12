@@ -48,10 +48,6 @@ def fixturesPage():
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournamentFields(session["Tournament"])
     #sets results to be the list of fields from the database for the current tournament 
-    brackets = results[4]
-    #sets brackets to be the fith value from the fields list as this represents that tournament's brackets
-    brackets = eval(brackets)
-    #turns the brackets back to their origional dictionary form
     matchScores = results[9]
     #sets matchScores to be the tenth value from the fields list as this represents that tournament's bracket with match scores added
     matchScores = eval(matchScores)
@@ -64,8 +60,9 @@ def fixturesPage():
     #sets matchDuration to be the integer version of the eighth value from the fields list as this represents that tournament's match duration
     breakLength = int(results[8])
     #sets breakLength to be the integer version of the ninth value from the fields list as this represents that tournament's length of breaks
-    return render_template("fixtures.html", tournament = matchScores, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
+    return render_template("fixtures.html", matchScores = matchScores, roundStartTimes = roundStartTimes, matchDuration = matchDuration, breakLength = breakLength)
     #loads the fixtures page, with the brackets passed in as tournament, round start times as roundStartTimes, match duration as matchDuration and break length as breakLength
+    #pass in matchScores instead of brackets so team progression is showed within the fixtures page matches
 
 @scoresInputPageBlueprint.route("/scoresInputPage")
 #creates the route for the scoresInputPage blueprint, allowing it to be accessed easily.

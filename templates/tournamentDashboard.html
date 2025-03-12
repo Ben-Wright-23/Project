@@ -55,7 +55,7 @@
         {% elif session["Viewing"] == True %}
         <div class = "text-center">
             <p>The fixture list has not yet been created by the tournament organiser</p>
-            <!-- If the fixture information has already been inputted, this creates a centered button to redirect the user to the fixtures page, which contains a list of all fixtures used for scheduling -->
+            <!-- If a tournament is being viewed but has not yet had its fixture information entered, displays this message telling viewing users the fixture information has not yet been inputted instead of the fixtures button -->
         </div>
         {% else %}
         <div class = "text-center">
@@ -65,6 +65,7 @@
         {% endif %}
             
         {% if session["Viewing"] == False %}
+        <!-- Only displays the score input button if the tournament is not being viewed, meaning viewing users cannot enter scores, only the tournament organiser -->
             <div class = "text-center">
                 <p><a class = "btn link-dark border mb-3 w-75" href = "/scoresInputPage">Scores Input</a></p>  
                 <!-- Creates a centered button to redirect the user to the scores input page, which contains the function to input scores for matches -->

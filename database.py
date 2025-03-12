@@ -308,13 +308,13 @@ class DatabaseHandler:
             cursor = connection.cursor()
             #creates a cursor to inspect one row of the table at a time
             cursor.execute("""SELECT tournamentName FROM tournament WHERE viewCode = ?;""", [viewCode])
-            #exectutes the previously designed SQL statement using the cursor to check through the records for the view code has been passed in
-            results = cursor.fetchone()[0]
-            #fetches the view code if there is one that matches the passed in view code
+            #exectutes the previously designed SQL statement using the cursor to select the tournament name for the tournament with the view code that has been passed in
+            results = cursor.fetchone()
+            #fetches the tournament name if there is a tournament with a view code that matches the passed in view code
             connection.close()
             #close the connection to the database
             return results
-            #returns the view code from the database if it matches the view code passed in, signifying the passed in view code is not unique, otherwise it will return None
+            #returns the tournament name from the database if the tournament's view code matches the view code passed in
         except Exception as e:
             #if there was an error executing the SQL statement:
             connection.close()
@@ -322,4 +322,4 @@ class DatabaseHandler:
             print(e)
             #print the error that has occured
             return False
-            #returns false signifying the check has not been completed
+            #returns false signifying the selection has not been completed

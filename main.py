@@ -61,6 +61,7 @@ app.register_blueprint(drawProgressionBlueprint)
 #registers the drawProgressionBlueprint in the Flask instance so it can be used when running the program in the web framework
 app.register_blueprint(endTournamentBlueprint)
 app.register_blueprint(viewTournamentBlueprint)
+#registers the viewTournamentBlueprint in the Flask instance so it can be used when running the program in the web framework
 
 ######################################################
 app.run(debug = True)

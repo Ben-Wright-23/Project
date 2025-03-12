@@ -103,6 +103,7 @@ def deleteUser():
 @deleteAccountBlueprint.route("/deleteAccount")
 def deleteAccount():
     session["viewCodeInputError"] = ""
+    #clears the view code input errors session so it does not remain present when returning to the user's dashboard
     accountDeletionError = session.get("accountDeletionError") if session.get("accountDeletionError") else ""
     return render_template("deleteAccount.html", error = accountDeletionError)
 
