@@ -66,13 +66,18 @@ class DatabaseHandler:
             return False
 
     def deleteUser(self,currentUser):
-        connection = sql.connect(self.name)
-        
-        connection.execute("""DELETE FROM user
-                        WHERE username = ? ;""",
-                        [currentUser])
-        connection.commit()
-        connection.close()
+        try:
+            connection = sql.connect(self.name)
+            
+            connection.execute("""DELETE FROM user
+                            WHERE username = ? ;""",
+                            [currentUser])
+            connection.commit()
+            connection.close()
+            return True
+        except:
+            connection.close()
+            return False
 
     def createTournamentTables(self):
         try:
@@ -89,7 +94,7 @@ class DatabaseHandler:
                                     matchDuration text,
                                     breakLength text,
                                     matchScores text,
-                                    FOREIGN KEY (username) REFERENCES user(username),
+                                    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE,
                                     CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                             )''')
         except Exception as e:
