@@ -94,7 +94,8 @@ class DatabaseHandler:
                                     matchDuration text,
                                     breakLength text,
                                     matchScores text,
-                                    FOREIGN KEY (username) REFERENCES user(username) ON DELETE CASCADE,
+                                    FOREIGN KEY (username) REFERENCES user (username) 
+                                        ON DELETE CASCADE,
                                     CHECK (length(TournamentName)>4 AND length(TournamentName)<30)
                             )''')
         except Exception as e:
