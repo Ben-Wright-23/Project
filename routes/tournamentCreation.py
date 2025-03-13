@@ -106,7 +106,8 @@ def clearTeams():
 @bracketViewBlueprint.route("/bracketView")
 def bracketView():
     session["Viewing"] = False
-    #sets the viewing session to false so when the tournament dashboard is loaded from the bracketView page when a tournament is being created, all functions are displayed as it is the tournament organiser accessing the tournament
+    #sets the viewing session to false so when the tournament dashboard is loaded from the bracketView page when a tournament is being created,
+    #all functions are displayed as it is the tournament organiser accessing the tournament
     if len(teams)< numTeams:
         session["teamInputError"] = "Not enough teams entered" 
         return redirect("/teamsInputPage")
@@ -216,7 +217,8 @@ def myTournamentsPage():
     session["viewCodeInputError"] = ""
     #clears the view code input errors session so it does not remain present when returning to the user's dashboard
     session["Viewing"] = False
-    #sets the viewing session to false so if a tournament dashboard is loaded from the myTournaments page, all functions are displayed as it is the tournament organiser accessing the tournament
+    #sets the viewing session to false so if a tournament dashboard is loaded from the myTournaments page, 
+    #all functions are displayed as it is the tournament organiser accessing the tournament
     db = DatabaseHandler("appData.db")
     #creates a link to the database, where appData.db is the database storing the enities
     results = db.getTournaments(session["currentUser"])
