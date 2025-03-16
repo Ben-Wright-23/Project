@@ -16,18 +16,29 @@
 </head>
 <body>
     <div class = "container border p-5" >
+    <!-- Creates a container for all content to be within, with a border to show this containment and 5 padding to space the contents from the border -->
     <h1 class = "display-2 text-center mb-5 fw-medium">{{ session["currentUser"] }}'s Dashboard</h1>
+    <!-- Creates the main heading, with it in the centre, with a margin below of 5 and have a more boldened font to emphasise it. -->
+    <!-- Heading contains the current user's username to make it more personalised -->
     <hr>
+    <!-- Creates a horizontal line to separate the heading form the rest of the page -->
     <div class = "text-center">
+        <!-- Aligns the button centrally -->
         <p><a class = "btn btn-light border-primary btn-lg shadow py-3 my-3 w-75 fs-4" href = "/creationForm">Create a Tournament</a></p>  
+        <!-- Creates button for users to create a tournament, links to the creationForm function to load the page -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below, larger font size, 75% width of the container and vertical padding and margin -->
     </div>
     <div class = "text-center">
+        <!-- Aligns the button centrally -->
         <p><a class = "btn btn-light border-primary btn-lg shadow py-3 mb-3 w-75 fs-4" href = "/myTournamentsPage">My Tournaments</a></p>  
+        <!-- Creates button for users to view all their tournaments, links to the myTournamentsPage function to load the page -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below, larger font size, 75% width of the container and vertical padding and margin -->
     </div>
     <div class = "text-center mb-3">
         <!-- Aligns the button in the centre of the division with a margin below -->
         <button type="button" class="btn btn-light border-primary btn-lg shadow py-3 mb-3 w-75 fs-4" data-toggle="modal" data-target="#enterViewCodeModal">View a Tournament</button>
         <!-- Makes the View a tournament button that will toggle the enterViewCode modal to pop up when pressed -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below, larger font size, 75% width of the container and vertical padding and margin -->
         <div class="modal fade" id="enterViewCodeModal">
             <!-- Defines the modal as enterViewCodeModal and fades it in when the button is pressed -->
             <div class="modal-dialog">
@@ -54,7 +65,6 @@
                                 <!-- Creates the submit button for the form, which when pressed, will send the entered data to the viewTournament route -->
                             </div>
                         </form>
-                        
                     </div>
                     <div class="modal-footer">
                         <button type="button" class = "btn border" data-dismiss="modal">Close</button>
@@ -64,29 +74,30 @@
             </div>
         </div>
     </div>
-
-
     <hr>
+    <!-- Seperates the user account function buttons from the main section of the page -->
     <div class = "d-flex justify-content-around">
-        <div class = "text-center">
-            <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/logout">Logout</a></p>  
-        </div>
-        <div class = "text-center">
-            <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/deleteAccount">Delete your Account</a></p>
-        </div>
+        <!-- Aligns the buttons side by side with space between and around the butrttons -->
+        <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/logout">Logout</a></p>  
+        <!-- Creates a button for users to logout of their account, links to the logout function.  -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, light blue border, is made large, smallshadow below, larger font size, fixed width of 400px and vertical padding and margin -->
+        <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/deleteAccount">Delete your Account</a></p>
+        <!-- Creates a button for users to delete their account, links to the deleteAccount function -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, light blue border, is made large, smallshadow below, larger font size, fixed width of 400px and vertical padding and margin -->
     </div>
-
     {% if error != "" %}
+    <!-- If an error has occured with the view code input -->
     <hr>
+    <!-- Seperate the error message if there is one from the user account buttons -->
     <div class = "py-3">
+        <!-- Adds vertical padding -->
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             {{error}}
+            <!-- Makes a dismissable, red alert containing the view code input error message to be displayed. When dismissed, it will fade out -->
         </div>
     </div>
     {% endif %}
-    
-    <!-- Displays the view code input error at the bottom of the dashboard page -->
     </div>
 </body>
 </html>

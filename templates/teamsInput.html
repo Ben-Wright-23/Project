@@ -16,53 +16,61 @@
     <!-- Imports the stylesheet that will be accessed in this page -->
 </head>
 <body>
-    <div class = "container border p-5 w-50">
-    <!-- Contain everything within the division in a box on the page, percentage sizes will work off this. -->
-    <!-- Has 5 padding to create a sleeker look and a width of 50 fits the box well. -->
+    <div class = "container border p-5">
+    <!-- Creates a container for all content to be within, with a border to show this containment and 5 padding to space the contents from the border -->
     <h1 class = "display-2 text-center mb-5 fw-medium">Teams Input</h1>
+    <!-- Creates the main heading, with it in the centre, with a margin below of 5 and have a more boldened font to emphasise it. -->
     <hr>
-    <!-- Creates the main heading, with it in the centre and a margin at the bottom of 5 to again make the design more sleek. -->
+    <!-- Creates a horizontal line to separate the heading form the rest of the page -->
     <form action = "/teamsInput" method = "post">
         <!-- Creates the form that users can make inputs into. Sends inputs to the /teamsInput route -->
         <div class = "my-4">
-            <label class = "form-label text-dark fs-4 fw-medium" for = "teamNames">Enter the name of a team: </label>
+            <label class = "form-label fs-4 fw-medium" for = "teamNames">Enter the name of a team: </label>
+            <!-- Labels the team input box, with the form-label bootstrap styling and a larger bolder font to emphasise it -->
             <input class = "form-control form-control-lg border-primary shadow" type="text" name="teamNames" id="teamNames" placeholder="eg. Team 5">
-            <!-- Creates a labelled team input box -->
+            <!-- Creates the team input box, using the form-control attribute to add a bundle of bootstrap styling, making it large, with a blue border and a shadow below -->
+            <!-- Has a placeholder to show the user the type of data to be inputted -->
         </div>
-    
-        <div class = "mb-3">
-            <input class="btn btn-light border-primary shadow w-100 mb-3 fs-5" type="submit" value="Confirm">
+        <div class = " text-center mb-3">
+            <!-- Aligns the button centrally with a margin below -->
+            <input class="btn btn-light border-primary shadow w-50 mb-3 fs-5" type="submit" value="Confirm">
             <!-- Creates a confirm button for the teams input -->
+            <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below, larger font size, 50% width of the container and vertical padding and margin -->
         </div>
     </form>
     {% if error != "" %}
+    <!-- If an error has occured with the team input -->
     <div class = "pb-3">
+        <!-- Adds padding below -->
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             {{error}}
-            <!-- Displays any team input errors -->
+            <!-- Makes a dismissable, red alert containing the team input error message to be displayed. When dismissed, it will fade out -->
         </div>
     </div>
     {% endif %}
-
-    
-    <label class = "form-label text-dark fs-4 fw-medium mb-3" for = "teamNames">Teams in tournament: </label><br>
-    <!-- Creates Label to display a heading for the list of teams in the tournament -->
-    
+    <label class = "form-label fs-4 fw-medium mb-3" for = "teamNames">Teams in tournament: </label><br>
+    <!-- Labels the teams in tournament list, with the form-label bootstrap styling, a larger bolder font to emphasise it and a margin below -->
     <div class = "mb-4">
+        <!-- Adds a margin below -->
         <ol class="list-group list-group-numbered ">
-        <!-- Creates an ordered list for the teams -->
+        <!-- Creates an ordered list for the teams, using the boostrap list group styling -->
             {% for i in (session["Teams"]) %}
             <li class="list-group-item fs-5 list-group-item-primary navyBorder py-2">{{i}}</li>
             {% endfor %}
             <!-- Displays every team in order from the session for teams which is set from the teams list in the tournamentCreation file -->
+            <!-- Each team has the list group item bootstrap styling, a larger font size, a light blue background, a navy blue border defined by my styles CSS file and vertical padding within the border -->
         </ol>
     </div>
 
+
+    
+    <!-- ############################################## -->
     <form action = "/clearTeams" method = "post">
         <div class = "mb-3 text-center">
             <input class="btn btn-light border-primary shadow py-2 mb-3 w-50 fs-5" type="submit" value="Clear Teams" name="clearTeams" id="clearTeams">
             <!-- Creates the clear teams button, and is linked to the clear teams function in the tournamentCreation file -->
+            <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below, larger font size, 50% width of the container and vertical padding and margin -->
         </div>
     </form>
 
