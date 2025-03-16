@@ -62,54 +62,54 @@
             <!-- Each team has the list group item bootstrap styling, a larger font size, a light blue background, a navy blue border defined by my styles CSS file and vertical padding within the border -->
         </ol>
     </div>
-
-
-    
-    <!-- ############################################## -->
     <form action = "/clearTeams" method = "post">
         <div class = "mb-3 text-center">
+            <!-- Aligns the button centrally with a margin below -->
             <input class="btn btn-light border-primary shadow py-2 mb-3 w-50 fs-5" type="submit" value="Clear Teams" name="clearTeams" id="clearTeams">
             <!-- Creates the clear teams button, and is linked to the clear teams function in the tournamentCreation file -->
             <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below, larger font size, 50% width of the container and vertical padding and margin -->
         </div>
     </form>
-
     <form action = "/teamDeletion" method = "post">
         <!-- Form is linked to teamDeletion function in tournamentCreation file-->
-        <label class = "form-label text-dark fs-4 fw-medium mb-3" for = "teamDeletion">Delete a Team: </label>
+        <label class = "form-label fs-4 fw-medium mb-3" for = "teamDeletion">Delete a Team: </label>
+        <!-- Labels the team deletion input, with the form-label bootstrap styling, a larger bolder font to emphasise it and a margin below -->
         <div class="input-group mb-3">
+            <!-- Creates an input group for the team deletion function so the confirm button can attach to the input box -->
             <input type="text" class="form-control form-control-lg border-primary shadow mb-3" name="teamDeletion" id="teamDeletion" placeholder="eg. Team 5">
+            <!-- Creates an input box in which teams entered will be removed from the teams list and session -->
+            <!-- Uses the form-control attribute to add a bundle of bootstrap styling, makes it large, with a blue border and a shadow below -->
+            <!-- Has a placeholder to show the user the type of data to be inputted -->
+
             <div class="input-group-append">
             <button class="btn btn-light btn-lg border-primary shadow" type="submit">Confirm</button>
+            <!-- Confirm button submits the data to the route linked to by the form -->
+            <!-- Button has a very light grey background that becomes darker when hovered over, blue border, is made large, shadow below and is attached to the input box  -->
             </div>
-            <!-- Creates an input box in which teams entered will be removed from the teams list and session -->
-            <!-- Confirm button attached to input box for sleek look -->
         </div>
     </form>
     {% if error2 != "" %}
+    <!-- If an error has occured with the team deletion input -->
     <div class = "pb-3">
+        <!-- Adds padding below -->
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             {{error2}}
-            <!-- Displays any error with individual deletion of teams -->
+            <!-- Makes a dismissable, red alert containing the team deletion error message to be displayed. When dismissed, it will fade out -->
         </div>
     </div>
     {% endif %}
-
     <hr>
+    <!-- Seperates the page redirect buttons from the main section of the page -->
     <div class = "d-flex justify-content-around">
-        <div class = "text-center">
-            <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/dashboard">Return to Dashboard</a></p>  
-        </div>
-        <div class = "text-center">
-            <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/bracketView">Generate Brackets</a></p>
-        </div>
+        <!-- Aligns the buttons side by side with space between and around the buttons -->
+        <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/dashboard">Return to Dashboard</a></p> 
+        <!-- Creates the redirect to dashboard button -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, light blue border, is made large, smallshadow below, larger font size, fixed width of 400px and vertical padding and margin -->
+        <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/bracketView">Generate Brackets</a></p>
+        <!-- Creates the redirect to bracket view page button -->
+        <!-- Button has a very light grey background that becomes darker when hovered over, light blue border, is made large, smallshadow below, larger font size, fixed width of 400px and vertical padding and margin -->
     </div>
-
-
     </div>
-
-
-
 </body>
 </html>
