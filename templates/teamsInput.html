@@ -7,79 +7,101 @@
     <!-- Title -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
     <!-- Imports bootstrap CSS module -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Imports bootsrap Javascript module -->
+    <link rel = "stylesheet" href="static/styles.css" >
+    <!-- Imports the stylesheet that will be accessed in this page -->
 </head>
 <body>
     <div class = "container border p-5 w-50">
     <!-- Contain everything within the division in a box on the page, percentage sizes will work off this. -->
     <!-- Has 5 padding to create a sleeker look and a width of 50 fits the box well. -->
-    <h1 class = "display-4 text-center mb-5 text-dark">Teams Input</h1>
+    <h1 class = "display-2 text-center mb-5 fw-medium">Teams Input</h1>
+    <hr>
     <!-- Creates the main heading, with it in the centre and a margin at the bottom of 5 to again make the design more sleek. -->
     <form action = "/teamsInput" method = "post">
         <!-- Creates the form that users can make inputs into. Sends inputs to the /teamsInput route -->
-        <div class = "mb-3">
-            <label class = "form-label text-dark" for = "teamNames">Enter the name of a team: </label>
-            <input class = "form-control" type="text" name="teamNames" id="teamNames">
+        <div class = "my-4">
+            <label class = "form-label text-dark fs-4 fw-medium" for = "teamNames">Enter the name of a team: </label>
+            <input class = "form-control form-control-lg border-primary shadow" type="text" name="teamNames" id="teamNames" placeholder="eg. Team 5">
             <!-- Creates a labelled team input box -->
         </div>
     
-        <div class = "mb-1">
-            <input class="btn w-100 mb-3 border" type="submit" value="Confirm">
+        <div class = "mb-3">
+            <input class="btn btn-light border-primary shadow w-100 mb-3 fs-5" type="submit" value="Confirm">
             <!-- Creates a confirm button for the teams input -->
         </div>
     </form>
-    <div class = "mb-3">
-        {{error}}
-        <!-- Displays any team input errors -->
+    {% if error != "" %}
+    <div class = "pb-3">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            {{error}}
+            <!-- Displays any team input errors -->
+        </div>
     </div>
+    {% endif %}
 
-    <div class = "mb-3">
-        <label class = "form-label text-dark" for = "teamNames">Teams in tournament: </label><br>
-        <!-- Creates Label to display a heading for the list of teams in the tournament -->
-        
-            <div class = "mb-3">
-                <ol class="list-group list-group-numbered">
-                    <!-- Creates an ordered list for the teams -->
-                        {% for i in (session["Teams"]) %}
-                        <li class="list-group-item">{{i}}</li>
-                        {% endfor %}
-                        <!-- Displays every team in order from the session for teams which is set from the teams list in the tournamentCreation file -->
-                </ol>
-
-            </div>
+    
+    <label class = "form-label text-dark fs-4 fw-medium mb-3" for = "teamNames">Teams in tournament: </label><br>
+    <!-- Creates Label to display a heading for the list of teams in the tournament -->
+    
+    <div class = "mb-4">
+        <ol class="list-group list-group-numbered ">
+        <!-- Creates an ordered list for the teams -->
+            {% for i in (session["Teams"]) %}
+            <li class="list-group-item fs-5 list-group-item-primary navyBorder py-2">{{i}}</li>
+            {% endfor %}
+            <!-- Displays every team in order from the session for teams which is set from the teams list in the tournamentCreation file -->
+        </ol>
     </div>
 
     <form action = "/clearTeams" method = "post">
-        <div class = "mb-1 text-center">
-            <input class="btn w-50 mb-3 border" type="submit" value="Clear Teams" name="clearTeams" id="clearTeams">
+        <div class = "mb-3 text-center">
+            <input class="btn btn-light border-primary shadow py-2 mb-3 w-50 fs-5" type="submit" value="Clear Teams" name="clearTeams" id="clearTeams">
             <!-- Creates the clear teams button, and is linked to the clear teams function in the tournamentCreation file -->
         </div>
     </form>
 
     <form action = "/teamDeletion" method = "post">
         <!-- Form is linked to teamDeletion function in tournamentCreation file-->
-        <label class = "form-label text-dark" for = "teamDeletion">Delete a Team: </label>
+        <label class = "form-label text-dark fs-4 fw-medium mb-3" for = "teamDeletion">Delete a Team: </label>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" name="teamDeletion" id="teamDeletion">
+            <input type="text" class="form-control form-control-lg border-primary shadow mb-3" name="teamDeletion" id="teamDeletion" placeholder="eg. Team 5">
             <div class="input-group-append">
-            <button class="btn border" type="submit">Confirm</button>
+            <button class="btn btn-light btn-lg border-primary shadow" type="submit">Confirm</button>
             </div>
             <!-- Creates an input box in which teams entered will be removed from the teams list and session -->
             <!-- Confirm button attached to input box for sleek look -->
         </div>
     </form>
+    {% if error2 != "" %}
+    <div class = "pb-3">
+        <div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            {{error2}}
+            <!-- Displays any error with individual deletion of teams -->
+        </div>
+    </div>
+    {% endif %}
 
-    <div class = "mb-3">
-        {{error2}}
-        <!-- Displays any error with individual deletion of teams -->
+    <hr>
+    <div class = "d-flex justify-content-around">
+        <div class = "text-center">
+            <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/dashboard">Return to Dashboard</a></p>  
+        </div>
+        <div class = "text-center">
+            <p><a style="width: 400px;" class = "btn btn-light border-primary-subtle shadow-sm btn-lg py-3 mt-3" href = "/bracketView">Generate Brackets</a></p>
+        </div>
     </div>
 
-    <div style= "display: flex; justify-content: space-between;">
-        <p><a class = "btn link-dark border " href = "/dashboard">Return to Dashboard</a></p>  
-        <p><a class = "btn link-dark border  " href = "/bracketView">Generate Brackets</a></p>  
-        <!-- Creates the redirects to the dashboard and bracket viewing pages, while allowing the to be displayed alongside eachother to match my wireframe design -->
+
     </div>
-    
-    </div>
+
+
 
 </body>
 </html>
